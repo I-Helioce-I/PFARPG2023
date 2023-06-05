@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1dded9426f0444e8c6effd350063d5, type: 3}
+  m_Name: Attack2
+  m_EditorClassIdentifier: 
+  Name: Triple strike
+  Icon: {fileID: 21300000, guid: 502e06137a50a67429769aca913f98fd, type: 3}
+  IconColor: {r: 1, g: 0.3537736, b: 0.3537736, a: 1}
+  Type: 0
+  MinMaxDamage: {x: 3, y: 5}
+  TypeOfDamage: 0
+  NumberOfTimes: 3
+  MagicCost: 0
+  AnimationName: 
+  doesSlide: 1
