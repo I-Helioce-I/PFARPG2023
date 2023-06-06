@@ -1188,6 +1188,7 @@ GameObject:
   - component: {fileID: 1338371698}
   - component: {fileID: 1338371697}
   - component: {fileID: 1338371696}
+  - component: {fileID: 1338371700}
   m_Layer: 0
   m_Name: EnemyCharacter
   m_TagString: Untagged
@@ -1278,6 +1279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Stats: {fileID: 1338371697}
+  State: {fileID: 1338371700}
   Battle: {fileID: 1338371696}
   Color: {r: 1, g: 0, b: 0, a: 1}
 --- !u!4 &1338371699
@@ -1296,6 +1298,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1338371700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338371695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4b3ffae9d1be0342b13b6fcd754aaf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartingState: 0
+  _internalState: 0
 --- !u!1 &1486804629
 GameObject:
   m_ObjectHideFlags: 0
@@ -1483,6 +1499,7 @@ GameObject:
   - component: {fileID: 1583108541}
   - component: {fileID: 1583108540}
   - component: {fileID: 1583108539}
+  - component: {fileID: 1583108543}
   m_Layer: 0
   m_Name: EnemyCharacter (1)
   m_TagString: Untagged
@@ -1573,6 +1590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Stats: {fileID: 1583108540}
+  State: {fileID: 1583108543}
   Battle: {fileID: 1583108539}
   Color: {r: 1, g: 0.8518007, b: 0, a: 1}
 --- !u!4 &1583108542
@@ -1591,6 +1609,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1583108543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583108538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4b3ffae9d1be0342b13b6fcd754aaf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartingState: 0
+  _internalState: 0
 --- !u!1 &1696001626
 GameObject:
   m_ObjectHideFlags: 0
@@ -1667,6 +1699,7 @@ GameObject:
   - component: {fileID: 1710834446}
   - component: {fileID: 1710834445}
   - component: {fileID: 1710834448}
+  - component: {fileID: 1710834449}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -1724,6 +1757,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Stats: {fileID: 1710834445}
+  State: {fileID: 1710834449}
   Battle: {fileID: 1710834448}
   Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1710834447
@@ -1776,6 +1810,20 @@ MonoBehaviour:
   _currentTargetingIndex: 0
   _currentSelectedAction: {fileID: 0}
   _viableTargets: []
+--- !u!114 &1710834449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710834444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4b3ffae9d1be0342b13b6fcd754aaf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartingState: 0
+  _internalState: 0
 --- !u!1 &1867239844
 GameObject:
   m_ObjectHideFlags: 0

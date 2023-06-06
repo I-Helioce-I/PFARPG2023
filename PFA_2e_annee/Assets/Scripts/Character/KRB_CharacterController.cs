@@ -59,6 +59,16 @@ public class KRB_CharacterController : MonoBehaviour, ICharacterController
     public float JumpPreGroundingGraceTime = 0f;
     public float JumpPostGroundingGraceTime = 0f;
 
+    [Header("Pushing blocks")]
+    [SerializeField] private bool _canPushBlocks = false;
+    [SerializeField] private float _timeToStartPushing = .5f;
+    [SerializeField] private float _moveInputVectorGrace = .8f;
+    private float _pushingRequestTime = 0f;
+    private bool _isTryingToPushBlock = false;
+    private bool _isPushingBlock = false;
+    private Vector3 _pushingDirection = Vector3.zero;
+    public bool IsPushingBlock => _isPushingBlock;
+
     [Header("Misc")]
     public List<Collider> IgnoredColliders = new List<Collider>();
     public BonusOrientationMethod BonusOrientationMethod = BonusOrientationMethod.None;
@@ -231,6 +241,11 @@ public class KRB_CharacterController : MonoBehaviour, ICharacterController
                         // Smoothly interpolate from current to target look direction
                         Vector3 smoothedLookInputDirection = Vector3.Slerp(Motor.CharacterForward, _lookInputVector, 1 - Mathf.Exp(-OrientationSharpness * deltaTime)).normalized;
 
+                        if (_isPushingBlock)
+                        {
+                            smoothedLookInputDirection = Vector3.Slerp(Motor.CharacterForward, _pushingDirection, 1 - Mathf.Exp(-OrientationSharpness * deltaTime)).normalized;
+                        }
+
                         // Set the current rotation (which will be used by the KinematicCharacterMotor)
                         currentRotation = Quaternion.LookRotation(smoothedLookInputDirection, Motor.CharacterUp);
                     }
@@ -294,6 +309,22 @@ public class KRB_CharacterController : MonoBehaviour, ICharacterController
                         // Calculate target velocity
                         Vector3 inputRight = Vector3.Cross(_moveInputVector, Motor.CharacterUp);
                         Vector3 reorientedInput = Vector3.Cross(effectiveGroundNormal, inputRight).normalized * _moveInputVector.magnitude;
+
+                        if (_isPushingBlock)
+                        {
+                            float dotproduct = Vector3.Dot(_pushingDirection, reorientedInput);
+                            if (dotproduct > _moveInputVectorGrace)
+                            {
+                                //Set movement direction to pushing direction
+                                inputRight = Vector3.Cross(_pushingDirection, Motor.CharacterUp);
+                                reorientedInput = Vector3.Cross(effectiveGroundNormal, inputRight).normalized * _moveInputVector.magnitude;
+                            }
+                            else
+                            {
+                                //Don't do anything to movement direction
+                            }
+                        }
+
                         Vector3 targetMovementVelocity = reorientedInput * MaxStableMoveSpeed;
 
                         // Smooth movement Velocity
@@ -372,6 +403,29 @@ public class KRB_CharacterController : MonoBehaviour, ICharacterController
                             _jumpConsumed = true;
                             _jumpedThisFrame = true;
                         }
+                    }
+
+                    if (_isTryingToPushBlock && _moveInputVector != Vector3.zero)
+                    {
+                        if (!_isPushingBlock)
+                        {
+                            _pushingRequestTime += deltaTime;
+                            if (_pushingRequestTime > _timeToStartPushing)
+                            {
+                                _isPushingBlock = true;
+                            }
+                        }
+                        else
+                        {
+                            _pushingRequestTime = 0f;
+                        }
+                    }
+                    else
+                    {
+                        _pushingRequestTime = 0f;
+                        _isPushingBlock = false;
+                        _isTryingToPushBlock = false;
+                        _pushingDirection = Vector3.zero;
                     }
 
                     // Take into account additive velocity
@@ -480,6 +534,42 @@ public class KRB_CharacterController : MonoBehaviour, ICharacterController
 
     public void OnMovementHit(Collider hitCollider, Vector3 hitNormal, Vector3 hitPoint, ref HitStabilityReport hitStabilityReport)
     {
+        //Pushing blocks
+        // Write here the collision code for pushing an pushable object.
+        if (hitCollider.gameObject.layer == LayerMask.NameToLayer("Pushable") && _canPushBlocks)
+        {
+            KRB_PushableBlock pushableObject = hitCollider.GetComponent<KRB_PushableBlock>();
+
+            //Here, cache the PushableObject.
+            //In this code, set a bool 'isTryingToPush' to true. When this is true, in the update, increase a timer by deltatime to determine the 'time' spent to push
+            //the obstacle so that there is confirmation of a request to push. When the timer is over the time necessary to accept request to push, the
+            //character is placed in a push position (similar to how ladders work...) while 'isTryingToPush' remains true.
+            //While isTryingToPush is true and the request has been confirmed, then the character actually pushes the PushableObject via a method determined in
+            //PushableObject. This should use a PhysicsMover as explained in the kinematicRBController to move the block around.
+
+            //When in an isPushing state, the player's inputs automatically redirect to the opposite of the pushed normal as long as they're within a certain angle
+            //of that pushed normal, so as to 'lock' the player in the direction of the push until they decide to go away by inputting a direction that goes further than
+            //the established grace dotproduct.
+
+            float dotproduct = Vector3.Dot(hitNormal, _moveInputVector);
+            if (dotproduct < -_moveInputVectorGrace)
+            {
+                _isTryingToPushBlock = true;
+                _pushingDirection = -hitNormal;
+
+                if (_isPushingBlock)
+                {
+                    pushableObject.PushObject(-hitNormal);
+                }
+
+            }
+            else
+            {
+                _isTryingToPushBlock = false;
+            }
+
+        }
+
     }
 
     public void AddVelocity(Vector3 velocity)
