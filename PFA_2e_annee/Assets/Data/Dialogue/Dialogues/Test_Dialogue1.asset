@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b50367dc884ed5b43ac8975aa831bf75, type: 3}
+  m_Name: Test_Dialogue1
+  m_EditorClassIdentifier: 
+  DialogueLines:
+  - Emotion: 0
+    MainCharacterSpeaking: 1
+    Text: Sup Heisenberg, I see that we're testing out this whole dialogue thing.
+  - Emotion: 0
+    MainCharacterSpeaking: 0
+    Text: That's right my little wizard friend. Here's to hoping that everything
+      works out.
+  - Emotion: 3
+    MainCharacterSpeaking: 1
+    Text: Aw, man. Thanks, buddy.
+  - Emotion: 0
+    MainCharacterSpeaking: 1
+    Text: This is going to be great if it all works first try.
+  - Emotion: 2
+    MainCharacterSpeaking: 1
+    Text: But if everything fucks up, just gotta go right back into it, I guess...
+  - Emotion: 4
+    MainCharacterSpeaking: 0
+    Text: Well it wouldn't be the first time you fucked something up.
+  - Emotion: 1
+    MainCharacterSpeaking: 1
+    Text: The fuck's that supposed to mean?
+  - Emotion: 2
+    MainCharacterSpeaking: 0
+    Text: Uh, nothing. Please let me out of this hellhole.
+  - Emotion: 4
+    MainCharacterSpeaking: 1
+    Text: Sure thing.
