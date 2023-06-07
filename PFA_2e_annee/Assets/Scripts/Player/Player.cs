@@ -2,17 +2,39 @@ using KinematicCharacterController;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    public KRB_CharacterController Character;
+    public static Player instance;
+
+    public Character Character;
+    public KRB_CharacterController CharacterController;
+    public PlayerInput PlayerInput;
     //public ExampleCharacterCamera CharacterCamera;
 
-    private const string MouseXInput = "Mouse X";
-    private const string MouseYInput = "Mouse Y";
-    private const string MouseScrollInput = "Mouse ScrollWheel";
-    private const string HorizontalInput = "Horizontal";
-    private const string VerticalInput = "Vertical";
+    private Vector2 _movement = Vector2.zero;
+    private bool _jumpPressed = false;
+    private string _previousActionMap;
+    public string PreviousActionMap
+    {
+        get
+        {
+            return _previousActionMap;
+        }
+    }
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
 
     private void Start()
     {
@@ -28,11 +50,6 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-
         HandleCharacterInput();
     }
 
@@ -51,18 +68,18 @@ public class Player : MonoBehaviour
     private void HandleCameraInput()
     {
         // Create the look input vector for the camera
-        float mouseLookAxisUp = Input.GetAxisRaw(MouseYInput);
-        float mouseLookAxisRight = Input.GetAxisRaw(MouseXInput);
-        Vector3 lookInputVector = new Vector3(mouseLookAxisRight, mouseLookAxisUp, 0f);
+        //float mouseLookAxisUp = Input.GetAxisRaw(MouseYInput);
+        //float mouseLookAxisRight = Input.GetAxisRaw(MouseXInput);
+        //Vector3 lookInputVector = new Vector3(mouseLookAxisRight, mouseLookAxisUp, 0f);
 
-        // Prevent moving the camera while the cursor isn't locked
-        if (Cursor.lockState != CursorLockMode.Locked)
-        {
-            lookInputVector = Vector3.zero;
-        }
+        //// Prevent moving the camera while the cursor isn't locked
+        //if (Cursor.lockState != CursorLockMode.Locked)
+        //{
+        //    lookInputVector = Vector3.zero;
+        //}
 
-        // Input for zooming the camera (disabled in WebGL because it can cause problems)
-        float scrollInput = -Input.GetAxis(MouseScrollInput);
+        //// Input for zooming the camera (disabled in WebGL because it can cause problems)
+        //float scrollInput = -Input.GetAxis(MouseScrollInput);
 #if UNITY_WEBGL
         scrollInput = 0f;
 #endif
@@ -77,19 +94,66 @@ public class Player : MonoBehaviour
         //}
     }
 
+    public void ChangeActionMap(string actionMapName)
+    {
+        _previousActionMap = PlayerInput.currentActionMap.name;
+        PlayerInput.SwitchCurrentActionMap(actionMapName);
+        Debug.Log("Player has switched to " + actionMapName + " action map!");
+    }
+
+    #region EXPLORATION
+    public void OnMovementInput(InputAction.CallbackContext context)
+    {
+        _movement = context.ReadValue<Vector2>();
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        _jumpPressed = context.performed;
+        HandleCharacterInput();
+        _jumpPressed = false;
+    }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Character.InteractibleHandler.Interact();
+        }
+    }
+    #endregion
+    #region UI
+    public void OnUINavigate(InputAction.CallbackContext context)
+    {
+
+    }
+
+    public void OnUISelect(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            UIManager.instance.Select();
+        }
+
+    }
+
+    public void OnUIReturn(InputAction.CallbackContext context)
+    {
+
+    }
+    #endregion
+
     private void HandleCharacterInput()
     {
         PlayerCharacterInputs characterInputs = new PlayerCharacterInputs();
 
         // Build the CharacterInputs struct
-        characterInputs.MoveAxisForward = Input.GetAxisRaw(VerticalInput);
-        characterInputs.MoveAxisRight = Input.GetAxisRaw(HorizontalInput);
+        characterInputs.MoveAxisForward = _movement.y;
+        characterInputs.MoveAxisRight = _movement.x;
         //characterInputs.CameraRotation = CharacterCamera.Transform.rotation;
-        characterInputs.JumpDown = Input.GetKeyDown(KeyCode.Space);
-        characterInputs.CrouchDown = Input.GetKeyDown(KeyCode.C);
-        characterInputs.CrouchUp = Input.GetKeyUp(KeyCode.C);
+        characterInputs.JumpDown = _jumpPressed;
 
         // Apply inputs to character
-        Character.SetInputs(ref characterInputs);
+        CharacterController.SetInputs(ref characterInputs);
     }
 }

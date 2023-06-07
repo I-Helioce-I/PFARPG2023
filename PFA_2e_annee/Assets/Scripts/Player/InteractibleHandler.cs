@@ -6,14 +6,6 @@ public class InteractibleHandler : MonoBehaviour
 {
     [SerializeField][ReadOnlyInspector] private Interactible _currentInteractible;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E) && _currentInteractible != null)
-        {
-            _currentInteractible.Interact();
-        }
-    }
-
     public void SetInteractible(Interactible interactible)
     {
         _currentInteractible = interactible;
@@ -22,5 +14,13 @@ public class InteractibleHandler : MonoBehaviour
     public void NullInteractible()
     {
         _currentInteractible = null;
+    }
+
+    public void Interact()
+    {
+        if (_currentInteractible)
+        {
+            _currentInteractible.Interact();
+        }
     }
 }

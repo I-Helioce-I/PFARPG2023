@@ -13,12 +13,28 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private Image SecondaryCharacterPortrait;
     [SerializeField] private TextMeshProUGUI DialogueText;
 
+    [Header("Portraits")]
     [SerializeField] private Color BrightPortrait;
     [SerializeField] private Color DarkPortrait;
     [SerializeField] private float ChangeLuminosityDuration = .3f;
 
+    [Header("Dialogue Text")]
+    [SerializeField] private float _delayBetweenTwoCharacters = .1f;
+    private Coroutine _currentWritingCoroutine;
+    public Coroutine CurrentWritingCoroutine
+    {
+        get
+        {
+            return _currentWritingCoroutine;
+        }
+    }
+
+    [SerializeField] private GameObject NextPrompt;
+
     private CharacterPortraitHandler _mainCharacterPortraitHandler;
     private CharacterPortraitHandler _secondaryCharacterPortraitHandler;
+    private DialogueLinesSet _currentDialogue;
+    private int _currentLineIndex = -1;
 
     private void Awake()
     {
@@ -37,27 +53,48 @@ public class DialogueUI : MonoBehaviour
         DialogueGO.SetActive(false);
     }
 
-    public void InitializeDialogueUI(CharacterPortraitHandler mainCharacter, CharacterPortraitHandler secondaryCharacter)
+    public void InitializeDialogueUI(CharacterPortraitHandler mainCharacter, CharacterPortraitHandler secondaryCharacter, DialogueLinesSet dialogue)
     {
         //Open dialogue UI, disable controls.
+
+        UIManager.instance.CurrentState = UIManager.UIState.Dialogue;
 
         MainCharacterPortait.sprite = mainCharacter.CurrentPortrait;
         SecondaryCharacterPortrait.sprite = secondaryCharacter.CurrentPortrait;
 
         _mainCharacterPortraitHandler = mainCharacter;
         _secondaryCharacterPortraitHandler = secondaryCharacter;
+        _currentDialogue = dialogue;
 
         DialogueGO.SetActive(true);
+        CheckNextDialogueLine();
+
+        Player.instance.ChangeActionMap("UI");
     }
 
-    public void GoToNextDialogueLine(DialogueLinesSet dialogue, int toIndex)
+    public void CheckNextDialogueLine()
     {
-        if (dialogue.DialogueLines[toIndex].MainCharacterSpeaking)
+        _currentLineIndex += 1;
+        if (_currentLineIndex > _currentDialogue.DialogueLines.Count - 1)
+        {
+            //Dialogue is finished.
+            DialogueUI.instance.EndDialogue();
+            _currentLineIndex = -1;
+        }
+        else
+        {
+            DialogueUI.instance.GoToNextDialogueLine(_currentLineIndex);
+        }
+    }
+
+    private void GoToNextDialogueLine(int toIndex)
+    {
+        if (_currentDialogue.DialogueLines[toIndex].MainCharacterSpeaking)
         {
             BrightenPortrait(MainCharacterPortait);
             DarkenPortrait(SecondaryCharacterPortrait);
 
-            _mainCharacterPortraitHandler.CurrentEmotion = dialogue.DialogueLines[toIndex].Emotion;
+            _mainCharacterPortraitHandler.CurrentEmotion = _currentDialogue.DialogueLines[toIndex].Emotion;
             MainCharacterPortait.sprite = _mainCharacterPortraitHandler.CurrentPortrait;
         }
         else
@@ -65,24 +102,31 @@ public class DialogueUI : MonoBehaviour
             BrightenPortrait(SecondaryCharacterPortrait);
             DarkenPortrait(MainCharacterPortait);
 
-            _secondaryCharacterPortraitHandler.CurrentEmotion = dialogue.DialogueLines[toIndex].Emotion;
+            _secondaryCharacterPortraitHandler.CurrentEmotion = _currentDialogue.DialogueLines[toIndex].Emotion;
             SecondaryCharacterPortrait.sprite = _secondaryCharacterPortraitHandler.CurrentPortrait;
         }
 
-        DialogueText.text = dialogue.DialogueLines[toIndex].Text;
+        DialogueText.text = _currentDialogue.DialogueLines[toIndex].Text;
+        _currentWritingCoroutine = StartCoroutine(WriteNewText());
     }
 
-    public void EndDialogue()
+    private void EndDialogue()
     {
         _mainCharacterPortraitHandler.CurrentEmotion = CharacterPortraitEmotion.Neutral;
         _secondaryCharacterPortraitHandler.CurrentEmotion = CharacterPortraitEmotion.Neutral;
 
+        _currentDialogue = null;
         MainCharacterPortait.sprite = null;
         SecondaryCharacterPortrait.sprite = null;
         _mainCharacterPortraitHandler = null;
         _secondaryCharacterPortraitHandler = null;
 
+        _currentLineIndex = -1;
+
         DialogueGO.SetActive(false);
+
+        Player.instance.ChangeActionMap(Player.instance.PreviousActionMap);
+        UIManager.instance.CurrentState = UIManager.instance.PreviousState;
 
         //Close dialogue UI, re-enable controls.
     }
@@ -125,5 +169,45 @@ public class DialogueUI : MonoBehaviour
         {
             portrait.color = DarkPortrait;
         }
+    }
+
+    private IEnumerator WriteNewText()
+    {
+        DialogueText.ForceMeshUpdate();
+        NextPrompt.SetActive(false);
+
+        //DialogueText.maxVisibleCharacters = 0;
+        int totalVisibleCharacters = DialogueText.textInfo.characterCount;
+        int counter = 0;
+
+        while (counter <= totalVisibleCharacters)
+        {
+            int visibleCount = counter % (totalVisibleCharacters + 1);
+            DialogueText.maxVisibleCharacters = visibleCount;
+
+            //if (visibleCount >= totalVisibleCharacters)
+            //{
+            //    Debug.Log("???");
+            //    break;
+            //}
+
+            counter += 1;
+
+            yield return new WaitForSeconds(_delayBetweenTwoCharacters);
+        }
+
+        NextPrompt.SetActive(true);
+        _currentWritingCoroutine = null;
+    }
+
+    public void ForceWriteAllText()
+    {
+        StopCoroutine(_currentWritingCoroutine);
+        _currentWritingCoroutine = null;
+
+        DialogueText.ForceMeshUpdate();
+        DialogueText.maxVisibleCharacters = DialogueText.textInfo.characterCount;
+
+        NextPrompt.SetActive(true);
     }
 }

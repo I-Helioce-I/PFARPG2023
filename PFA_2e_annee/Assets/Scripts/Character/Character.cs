@@ -8,6 +8,7 @@ public class Character : MonoBehaviour
     public CharacterStats Stats;
     public CharacterStateHandler State;
     public CharacterBattle Battle;
+    public InteractibleHandler InteractibleHandler;
 
     [Header("Debug")]
     public Color Color;
