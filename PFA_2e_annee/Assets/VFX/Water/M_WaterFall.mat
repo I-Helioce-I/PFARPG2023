@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_WaterFall
+  m_Shader: {fileID: -6465566751694194690, guid: 6b5f612a8e0565a4ea498aabdd93f72c,
+    type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3001
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Foam_Texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Intersection_Foam_Texture:
+        m_Texture: {fileID: 2800000, guid: 6fc1827a11cb4d04e87cf9107731b8c4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_59a2237d10d5436b834a383f2c5b7104_Out_0:
+        m_Texture: {fileID: 2800000, guid: 0fce7293781ecaa49ac8dda577c7ba88, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BUILTIN_QueueControl: 0
+    - _BUILTIN_QueueOffset: 0
+    - _DeepColorScale: 3.24
+    - _Depth_Fade_Distance: 0.05
+    - _Directon: -1
+    - _Fade_depth: 1
+    - _Float: 0.7
+    - _Float_1: 77.59
+    - _Float_2: 1.38
+    - _Foam_Blend: 0
+    - _Foam_DIstortion: 1
+    - _Foam_Direction: 0.25
+    - _Foam_Speed: 0.2
+    - _Foam_Tiling: 1
+    - _General_Wave_Speed: 1
+    - _Horizon_Distance: 1
+    - _Intersection_Foam_Blend: 1
+    - _Intersection_Foam_Cutoff: 1
+    - _Intersection_Foam_Depth: 1
+    - _Intersection_Foam_Direction: 1
+    - _Intersection_Foam_Fade: 1
+    - _Intersection_Foam_Speed: 1
+    - _Intersection_Foam_Tiling: 1
+    - _QueueControl: 0
+    - _QueueOffset: 1
+    - _Refraction_Scale: 1
+    - _Refraction_Speed: 1
+    - _Refraction_Strenght: 1
+    - _Speed: 5.84
+    - _Step: 106.4
+    - _Wave_Height: 3.99
+    - _Wave_Speed_A: 1
+    - _Wave_Speed_B: 1
+    m_Colors:
+    - _Bottom_Color: {r: 0.1792453, g: 0.5709071, b: 0.7169812, a: 0.6666667}
+    - _DeepColor: {r: 0.2504902, g: 0.42003822, b: 0.49019608, a: 0.99215686}
+    - _Foam_Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Horizon_Color: {r: 0.05660379, g: 0.029102892, b: 0.029102892, a: 0}
+    - _Intersection_Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Second_DeepColor: {r: 0.14279166, g: 0.36008337, b: 0.447, a: 1}
+    - _Shallow_Color: {r: 0.5754717, g: 0.18729976, b: 0.18729976, a: 1}
+  m_BuildTextureStacks: []
+--- !u!114 &5923521830309811474
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 639247ca83abc874e893eb93af2b5e44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 0
+--- !u!114 &8195867163603879417
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
