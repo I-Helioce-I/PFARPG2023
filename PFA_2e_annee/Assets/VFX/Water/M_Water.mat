@@ -38,6 +38,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 6fc1827a11cb4d04e87cf9107731b8c4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Gaussian:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Intersection_Foam_Texture:
         m_Texture: {fileID: 2800000, guid: 93643eced2fc7f24889874746d628bc8, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -81,6 +85,7 @@ Material:
     - _Foam_Direction: 0.25
     - _Foam_Speed: 0.2
     - _Foam_Tiling: 1
+    - _GeneralWaveSpeed: 0.35
     - _General_Wave_Speed: 1
     - _Horizon_Distance: 1
     - _Intersection_Foam_Blend: 9.1
@@ -102,6 +107,9 @@ Material:
     - _Refraction_Speed_1: 4.6
     - _Refraction_Strenght: 0.005
     - _Step: 69.07
+    - _WaveHeight: 0.36
+    - _WaveSpeedA: 1
+    - _WaveSpeedB: 1
     - _Wave_Height: 4.34
     - _Wave_Speed_A: 0.1
     - _Wave_Speed_B: 0.05
