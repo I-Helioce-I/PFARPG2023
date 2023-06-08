@@ -49,6 +49,10 @@ public enum BonusOrientationMethod
 public class KRB_CharacterController : MonoBehaviour, ICharacterController
 {
     public KinematicCharacterMotor Motor;
+    public CharacterStateHandler CharacterStateHandler;
+
+    [Header("Character state")]
+    [SerializeField][ReadOnlyInspector] private CharacterTypeState _currentCharacterState;
 
     [Header("Stable Movement")]
     public float MaxStableMoveSpeed = 10f;
@@ -60,6 +64,7 @@ public class KRB_CharacterController : MonoBehaviour, ICharacterController
     public float MaxAirMoveSpeed = 15f;
     public float AirAccelerationSpeed = 15f;
     public float Drag = 0.1f;
+    public float GasStateGroundCheckDistance = .2f;
 
     [Header("Jumping")]
     public bool AllowJumpingWhenSliding = false;
@@ -143,6 +148,22 @@ public class KRB_CharacterController : MonoBehaviour, ICharacterController
 
         // Assign the characterController to the motor
         Motor.CharacterController = this;
+    }
+
+    private void OnEnable()
+    {
+        CharacterStateHandler.TransitionedFromTo -= OnCharacterTypeStateTransition;
+        CharacterStateHandler.TransitionedFromTo += OnCharacterTypeStateTransition;
+    }
+
+    private void OnDisable()
+    {
+        CharacterStateHandler.TransitionedFromTo -= OnCharacterTypeStateTransition;
+    }
+
+    private void OnCharacterTypeStateTransition(CharacterTypeState from, CharacterTypeState to)
+    {
+        _currentCharacterState = to;
     }
 
     /// <summary>
@@ -455,7 +476,14 @@ public class KRB_CharacterController : MonoBehaviour, ICharacterController
                         }
 
                         // Gravity
-                        currentVelocity += Gravity * deltaTime;
+                        if (_currentCharacterState == CharacterTypeState.Solid || _currentCharacterState == CharacterTypeState.Liquid)
+                        {
+                            currentVelocity += Gravity * deltaTime;
+                        }
+                        else if (_currentCharacterState == CharacterTypeState.Gas && Physics.Raycast(Motor.TransientPosition, Vector3.down, GasStateGroundCheckDistance, Motor.StableGroundLayers))
+                        {
+                            currentVelocity += Gravity * deltaTime;
+                        }
 
                         // Drag
                         currentVelocity *= (1f / (1f + (Drag * deltaTime)));
@@ -464,7 +492,7 @@ public class KRB_CharacterController : MonoBehaviour, ICharacterController
                     // Handle jumping
                     _jumpedThisFrame = false;
                     _timeSinceJumpRequested += deltaTime;
-                    if (_jumpRequested)
+                    if (_jumpRequested && _currentCharacterState == CharacterTypeState.Solid)
                     {
                         // See if we actually are allowed to jump
                         if (!_jumpConsumed && ((AllowJumpingWhenSliding ? Motor.GroundingStatus.FoundAnyGround : Motor.GroundingStatus.IsStableOnGround) || _timeSinceLastAbleToJump <= JumpPostGroundingGraceTime))
@@ -694,7 +722,7 @@ public class KRB_CharacterController : MonoBehaviour, ICharacterController
     {
         //Pushing blocks
         // Write here the collision code for pushing an pushable object.
-        if (hitCollider.gameObject.layer == LayerMask.NameToLayer("Pushable") && _canPushBlocks)
+        if (hitCollider.gameObject.layer == LayerMask.NameToLayer("Pushable") && _canPushBlocks && _currentCharacterState == CharacterTypeState.Solid)
         {
             KRB_PushableBlock pushableObject = hitCollider.GetComponent<KRB_PushableBlock>();
 
