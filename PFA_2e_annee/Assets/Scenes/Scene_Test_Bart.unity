@@ -726,23 +726,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5363021372cee94fa41d98cb7c30787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CharacterStateHandler: {fileID: 136157287}
+  Strength:
+    BaseValue: 10
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
+  Agility:
+    BaseValue: 10
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
+  Intelligence:
+    BaseValue: 10
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
+  Constitution:
+    BaseValue: 10
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
+  Vitality:
+    BaseValue: 10
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
+  Luck:
+    BaseValue: 10
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
   Health:
-    BaseValue: 0
+    BaseValue: 10
     _maxValue: -3.4028235e+38
     _currentValue: -3.4028235e+38
-  Aether:
-    BaseValue: 0
-    _maxValue: -3.4028235e+38
-    _currentValue: -3.4028235e+38
-  Speed:
-    BaseValue: 0
+  Ether:
+    BaseValue: 10
     _maxValue: -3.4028235e+38
     _currentValue: -3.4028235e+38
   Temperature:
-    BaseValue: 0
+    BaseValue: 10
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
+  Speed:
+    BaseValue: 10
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
+  PhysicalDamage:
+    BaseValue: 10
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
+  MagicalDamage:
+    BaseValue: 10
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
+  PhysicalResistance:
+    BaseValue: 10
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
+  MagicalResistance:
+    BaseValue: 10
     _maxValue: -3.4028235e+38
     _currentValue: -3.4028235e+38
   isDown: 0
+  Level: 1
+  Experience: 0
 --- !u!114 &136157286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1452,7 +1495,7 @@ MonoBehaviour:
   m_Actions: {fileID: -944628639613478452, guid: 35676142293bed344a53e99e3f4139c1,
     type: 3}
   m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
+  m_UIInputModule: {fileID: 1584771859}
   m_DeviceLostEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1623,7 +1666,7 @@ MonoBehaviour:
   m_DefaultControlScheme: 
   m_DefaultActionMap: Exploration
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 330585545}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -4461,6 +4504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dialogueUI: {fileID: 693977338}
+  _battleManager: {fileID: 0}
   StartingState: 1
   _internalState: 0
 --- !u!1 &1297962570

@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
 
         // Tell camera to follow transform
         //CharacterCamera.SetFollowTransform(Character.CameraFollowPoint);
@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        HandleCharacterInput();
+        if (CharacterController) HandleCharacterInput();
     }
 
     private void LateUpdate()
@@ -141,7 +141,15 @@ public class Player : MonoBehaviour
     #region UI
     public void OnUINavigate(InputAction.CallbackContext context)
     {
-
+        float up = context.ReadValue<Vector2>().y;
+        if (up > .9f)
+        {
+            UIManager.instance.NavigateUp();
+        }
+        else if (up < -.9f)
+        {
+            UIManager.instance.NavigateDown();
+        }
     }
 
     public void OnUISelect(InputAction.CallbackContext context)
@@ -150,12 +158,14 @@ public class Player : MonoBehaviour
         {
             UIManager.instance.Select();
         }
-
     }
 
     public void OnUIReturn(InputAction.CallbackContext context)
     {
-
+        if (context.performed)
+        {
+            UIManager.instance.Return();
+        }
     }
     #endregion
 

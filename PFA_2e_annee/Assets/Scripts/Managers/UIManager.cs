@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Object references")]
     [SerializeField] private DialogueUI _dialogueUI;
+    [SerializeField] private BattleManager _battleManager;
 
     public enum UIState
     {
@@ -116,6 +117,27 @@ public class UIManager : MonoBehaviour
             case UIState.HUD:
                 break;
             case UIState.Combat:
+                if (_battleManager.PlayerCharactersInBattle.Contains(_battleManager.ActiveCharacter))
+                {
+                    CharacterBattle.BattleState state = _battleManager.ActiveCharacter.Battle.CurrentState;
+                    switch (state)
+                    {
+                        case CharacterBattle.BattleState.Idle:
+                            break;
+                        case CharacterBattle.BattleState.SelectingAction:
+                            break;
+                        case CharacterBattle.BattleState.Targeting:
+                            _battleManager.ActiveCharacter.Battle.SelectTarget();
+                            break;
+                        case CharacterBattle.BattleState.Busy:
+                            break;
+                        case CharacterBattle.BattleState.Sliding:
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
                 break;
             case UIState.Dialogue:
                 if (_dialogueUI.CurrentWritingCoroutine != null)
@@ -128,6 +150,122 @@ public class UIManager : MonoBehaviour
                     Debug.Log("Check next line!");
                     _dialogueUI.CheckNextDialogueLine();
                 }
+                break;
+            case UIState.Pause:
+                break;
+            default:
+                break;
+        }
+    }
+
+    internal void NavigateUp()
+    {
+        switch (_internalState)
+        {
+            case UIState.None:
+                break;
+            case UIState.HUD:
+                break;
+            case UIState.Combat:
+                if (_battleManager.PlayerCharactersInBattle.Contains(_battleManager.ActiveCharacter))
+                {
+                    CharacterBattle.BattleState state = _battleManager.ActiveCharacter.Battle.CurrentState;
+                    switch (state)
+                    {
+                        case CharacterBattle.BattleState.Idle:
+                            break;
+                        case CharacterBattle.BattleState.SelectingAction:
+                            break;
+                        case CharacterBattle.BattleState.Targeting:
+                            _battleManager.ActiveCharacter.Battle.ScrollViableTargetForward();
+                            break;
+                        case CharacterBattle.BattleState.Busy:
+                            break;
+                        case CharacterBattle.BattleState.Sliding:
+                            break;
+                        default:
+                            break;
+                    }                  
+                }
+                break;
+            case UIState.Dialogue:
+                break;
+            case UIState.Pause:
+                break;
+            default:
+                break;
+        }
+    }
+    internal void NavigateDown()
+    {
+        switch (_internalState)
+        {
+            case UIState.None:
+                break;
+            case UIState.HUD:
+                break;
+            case UIState.Combat:
+                if (_battleManager.PlayerCharactersInBattle.Contains(_battleManager.ActiveCharacter))
+                {
+                    CharacterBattle.BattleState state = _battleManager.ActiveCharacter.Battle.CurrentState;
+                    switch (state)
+                    {
+                        case CharacterBattle.BattleState.Idle:
+                            break;
+                        case CharacterBattle.BattleState.SelectingAction:
+                            break;
+                        case CharacterBattle.BattleState.Targeting:
+                            _battleManager.ActiveCharacter.Battle.ScrollViableTargetBackward();
+                            break;
+                        case CharacterBattle.BattleState.Busy:
+                            break;
+                        case CharacterBattle.BattleState.Sliding:
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                break;
+            case UIState.Dialogue:
+                break;
+            case UIState.Pause:
+                break;
+            default:
+                break;
+        }
+    }
+
+    internal void Return()
+    {
+        switch (_internalState)
+        {
+            case UIState.None:
+                break;
+            case UIState.HUD:
+                break;
+            case UIState.Combat:
+                if (_battleManager.PlayerCharactersInBattle.Contains(_battleManager.ActiveCharacter))
+                {
+                    CharacterBattle.BattleState state = _battleManager.ActiveCharacter.Battle.CurrentState;
+                    switch (state)
+                    {
+                        case CharacterBattle.BattleState.Idle:
+                            break;
+                        case CharacterBattle.BattleState.SelectingAction:
+                            break;
+                        case CharacterBattle.BattleState.Targeting:
+                            _battleManager.ActiveCharacter.Battle.TransitionToState(_battleManager.ActiveCharacter.Battle.CurrentState, CharacterBattle.BattleState.SelectingAction);
+                            break;
+                        case CharacterBattle.BattleState.Busy:
+                            break;
+                        case CharacterBattle.BattleState.Sliding:
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                break;
+            case UIState.Dialogue:
                 break;
             case UIState.Pause:
                 break;

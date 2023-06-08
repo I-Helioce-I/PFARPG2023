@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 public class CharacterStat
 {
     public delegate void ValueEvent();
+    public event ValueEvent ValueChanged = null;
     public event ValueEvent MaxValueChanged = null;
     public event ValueEvent CurrentValueReachedZero = null;
     public event ValueEvent CurrentValueReachedFull = null;
@@ -34,7 +35,11 @@ public class CharacterStat
     {
         get
         {
-            _currentValue = MaxValue - _damage;
+            if (_isDirty)
+            {
+                _currentValue = MaxValue - _damage;
+                ValueChanged?.Invoke();
+            }
             return _currentValue;
         }
     }

@@ -34,7 +34,12 @@ public class ActionDescription : ScriptableObject
     public Vector2 MinMaxDamage;
     public DamageType TypeOfDamage;
     public int NumberOfTimes;
-    public float MagicCost;
+    public float EtherCost;
+    [Range(0.0f, 100.0f)]
+    public float StunChance;
+
+    //Will have to change this system below in BattleManager.
+    [Header("Need to change to adapt to new targeting rules.")]
     public TargetRow ViableSourceRow;
     public TargetRow ViableTargetRow;
     public bool TargetsAllies = false;

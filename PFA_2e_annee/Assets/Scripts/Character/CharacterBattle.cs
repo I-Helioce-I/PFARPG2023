@@ -9,12 +9,20 @@ public class CharacterBattle : MonoBehaviour
     public enum BattleState
     {
         Idle,
+        SelectingAction,
         Targeting,
         Busy,
         Sliding,
     }
 
     private BattleState _state;
+    public BattleState CurrentState
+    {
+        get
+        {
+            return _state;
+        }
+    }
 
     [Header("Current battle")]
     [SerializeField] private BattleManager _battle;
@@ -31,7 +39,9 @@ public class CharacterBattle : MonoBehaviour
     }
 
     [Header("Character Actions")]
+    //CharacterActions refers to a UI prefab.
     public CharacterActions CharacterActions;
+    //Change below to have a potentially 'infinite' number of actions. See how UI will mix with this.
     public ActionDescription[] Actions = new ActionDescription[11];
     private List<UI_ActionSlot> _actions = new List<UI_ActionSlot>();
 
@@ -45,9 +55,10 @@ public class CharacterBattle : MonoBehaviour
     [Header("Targeting")]
     public GameObject TargetingIndicator;
     [SerializeField] [ReadOnlyInspector] private int _currentTargetingIndex = 0;
-    private GameObject _currentTargetingIndicator;
+    private List<GameObject> _currentTargetingIndicators = new List<GameObject>();
     [SerializeField] [ReadOnlyInspector] private ActionDescription _currentSelectedAction;
     [SerializeField] [ReadOnlyInspector] private List<Character> _viableTargets = new List<Character>();
+    private bool _targetingAllViableTargets = false;
 
     private Vector3 _slideTargetPosition;
     private Vector3 _slideOriginalPosition;
@@ -68,29 +79,44 @@ public class CharacterBattle : MonoBehaviour
         {
             case BattleState.Idle:
                 break;
+            case BattleState.SelectingAction:
+                break;
             case BattleState.Targeting:
-                if (Input.GetAxis("Mouse ScrollWheel") > 0)
-                {
-                    _currentTargetingIndex += 1;
-                    if (_currentTargetingIndex > _viableTargets.Count-1)
-                    {
-                        _currentTargetingIndex = 0;
-                    }
-                    _currentTargetingIndicator.transform.position = SetTargetingIndicatorPosition(_currentTargetingIndex);
-                }
-                if (Input.GetAxis("Mouse ScrollWheel") < 0)
-                {
-                    _currentTargetingIndex -= 1;
-                    if (_currentTargetingIndex < 0)
-                    {
-                        _currentTargetingIndex = _viableTargets.Count-1;
-                    }
-                    _currentTargetingIndicator.transform.position = SetTargetingIndicatorPosition(_currentTargetingIndex);
-                }
-                if (Input.GetMouseButtonDown(0))
+                //Alter this with UI ActionMap controls for battle.
+                //if (Input.GetAxis("Mouse ScrollWheel") > 0) //Up/Down scrolling
+                //{
+                //    _currentTargetingIndex += 1;
+                //    if (_currentTargetingIndex > _viableTargets.Count - 1)
+                //    {
+                //        _currentTargetingIndex = 0;
+                //    }
+                //    _currentTargetingIndicator.transform.position = SetTargetingIndicatorPosition(_currentTargetingIndex);
+                //}
+                //if (Input.GetAxis("Mouse ScrollWheel") < 0)
+                //{
+                //    _currentTargetingIndex -= 1;
+                //    if (_currentTargetingIndex < 0)
+                //    {
+                //        _currentTargetingIndex = _viableTargets.Count - 1;
+                //    }
+                //    _currentTargetingIndicator.transform.position = SetTargetingIndicatorPosition(_currentTargetingIndex);
+                //}
+                if (Input.GetMouseButtonDown(0)) //Select
                 {
                     if (_viableTargets.Count < 1 || _currentSelectedAction == null) return;
-                    ActionConfirm(_currentSelectedAction, _viableTargets[_currentTargetingIndex]);
+                    List<Character> selectedTargets = new List<Character>();
+                    if (_targetingAllViableTargets)
+                    {
+                        foreach (Character target in _viableTargets)
+                        {
+                            selectedTargets.Add(target);
+                        }
+                    }
+                    else
+                    {
+                        selectedTargets.Add(_viableTargets[_currentTargetingIndex]);
+                    }
+                    ActionConfirm(_currentSelectedAction, selectedTargets);
                 }
                 break;
             case BattleState.Busy:
@@ -110,6 +136,42 @@ public class CharacterBattle : MonoBehaviour
         }
     }
 
+    public void SelectTarget()
+    {
+        if (_viableTargets.Count < 1 || _currentSelectedAction == null) return;
+        List<Character> selectedTargets = new List<Character>();
+        if (_targetingAllViableTargets)
+        {
+            foreach (Character target in _viableTargets)
+            {
+                selectedTargets.Add(target);
+            }
+        }
+        else
+        {
+            selectedTargets.Add(_viableTargets[_currentTargetingIndex]);
+        }
+        ActionConfirm(_currentSelectedAction, selectedTargets);
+    }
+    public void ScrollViableTargetForward()
+    {
+        _currentTargetingIndex += 1;
+        if (_currentTargetingIndex > _viableTargets.Count - 1)
+        {
+            _currentTargetingIndex = 0;
+        }
+        _currentTargetingIndicators[0].transform.position = SetTargetingIndicatorPosition(_currentTargetingIndex);
+    }
+    public void ScrollViableTargetBackward()
+    {
+        _currentTargetingIndex -= 1;
+        if (_currentTargetingIndex < 0)
+        {
+            _currentTargetingIndex = _viableTargets.Count - 1;
+        }
+        _currentTargetingIndicators[0].transform.position = SetTargetingIndicatorPosition(_currentTargetingIndex);
+    }
+
     public void TransitionToState(BattleState fromstate, BattleState state)
     {
         BattleState fromState = _state;
@@ -117,12 +179,16 @@ public class CharacterBattle : MonoBehaviour
         {
             case BattleState.Idle:
                 break;
+            case BattleState.SelectingAction:
+                CloseActionsMenu();
+                break;
             case BattleState.Targeting:
-                if (_currentTargetingIndicator)
+                _currentTargetingIndex = 0;
+                foreach (GameObject indicator in _currentTargetingIndicators)
                 {
-                    Destroy(_currentTargetingIndicator);
-                    _currentTargetingIndicator = null;
+                    Destroy(indicator);
                 }
+                _currentTargetingIndicators.Clear();
                 break;
             case BattleState.Busy:
                 break;
@@ -136,16 +202,32 @@ public class CharacterBattle : MonoBehaviour
         {
             case BattleState.Idle:
                 break;
+            case BattleState.SelectingAction:
+                OpenActionsMenu();
+                break;
             case BattleState.Targeting:
                 _currentTargetingIndex = 0;
-                if (!_currentTargetingIndicator)
+                foreach(GameObject indicator in _currentTargetingIndicators)
                 {
-                    GameObject newIndicator = Instantiate<GameObject>(TargetingIndicator, SetTargetingIndicatorPosition(0), Quaternion.identity);
-                    _currentTargetingIndicator = newIndicator;
+                    Destroy(indicator);
+                }
+                _currentTargetingIndicators.Clear();
+
+                if (_targetingAllViableTargets)
+                {
+                    for (int i = 0; i < _viableTargets.Count; i++)
+                    {
+                        GameObject newIndicator = Instantiate<GameObject>(TargetingIndicator, SetTargetingIndicatorPosition(0), Quaternion.identity);
+                        _currentTargetingIndicators.Add(newIndicator);
+                        _currentTargetingIndicators[i].transform.position = SetTargetingIndicatorPosition(i);
+
+                    }
                 }
                 else
                 {
-                    _currentTargetingIndicator.transform.position = SetTargetingIndicatorPosition(0);
+                    GameObject newIndicator = Instantiate<GameObject>(TargetingIndicator, SetTargetingIndicatorPosition(0), Quaternion.identity);
+                    _currentTargetingIndicators.Add(newIndicator);
+                    _currentTargetingIndicators[0].transform.position = SetTargetingIndicatorPosition(0);
                 }
                 break;
             case BattleState.Busy:
@@ -220,12 +302,17 @@ public class CharacterBattle : MonoBehaviour
         //});
     }
 
-    private void ActionConfirm(ActionDescription action, Character target)
+    private void ActionConfirm(ActionDescription action, List<Character> targets)
     {
-        CharacterActions.CloseAll();
+        //CharacterActions.CloseAll();
         _currentSelectedAction = null;
         TransitionToState(_state, BattleState.Busy);
-        UseActionOn(target.Battle, action, () =>
+        List<CharacterBattle> targetsBattle = new List<CharacterBattle>();
+        foreach(Character character in targets)
+        {
+            targetsBattle.Add(character.Battle);
+        }
+        UseActionOn(targetsBattle, action, () =>
         {
             BattleManager.instance.GetNextInitiative();
         });
@@ -247,15 +334,24 @@ public class CharacterBattle : MonoBehaviour
         TransitionToState(_state, BattleState.Idle);
     }
 
-    public void UseActionOn(CharacterBattle target, ActionDescription action, Action onActionComplete)
+    public void UseActionOn(List<CharacterBattle> targets, ActionDescription action, Action onActionComplete)
     {
-        Debug.Log(this + " used " + action.Name + " on " + target + "!");
+        foreach(CharacterBattle target in targets)
+        {
+            Debug.Log(this + " used " + action.Name + " on " + target + "!");
+        }
 
         if (action.doesSlide)
         {
-            Vector3 slideTargetPosition = target.GetPosition() + (GetPosition() - target.GetPosition()).normalized * 2f;
+            Vector3 finalPosition = Vector3.zero;
+            foreach(CharacterBattle target in targets)
+            {
+                Vector3 slideTargetPosition = target.GetPosition() + (GetPosition() - target.GetPosition()).normalized * 2f;
+                finalPosition += slideTargetPosition;
+            }
+            finalPosition = finalPosition / (targets.Count);
 
-            SlideToPosition(slideTargetPosition, () =>
+            SlideToPosition(finalPosition, () =>
             {
                 TransitionToState(_state, BattleState.Busy);
                 //Play attacking animation.
@@ -457,6 +553,7 @@ public class CharacterBattle : MonoBehaviour
             }
         }
         _viableTargets = potentialTargetCollection;
+        _targetingAllViableTargets = action.TargetsAllViableTargets;
         return _viableTargets;
     }
 
@@ -467,9 +564,15 @@ public class CharacterBattle : MonoBehaviour
         return viableTargets[randomIndex];
     }
 
-    public void OpenActionsMenu()
+    private void OpenActionsMenu()
     {
         if (!CharacterActions) return;
         CharacterActions.OpenAttacks();
+    }
+
+    private void CloseActionsMenu()
+    {
+        if (!CharacterActions) return;
+        CharacterActions.CloseAll();
     }
 }

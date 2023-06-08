@@ -50,6 +50,13 @@ public class BattleManager : MonoBehaviour
     [Header("Turn order")]
     [SerializeField] private List<Character> _turnOrder = new List<Character>();
     [SerializeField][ReadOnlyInspector] private Character _activeCharacter;
+    public Character ActiveCharacter
+    {
+        get
+        {
+            return _activeCharacter;
+        }
+    }
     public List<Character> GetTurnOrder
     {
         get
@@ -101,7 +108,7 @@ public class BattleManager : MonoBehaviour
             case BattleState.WaitingForAction:
                 if (_playerCharactersInBattle.Contains(_activeCharacter))
                 {
-                    _activeCharacter.Battle.OpenActionsMenu();
+                    _activeCharacter.Battle.TransitionToState(_activeCharacter.Battle.CurrentState, CharacterBattle.BattleState.SelectingAction);
 
                 }
                 else if (_enemyCharactersInBattle.Contains(_activeCharacter))
@@ -109,9 +116,22 @@ public class BattleManager : MonoBehaviour
                     TransitionToState(BattleState.Busy);
                     ActionDescription action = _activeCharacter.Battle.GetRandomAction();
                     List<Character> viableTargets = _activeCharacter.Battle.GetViableTargets(action);
-                    Character target = _activeCharacter.Battle.GetRandomTargetFromViableTargets();
+                    List<CharacterBattle> chosenTargets = new List<CharacterBattle>();
+                    if (action.TargetsAllViableTargets)
+                    {
+                        foreach(Character character in viableTargets)
+                        {
+                            chosenTargets.Add(character.Battle);
+                        }
+                    }
+                    else
+                    {
+                        Character target = _activeCharacter.Battle.GetRandomTargetFromViableTargets();
+                        chosenTargets.Add(target.Battle);
+                    }
 
-                    _activeCharacter.Battle.UseActionOn(target.Battle, action, () =>
+
+                    _activeCharacter.Battle.UseActionOn(chosenTargets, action, () =>
                     {
                         GetNextInitiative();
                     });
