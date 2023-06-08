@@ -5,11 +5,11 @@ using UnityEngine.Events;
 
 public class Interactible : MonoBehaviour
 {
-    [SerializeField] private GameObject _interactButtonPrompt;
+    [SerializeField] protected GameObject _interactButtonPrompt;
 
-    [SerializeField] private float _range;
-    private SphereCollider _collider;
-    private InteractibleHandler _currentHandler;
+    [SerializeField] protected float _range;
+    protected SphereCollider _collider;
+    protected InteractibleHandler _currentHandler;
 
     public UnityEvent<InteractibleHandler> OnInteract;
 
@@ -22,7 +22,7 @@ public class Interactible : MonoBehaviour
         _interactButtonPrompt.SetActive(false);
     }
 
-    public void Interact()
+    public virtual void Interact()
     {
         Debug.Log("Interacted with an interactible!");
         OnInteract?.Invoke(_currentHandler);

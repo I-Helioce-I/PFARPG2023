@@ -121,6 +121,22 @@ public class Player : MonoBehaviour
             Character.InteractibleHandler.Interact();
         }
     }
+
+    public void OnSwitchStateForward(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Character.CharacterStateHandler.SwitchStateForward();
+        }
+    }
+
+    public void OnSwitchStateBackward(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Character.CharacterStateHandler.SwitchStateBackward();
+        }
+    }
     #endregion
     #region UI
     public void OnUINavigate(InputAction.CallbackContext context)

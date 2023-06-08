@@ -6,12 +6,21 @@ using UnityEngine;
 public enum CharacterState
 {
     Default,
+    Displacing,
 }
 
 public enum OrientationMethod
 {
     TowardsCamera,
     TowardsMovement,
+}
+
+public enum DisplacementState
+{
+    None,
+    Anchoring,
+    Displacing,
+    Deanchoring,
 }
 
 public struct PlayerCharacterInputs
@@ -68,6 +77,37 @@ public class KRB_CharacterController : MonoBehaviour, ICharacterController
     private bool _isPushingBlock = false;
     private Vector3 _pushingDirection = Vector3.zero;
     public bool IsPushingBlock => _isPushingBlock;
+
+    [Header("Displacement")]
+    [SerializeField] private float _anchorTime = .5f;
+    [HideInInspector] public Displacer CurrentDisplacer;
+    private DisplacementState _internalDisplacementState;
+    private DisplacementState _currentDisplacementState
+    {
+        get
+        {
+            return _internalDisplacementState;
+        }
+        set
+        {
+            _internalDisplacementState = value;
+            _anchoringTimer = 0f;
+            _anchoringStartPosition = Motor.TransientPosition;
+            _anchoringStartRotation = Motor.TransientRotation;
+        }
+    }
+    private float _anchoringTimer = 0f;
+    private Vector3 _anchoringStartPosition = Vector3.zero;
+    private Quaternion _anchoringStartRotation = Quaternion.identity;
+    private Quaternion _rotationBeforeDisplacement = Quaternion.identity;
+    private Quaternion _deanchoringStartRotation = Quaternion.identity;
+    private Vector3 _deanchoringStartPosition = Vector3.zero;
+    [HideInInspector] public Vector3 DisplacerTargetPosition;
+    [HideInInspector] public Quaternion DisplacerTargetRotation;
+    [HideInInspector] public Vector3 DisplacerDestinationPosition;
+    [HideInInspector] public Quaternion DisplacerDestinationRotation;
+    [HideInInspector] public float DisplacementTime;
+    private float _displacementTimer = 0f;
 
     [Header("Misc")]
     public List<Collider> IgnoredColliders = new List<Collider>();
@@ -127,6 +167,19 @@ public class KRB_CharacterController : MonoBehaviour, ICharacterController
                 {
                     break;
                 }
+            case CharacterState.Displacing:
+                {
+                    _rotationBeforeDisplacement = Motor.TransientRotation;
+
+                    Motor.SetMovementCollisionsSolvingActivation(false);
+                    Motor.SetGroundSolvingActivation(false);
+                    _currentDisplacementState = DisplacementState.Anchoring;
+
+                    _anchoringTimer = 0f;
+                    _displacementTimer = 0f;
+
+                    break;
+                }
         }
     }
 
@@ -139,6 +192,13 @@ public class KRB_CharacterController : MonoBehaviour, ICharacterController
         {
             case CharacterState.Default:
                 {
+                    break;
+                }
+            case CharacterState.Displacing:
+                {
+
+                    Motor.SetMovementCollisionsSolvingActivation(true);
+                    Motor.SetGroundSolvingActivation(true);
                     break;
                 }
         }
@@ -282,6 +342,30 @@ public class KRB_CharacterController : MonoBehaviour, ICharacterController
                     }
                     break;
                 }
+            case CharacterState.Displacing:
+                switch (_currentDisplacementState)
+                {
+                    case DisplacementState.None:
+                        break;
+                    case DisplacementState.Anchoring:
+                        {
+                            currentRotation = Quaternion.Slerp(_anchoringStartRotation, DisplacerTargetRotation, (_anchoringTimer / _anchorTime));
+                            break;
+                        }
+                    case DisplacementState.Displacing:
+                        {
+                            currentRotation = Quaternion.Slerp(DisplacerTargetRotation, DisplacerDestinationRotation, (_displacementTimer / DisplacementTime));
+                            break;
+                        }
+                    case DisplacementState.Deanchoring:
+                        {
+                            currentRotation = Quaternion.Slerp(_deanchoringStartRotation, DisplacerDestinationRotation, (_anchoringTimer / _anchorTime));
+                            break;
+                        }
+                    default:
+                        break;
+                }
+                break;
         }
     }
 
@@ -436,6 +520,33 @@ public class KRB_CharacterController : MonoBehaviour, ICharacterController
                     }
                     break;
                 }
+            case CharacterState.Displacing:
+                {
+                    currentVelocity = Vector3.zero;
+
+                    switch (_currentDisplacementState)
+                    {
+                        case DisplacementState.None:
+                            break;
+                        case DisplacementState.Anchoring:
+                            Vector3 tmpPositionAnchor = Vector3.Lerp(_anchoringStartPosition, DisplacerTargetPosition, (_anchoringTimer / _anchorTime));
+                            currentVelocity = Motor.GetVelocityForMovePosition(Motor.TransientPosition, tmpPositionAnchor, deltaTime);
+                            break;
+                        case DisplacementState.Displacing:
+                            Vector3 tmpDisplacement = Vector3.Lerp(DisplacerTargetPosition, DisplacerDestinationPosition, CurrentDisplacer.FromToCurve.Evaluate(_displacementTimer / DisplacementTime));
+                            currentVelocity = Motor.GetVelocityForMovePosition(Motor.TransientPosition, tmpDisplacement, deltaTime);
+                            break;
+                        case DisplacementState.Deanchoring:
+                            Vector3 tmpPosition = Vector3.Lerp(_deanchoringStartPosition, DisplacerDestinationPosition, (_anchoringTimer / _anchorTime));
+                            currentVelocity = Motor.GetVelocityForMovePosition(Motor.TransientPosition, tmpPosition, deltaTime);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    break;
+                }
+
         }
     }
 
@@ -494,6 +605,53 @@ public class KRB_CharacterController : MonoBehaviour, ICharacterController
                             MeshRoot.localScale = new Vector3(1f, 1f, 1f);
                             _isCrouching = false;
                         }
+                    }
+                    break;
+                }
+            case CharacterState.Displacing:
+                {
+                    switch (_currentDisplacementState)
+                    {
+                        case DisplacementState.None:
+                            break;
+                        case DisplacementState.Anchoring:
+                            if (_anchoringTimer >= _anchorTime)
+                            {
+                                _anchoringTimer = 0f;
+                                _currentDisplacementState = DisplacementState.Displacing;
+                            }
+                            else
+                            {
+                                _anchoringTimer += deltaTime;
+                            }
+                            break;
+                        case DisplacementState.Displacing:
+                            if (Vector3.Distance(Motor.TransientPosition, DisplacerDestinationPosition) < 0.05f)
+                            {
+                                _deanchoringStartRotation = Motor.TransientRotation;
+                                _deanchoringStartPosition = Motor.TransientPosition;
+
+                                _displacementTimer = 0f;
+                                _currentDisplacementState = DisplacementState.Deanchoring;
+                            }
+                            else
+                            {
+                                _displacementTimer += deltaTime;
+                            }
+                            break;
+                        case DisplacementState.Deanchoring:
+                            if (_anchoringTimer >= _anchorTime)
+                            {
+                                _anchoringTimer = 0f;
+                                TransitionToState(CharacterState.Default);
+                            }
+                            else
+                            {
+                                _anchoringTimer += deltaTime;
+                            }
+                            break;
+                        default:
+                            break;
                     }
                     break;
                 }

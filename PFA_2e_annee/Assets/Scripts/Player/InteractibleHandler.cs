@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InteractibleHandler : MonoBehaviour
 {
+    public CharacterStateHandler CharacterStateHandler;
     [SerializeField][ReadOnlyInspector] private Interactible _currentInteractible;
 
     public void SetInteractible(Interactible interactible)

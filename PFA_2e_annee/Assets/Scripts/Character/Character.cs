@@ -9,6 +9,7 @@ public class Character : MonoBehaviour
     public CharacterStateHandler State;
     public CharacterBattle Battle;
     public InteractibleHandler InteractibleHandler;
+    public CharacterStateHandler CharacterStateHandler;
 
     [Header("Debug")]
     public Color Color;

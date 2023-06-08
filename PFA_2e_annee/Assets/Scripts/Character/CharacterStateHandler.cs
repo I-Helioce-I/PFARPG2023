@@ -19,6 +19,8 @@ public class CharacterStateHandler : MonoBehaviour
     public CharacterTypeState StartingState;
 
     [SerializeField][ReadOnlyInspector] private CharacterTypeState _internalState;
+
+    public List<CharacterTypeState> PossibleStates = new List<CharacterTypeState>();
     public CharacterTypeState CharacterTypeState
     {
         get
@@ -87,5 +89,56 @@ public class CharacterStateHandler : MonoBehaviour
         CharacterTypeState fromState = _internalState;
         _internalState = toState;
         OnCharacterTransition(fromState, toState);
+    }
+
+    public void SwitchStateForward()
+    {
+        int currentIndex = -1;
+        for (int i = 0; i < PossibleStates.Count; i++)
+        {
+            if (_internalState == PossibleStates[i])
+            {
+                currentIndex = i;
+            }
+        }
+
+        currentIndex++;
+
+        if (currentIndex > PossibleStates.Count - 1)
+        {
+            TransitionToState(PossibleStates[0]);
+        }
+        else
+        {
+            TransitionToState(PossibleStates[currentIndex]);
+        }
+    }
+
+    public void SwitchStateBackward()
+    {
+        int currentIndex = -1;
+        for (int i = 0; i < PossibleStates.Count; i++)
+        {
+            if (_internalState == PossibleStates[i])
+            {
+                currentIndex = i;
+            }
+        }
+
+        currentIndex--;
+
+        if (currentIndex < 0)
+        {
+            TransitionToState(PossibleStates[PossibleStates.Count-1]);
+        }
+        else
+        {
+            TransitionToState(PossibleStates[currentIndex]);
+        }
+    }
+
+    public void SwitchStateTo(CharacterTypeState toState)
+    {
+        CharacterTypeState = toState;
     }
 }
