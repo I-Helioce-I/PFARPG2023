@@ -10,6 +10,7 @@ public class Character : MonoBehaviour
     public CharacterBattle Battle;
     public InteractibleHandler InteractibleHandler;
     public CharacterStateHandler CharacterStateHandler;
+    public KRB_CharacterController CharacterController;
 
     [Header("Debug")]
     public Color Color;

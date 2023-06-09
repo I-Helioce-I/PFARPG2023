@@ -590,6 +590,7 @@ GameObject:
   - component: {fileID: 136157288}
   - component: {fileID: 136157289}
   - component: {fileID: 136157290}
+  - component: {fileID: 136157291}
   m_Layer: 7
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -726,15 +727,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5363021372cee94fa41d98cb7c30787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CharacterStateHandler: {fileID: 0}
+  Strength:
+    BaseValue: 0
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
+  Agility:
+    BaseValue: 0
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
+  Intelligence:
+    BaseValue: 0
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
+  Constitution:
+    BaseValue: 0
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
+  Vitality:
+    BaseValue: 0
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
+  Luck:
+    BaseValue: 0
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
   Health:
     BaseValue: 0
     _maxValue: -3.4028235e+38
     _currentValue: -3.4028235e+38
-  Aether:
-    BaseValue: 0
-    _maxValue: -3.4028235e+38
-    _currentValue: -3.4028235e+38
-  Speed:
+  Ether:
     BaseValue: 0
     _maxValue: -3.4028235e+38
     _currentValue: -3.4028235e+38
@@ -742,7 +764,29 @@ MonoBehaviour:
     BaseValue: 0
     _maxValue: -3.4028235e+38
     _currentValue: -3.4028235e+38
+  Speed:
+    BaseValue: 0
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
+  PhysicalDamage:
+    BaseValue: 0
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
+  MagicalDamage:
+    BaseValue: 0
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
+  PhysicalResistance:
+    BaseValue: 0
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
+  MagicalResistance:
+    BaseValue: 0
+    _maxValue: -3.4028235e+38
+    _currentValue: -3.4028235e+38
   isDown: 0
+  Level: 1
+  Experience: 0
 --- !u!114 &136157286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -757,7 +801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stats: {fileID: 136157285}
   State: {fileID: 136157287}
-  Battle: {fileID: 0}
+  Battle: {fileID: 136157291}
   InteractibleHandler: {fileID: 136157288}
   CharacterStateHandler: {fileID: 136157287}
   Color: {r: 0, g: 0, b: 0, a: 0}
@@ -821,6 +865,41 @@ MonoBehaviour:
   PortraitSet: {fileID: 11400000, guid: b89b95b4382a86c42a02e4c54d731a77, type: 2}
   StartingState: 0
   _internalEmotion: 0
+--- !u!114 &136157291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136157280}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ff88a76cfc39bc46bbe2d3a74e26bae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterController: {fileID: 136157284}
+  _battle: {fileID: 0}
+  CharacterActions: {fileID: 0}
+  Actions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Initiative: 0
+  IsEnemy: 0
+  IsFrontRow: 1
+  TargetingIndicator: {fileID: 3012561591883949025, guid: 8059204ea51ea534e8cae07df356dcf8,
+    type: 3}
+  _currentTargetingIndex: 0
+  _currentSelectedAction: {fileID: 0}
+  _viableTargets: []
 --- !u!1 &157624709
 GameObject:
   m_ObjectHideFlags: 0
@@ -4461,6 +4540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dialogueUI: {fileID: 693977338}
+  _battleManager: {fileID: 0}
   StartingState: 1
   _internalState: 0
 --- !u!1 &1297962570
