@@ -28,6 +28,7 @@ public class UI_Battle_TabController : MonoBehaviour
 
     public void SetSelectedButton(GameObject SelectedButton)
     {
+        Debug.Log("n'importe");
         selectedButton = SelectedButton;
         SetArrowPosition();
     }
