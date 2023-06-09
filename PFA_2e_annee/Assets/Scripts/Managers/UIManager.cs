@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -13,6 +14,9 @@ public class UIManager : MonoBehaviour
     [Header("Object references")]
     [SerializeField] private DialogueUI _dialogueUI;
     [SerializeField] private BattleManager _battleManager;
+
+    [Header("Current tab")]
+    [HideInInspector] public UI_Tab _currentUITab;
 
     public enum UIState
     {

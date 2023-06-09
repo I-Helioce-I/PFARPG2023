@@ -24,15 +24,17 @@ public class UI_Tab : MonoBehaviour
         if (open)
         {
             LinkedActions[0].Select();
+            UIManager.instance._currentUITab = this;
         }
         else
         {
             Self.Select();
+            UIManager.instance._currentUITab = null;
         }
     }
 
     public void ShowLinkedActions(bool show)
     {
-        LinkedActionsParent.SetActive(show);
+        if (LinkedActionsParent) LinkedActionsParent.SetActive(show);
     }
 }
