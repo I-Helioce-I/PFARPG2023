@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class UI_CombatMenu : MonoBehaviour
 {
-    public List<UI_Tab> Tabs = new List<UI_Tab>();
+    public enum UICombatMenuState
+    {
+        Closed,
+        WaitingInstruction,
+        NavigateTabs,
+        NavigateActions,
+    }
 
+    public List<UI_Tab> Tabs = new List<UI_Tab>();
 }
