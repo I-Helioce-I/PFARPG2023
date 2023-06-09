@@ -8,6 +8,7 @@ public class Interactible : MonoBehaviour
     [SerializeField] protected GameObject _interactButtonPrompt;
 
     [SerializeField] protected float _range;
+    [SerializeField] protected bool _forcedInteraction;
     protected SphereCollider _collider;
     protected InteractibleHandler _currentHandler;
 
@@ -40,6 +41,15 @@ public class Interactible : MonoBehaviour
         {
             character.SetInteractible(this);
             _currentHandler = character;
+
+        }
+
+        if (_forcedInteraction)
+        {
+            Interact();
+        }
+        else
+        {
             ShowPrompt(true);
         }
     }

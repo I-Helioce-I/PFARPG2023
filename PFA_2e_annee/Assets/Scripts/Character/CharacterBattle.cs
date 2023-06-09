@@ -24,6 +24,9 @@ public class CharacterBattle : MonoBehaviour
         }
     }
 
+    [Header("Object references")]
+    public KRB_CharacterController CharacterController;
+
     [Header("Current battle")]
     [SerializeField] private BattleManager _battle;
     public BattleManager BattleManager
@@ -122,12 +125,13 @@ public class CharacterBattle : MonoBehaviour
             case BattleState.Busy:
                 break;
             case BattleState.Sliding:
-                transform.position = Vector3.Lerp(_slideOriginalPosition, _slideTargetPosition, _slideTimer / _slideDuration);
+                Vector3 tmpPos = Vector3.Lerp(_slideOriginalPosition, _slideTargetPosition, _slideTimer / _slideDuration);
+                CharacterController.Motor.SetPosition(tmpPos);
                 _slideTimer += Time.deltaTime;
                 if (_slideTimer > _slideDuration)
                 {
                     _slideTimer = 0f;
-                    transform.position = _slideTargetPosition;
+                    CharacterController.Motor.SetPosition(_slideTargetPosition);
                     _onSlideComplete();
                 }
                 break;
@@ -220,7 +224,6 @@ public class CharacterBattle : MonoBehaviour
                         GameObject newIndicator = Instantiate<GameObject>(TargetingIndicator, SetTargetingIndicatorPosition(0), Quaternion.identity);
                         _currentTargetingIndicators.Add(newIndicator);
                         _currentTargetingIndicators[i].transform.position = SetTargetingIndicatorPosition(i);
-
                     }
                 }
                 else
@@ -320,16 +323,16 @@ public class CharacterBattle : MonoBehaviour
 
     private void PurgeAllActionSlots()
     {
-        foreach (UI_ActionSlot actionSlot in _actions)
+        for (int i = _actions.Count-1; i > 0; i--)
         {
-            actionSlot.ActionSelected -= OnActionSelected;
-            _actions.Remove(actionSlot);
+            _actions[i].ActionSelected -= OnActionSelected;
+            _actions.Remove(_actions[i]);
         }
     }
 
     public void RollInitiative(float speed)
     {
-        int dieRoll = UnityEngine.Random.Range(1, GameManager.instance.UniversalVariables.InitiativeRollSize + 1);
+        float dieRoll = UnityEngine.Random.Range(0f, 0f);
         Initiative =  dieRoll + speed;
         TransitionToState(_state, BattleState.Idle);
     }
