@@ -1,45 +1,54 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class UI_Battle_TabController : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> tabs;
-    [SerializeField] private GameObject selectedTab;
-    [SerializeField] private UI_Arrow arrow;
-    [SerializeField] private GameObject selectedButton;
+    [SerializeField] private List<GameObject> tabsContainer;
+    [SerializeField] private UI_SetArrow setArrow;
+    [ReadOnlyInspector][SerializeField] private GameObject selectedTab;
+    [SerializeField] private GameObject container;
 
     private void Start()
     {
-        foreach (var tab in tabs)
+        //disable all container
+        foreach (var tab in tabsContainer)
         {
             tab.SetActive(false);
         }
     }
 
-    public void OpenTab(GameObject SelectedTab)
+    public void SetSelectedTab(GameObject SelectedTab)
     {
-        foreach (var tab in tabs)
-        {
-            tab.SetActive(false);
-        }
+        Debug.Log("selected");
+
+        ////disable all container
+        //foreach (var tabContainer in tabsContainer)
+        //{
+        //    tabContainer.SetActive(false);
+        //}
         selectedTab = SelectedTab;
-        selectedTab.SetActive(true);
+
+        //set arrow
+        setArrow.SetArrowPosition(selectedTab.transform.position);
     }
 
-    public void SetSelectedButton(GameObject SelectedButton)
+    public void SetDeselectTab()
     {
-        Debug.Log("n'importe");
-        selectedButton = SelectedButton;
-        SetArrowPosition();
+        foreach (var tabContainer in tabsContainer)
+        {
+            tabContainer.SetActive(false);
+        }
+    }
+
+    public void OpenSelectedTab()
+    {
+
     }
 
     public void Flee()
     {
         Debug.Log("Flee");
-    }
-
-    public void SetArrowPosition()
-    {
-        arrow.SetArrowPosition(selectedButton.transform.position);
     }
 }
