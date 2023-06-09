@@ -7,7 +7,7 @@ public class CharacterActions : MonoBehaviour
     [Header("References")]
     public CharacterBattle CharacterBattle;
 
-    [Header("Action quads")]
+    [Header("Action lists")]
     public UI_ActionQuad Attacks;
     public UI_ActionQuad Spells;
     public UI_ActionQuad Items;

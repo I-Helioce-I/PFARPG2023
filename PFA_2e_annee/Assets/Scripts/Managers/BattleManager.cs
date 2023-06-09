@@ -6,8 +6,10 @@ public class BattleManager : MonoBehaviour
 {
     public enum BattleState
     {
+        None,
         WaitingForAction,
         Busy,
+
     }
     public delegate void BattleEvent();
     public event BattleEvent BattleStarted = null;
@@ -23,6 +25,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField][ReadOnlyInspector] private BattleState _state;
 
     [Header("Player Team")]
+    [SerializeField] private Transform _playerParent;
     [SerializeField] private List<Character> _playerCharactersInBattle = new List<Character>();
     public List<Character> GetPlayerCharactersInBattle
     {
@@ -31,13 +34,15 @@ public class BattleManager : MonoBehaviour
             return _playerCharactersInBattle;
         }
     }
+    [SerializeField] private List<Transform> _allyTransforms = new List<Transform>();
 
     [Header("Player UI")]
-    public Transform Canvas;
+    public Transform CombatCanvas;
     public CharacterActions CharacterActionsUI;
     public UI_CombatTimelapse CombatTimelapse;
 
     [Header("Enemy Team")]
+    [SerializeField] private Transform _enemyParent;
     [SerializeField] private List<Character> _enemyCharactersInBattle = new List<Character>();
     public List<Character> GetEnemyCharactersInBattle
     {
@@ -46,6 +51,7 @@ public class BattleManager : MonoBehaviour
             return _enemyCharactersInBattle;
         }
     }
+    [SerializeField] private List<Transform> _enemyTransforms = new List<Transform>();
 
     [Header("Turn order")]
     [SerializeField] private List<Character> _turnOrder = new List<Character>();
@@ -64,10 +70,6 @@ public class BattleManager : MonoBehaviour
             return _turnOrder;
         }
     }
-
-    [Header("DEBUG")]
-    [SerializeField] public Character _player;
-    [SerializeField] public Character _enemy;
     public List<Character> PlayerCharactersInBattle
     {
         get
@@ -83,6 +85,9 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    [Header("DEBUG")]
+    [SerializeField] private bool _startBattleOnStartGame = true;
+
     private void Awake()
     {
         if (instance == null)
@@ -97,7 +102,7 @@ public class BattleManager : MonoBehaviour
 
     private void Start()
     {
-        StartBattle(_playerCharactersInBattle, _enemyCharactersInBattle);
+        if (_startBattleOnStartGame) StartBattle(_playerCharactersInBattle, _enemyCharactersInBattle);
     }
 
     public void TransitionToState(BattleState state)
@@ -105,6 +110,11 @@ public class BattleManager : MonoBehaviour
         _state = state;
         switch (_state)
         {
+            case BattleState.None:
+                _playerCharactersInBattle.Clear();
+                _enemyCharactersInBattle.Clear();
+                _turnOrder.Clear();
+                break;
             case BattleState.WaitingForAction:
                 if (_playerCharactersInBattle.Contains(_activeCharacter))
                 {
@@ -146,23 +156,63 @@ public class BattleManager : MonoBehaviour
 
     public void StartBattle(List<Character> playerCharacters, List<Character> enemyCharacters)
     {
-        _playerCharactersInBattle = playerCharacters;
+        //Transition GameManager state to Combat.
+        //Ask for loader to load a new scene according to the environment in which the player is in.
+        //Use BattleFadeOut
+        //Once scene is loaded, 
+        //Instantiate all characters in their positions + rotations depending on their team.
+        //Transition to battlestate.busy.
+        //Then do the following.
+
+        GameManager.instance.CurrentState = GameManager.GameState.Combat;
+
+        //Instantiate characters on arena
+        List<Character> createdPlayers = new List<Character>();
+        float allyLineDistance = Vector3.Distance(_allyTransforms[0].position, _allyTransforms[1].position);
+        int allyCount = playerCharacters.Count;
+        float allyLineDistanceStep = allyLineDistance / allyCount;
+        float allyLineDistanceStepFirst = allyLineDistanceStep / 2f;
+
+        for (int i = 0; i < playerCharacters.Count; i++)
+        {
+            Character newCharacter = Instantiate<Character>(playerCharacters[i], _playerParent);
+            Vector3 instantiatedPos = _allyTransforms[0].position + (_playerParent.right * allyLineDistanceStepFirst) + (_playerParent.right * (i * allyLineDistanceStep));
+            newCharacter.CharacterController.Motor.SetPositionAndRotation(instantiatedPos, _playerParent.rotation);
+            createdPlayers.Add(newCharacter);
+        }
+
+        List<Character> createdEnemies = new List<Character>();
+        float enemyLineDistance = Vector3.Distance(_enemyTransforms[0].position, _enemyTransforms[1].position);
+        int enemyCount = enemyCharacters.Count;
+        float enemyLineDistanceStep = enemyLineDistance / enemyCount;
+        float enemyLineDistanceStepFirst = enemyLineDistanceStep / 2f;
+
+        for (int i = 0; i < enemyCharacters.Count; i++)
+        {
+            Character newCharacter = Instantiate<Character>(enemyCharacters[i], _enemyParent);
+            Vector3 instantiatedPos = _enemyTransforms[1].position + (_enemyParent.right * enemyLineDistanceStepFirst) + (_enemyParent.right * (i * enemyLineDistanceStep));
+            newCharacter.CharacterController.Motor.SetPositionAndRotation(instantiatedPos, _enemyParent.rotation);
+            createdEnemies.Add(newCharacter);
+        }
+
+        _playerCharactersInBattle = createdPlayers;
         foreach(Character playerCharacter in _playerCharactersInBattle)
         {
-            CharacterActions characterActionsUI = Instantiate<CharacterActions>(CharacterActionsUI, Canvas);
+            CharacterActions characterActionsUI = Instantiate<CharacterActions>(CharacterActionsUI, CombatCanvas);
             characterActionsUI.CloseAll();
             characterActionsUI.CharacterBattle = playerCharacter.Battle;
             playerCharacter.Battle.CharacterActions = characterActionsUI;
             playerCharacter.Battle.InitializeCharacterActions();
         }
-        _enemyCharactersInBattle = enemyCharacters;
+        _enemyCharactersInBattle = createdEnemies;
+
         List<Character> allCharacters = GetAllCharactersInBattle();
         foreach(Character character in allCharacters)
         {
             character.Battle.BattleManager = this;
         }
 
-        UI_CombatTimelapse timelapse = Instantiate<UI_CombatTimelapse>(CombatTimelapse, Canvas);
+        UI_CombatTimelapse timelapse = Instantiate<UI_CombatTimelapse>(CombatTimelapse, CombatCanvas);
         timelapse.BattleManager = this;
         timelapse.SetEventListening();
 
@@ -173,7 +223,20 @@ public class BattleManager : MonoBehaviour
         SetActiveCharacter();
         TransitionToState(BattleState.WaitingForAction);
         //_state = BattleState.WaitingForAction;
+    }
 
+    public void EndBattle()
+    {
+        //Get the experience and loot screens.
+        //Make victorious characters play their victory anim.
+        //Once last screen is validated, ask Loader to transition (normally) back to exploration.
+        //Transition to BattleState.none.
+
+        for (int i = CombatCanvas.childCount - 1; i > 0; i--)
+        {
+            Destroy(CombatCanvas.GetChild(i));
+        }
+        GameManager.instance.CurrentState = GameManager.GameState.Exploration;
     }
 
     private void RollAllInitiatives()
