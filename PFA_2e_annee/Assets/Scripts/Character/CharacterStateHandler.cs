@@ -34,7 +34,7 @@ public class CharacterStateHandler : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         ForceTransitionNoCalls(StartingState);
     }

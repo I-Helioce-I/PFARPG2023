@@ -342,24 +342,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterController: {fileID: 3996712886237203657}
+  CharacterStateHandler: {fileID: 3996712886237203658}
   _battle: {fileID: 0}
   CharacterActions: {fileID: 0}
-  Actions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  ActionSets:
+  - {fileID: 11400000, guid: c62c85a337ace69459402e7bcea018f2, type: 2}
+  - {fileID: 11400000, guid: 33ea66bd35f7fc246a00af1e6919a399, type: 2}
   Initiative: -3.4028235e+38
   IsEnemy: 0
   IsFrontRow: 1
-  TargetingIndicator: {fileID: 0}
+  TargetingIndicator: {fileID: 3012561591883949025, guid: 8059204ea51ea534e8cae07df356dcf8,
+    type: 3}
   _currentTargetingIndex: 0
   _currentSelectedAction: {fileID: 0}
   _viableTargets: []

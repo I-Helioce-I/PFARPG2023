@@ -118,7 +118,7 @@ public class BattleManager : MonoBehaviour
             case BattleState.WaitingForAction:
                 if (_playerCharactersInBattle.Contains(_activeCharacter))
                 {
-                    _activeCharacter.Battle.TransitionToState(_activeCharacter.Battle.CurrentState, CharacterBattle.BattleState.SelectingAction);
+                    _activeCharacter.Battle.OpenActionsMenu();
 
                 }
                 else if (_enemyCharactersInBattle.Contains(_activeCharacter))
@@ -196,14 +196,14 @@ public class BattleManager : MonoBehaviour
         }
 
         _playerCharactersInBattle = createdPlayers;
-        foreach(Character playerCharacter in _playerCharactersInBattle)
-        {
-            CharacterActions characterActionsUI = Instantiate<CharacterActions>(CharacterActionsUI, CombatCanvas);
-            characterActionsUI.CloseAll();
-            characterActionsUI.CharacterBattle = playerCharacter.Battle;
-            playerCharacter.Battle.CharacterActions = characterActionsUI;
-            playerCharacter.Battle.InitializeCharacterActions();
-        }
+        //foreach(Character playerCharacter in _playerCharactersInBattle)
+        //{
+        //    CharacterActions characterActionsUI = Instantiate<CharacterActions>(CharacterActionsUI, CombatCanvas);
+        //    characterActionsUI.CloseAll();
+        //    characterActionsUI.CharacterBattle = playerCharacter.Battle;
+        //    playerCharacter.Battle.CharacterActions = characterActionsUI;
+        //    playerCharacter.Battle.InitializeCharacterActions();
+        //}
         _enemyCharactersInBattle = createdEnemies;
 
         List<Character> allCharacters = GetAllCharactersInBattle();

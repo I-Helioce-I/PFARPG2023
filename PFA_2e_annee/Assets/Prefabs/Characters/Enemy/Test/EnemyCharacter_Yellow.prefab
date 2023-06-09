@@ -374,20 +374,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterController: {fileID: 67962797526733612}
+  CharacterStateHandler: {fileID: 67962797526733651}
   _battle: {fileID: 0}
   CharacterActions: {fileID: 0}
-  Actions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 11400000, guid: f7df5f328e062d644933f9733a6fcc30, type: 2}
-  - {fileID: 11400000, guid: 4e4d3ed5b8a40474384953b4ebcec90b, type: 2}
-  - {fileID: 11400000, guid: 98651035f013a594a9f78cf2310889ac, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  ActionSets:
+  - {fileID: 11400000, guid: c62c85a337ace69459402e7bcea018f2, type: 2}
+  - {fileID: 11400000, guid: 33ea66bd35f7fc246a00af1e6919a399, type: 2}
   Initiative: 0
   IsEnemy: 1
   IsFrontRow: 1
@@ -407,7 +399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b3ffae9d1be0342b13b6fcd754aaf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartingState: 0
+  StartingState: 2
   _internalState: 0
   PossibleStates: 
 --- !u!114 &67962797526733612

@@ -14,9 +14,7 @@ public class UIManager : MonoBehaviour
     [Header("Object references")]
     [SerializeField] private DialogueUI _dialogueUI;
     [SerializeField] private BattleManager _battleManager;
-
-    [Header("Current tab")]
-    [HideInInspector] public UI_Tab _currentUITab;
+    public UI_CombatMenu CombatMenu;
 
     public enum UIState
     {
@@ -256,9 +254,24 @@ public class UIManager : MonoBehaviour
                         case CharacterBattle.BattleState.Idle:
                             break;
                         case CharacterBattle.BattleState.SelectingAction:
+                            switch (CombatMenu.CurrentState)
+                            {
+                                case UI_CombatMenu.UICombatMenuState.Closed:
+                                    break;
+                                case UI_CombatMenu.UICombatMenuState.WaitingInstruction:
+                                    break;
+                                case UI_CombatMenu.UICombatMenuState.NavigateTabs:
+                                    break;
+                                case UI_CombatMenu.UICombatMenuState.NavigateActions:
+                                    CombatMenu.TransitionToState(UI_CombatMenu.UICombatMenuState.NavigateTabs);
+                                    break;
+                                default:
+                                    break;
+                            }
                             break;
                         case CharacterBattle.BattleState.Targeting:
                             _battleManager.ActiveCharacter.Battle.TransitionToState(_battleManager.ActiveCharacter.Battle.CurrentState, CharacterBattle.BattleState.SelectingAction);
+                            CombatMenu.ReturnToNavigateFromTargeting();
                             break;
                         case CharacterBattle.BattleState.Busy:
                             break;

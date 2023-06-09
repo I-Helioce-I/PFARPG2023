@@ -26,6 +26,7 @@ public class CharacterBattle : MonoBehaviour
 
     [Header("Object references")]
     public KRB_CharacterController CharacterController;
+    public CharacterStateHandler CharacterStateHandler;
 
     [Header("Current battle")]
     [SerializeField] private BattleManager _battle;
@@ -44,8 +45,9 @@ public class CharacterBattle : MonoBehaviour
     [Header("Character Actions")]
     //CharacterActions refers to a UI prefab.
     public CharacterActions CharacterActions;
+    private List<UI_ActionButton> ActionButtons = new List<UI_ActionButton>();
     //Change below to have a potentially 'infinite' number of actions. See how UI will mix with this.
-    public ActionDescription[] Actions = new ActionDescription[11];
+    public List<ActionSet> ActionSets = new List<ActionSet>();
     private List<UI_ActionSlot> _actions = new List<UI_ActionSlot>();
 
     [Header("Initiative")]
@@ -73,8 +75,8 @@ public class CharacterBattle : MonoBehaviour
 
     public void InitializeCharacterActions()
     {
-        this.CharacterActions.SetActions(Actions);
-        SetCharacterActionListening();
+        //this.CharacterActions.SetActions(Actions);
+        //SetCharacterActionListening();
     }
     private void Update()
     {
@@ -184,7 +186,6 @@ public class CharacterBattle : MonoBehaviour
             case BattleState.Idle:
                 break;
             case BattleState.SelectingAction:
-                CloseActionsMenu();
                 break;
             case BattleState.Targeting:
                 _currentTargetingIndex = 0;
@@ -207,7 +208,6 @@ public class CharacterBattle : MonoBehaviour
             case BattleState.Idle:
                 break;
             case BattleState.SelectingAction:
-                OpenActionsMenu();
                 break;
             case BattleState.Targeting:
                 _currentTargetingIndex = 0;
@@ -247,47 +247,55 @@ public class CharacterBattle : MonoBehaviour
         return _viableTargets[index].transform.position + (Vector3.up * 3f);
     }
 
-    public void SetCharacterActionListening()
+    public void SetCharacterActionListening(List<UI_ActionButton> actionButtons)
     {
-        if (!CharacterActions) return;
+        //if (!CharacterActions) return;
 
-        PurgeAllActionSlots();
+        //PurgeAllActionSlots();
 
-        for (int i = 0; i < CharacterActions.Attacks.Actions.Length; i++)
+        ActionButtons = actionButtons;
+
+        foreach(UI_ActionButton actionButton in ActionButtons)
         {
-            UI_ActionSlot actionSlot = CharacterActions.Attacks.Actions[i];
-            if (actionSlot.GetAction)
-            {
-                actionSlot.ActionSelected -= OnActionSelected;
-                actionSlot.ActionSelected += OnActionSelected;
-
-                _actions.Add(actionSlot);
-            }
+            actionButton.ActionSelected -= OnActionSelected;
+            actionButton.ActionSelected += OnActionSelected;
         }
 
-        for (int i = 0; i < CharacterActions.Spells.Actions.Length; i++)
-        {
-            UI_ActionSlot actionSlot = CharacterActions.Spells.Actions[i];
-            if (actionSlot.GetAction)
-            {
-                actionSlot.ActionSelected -= OnActionSelected;
-                actionSlot.ActionSelected += OnActionSelected;
+        //for (int i = 0; i < CharacterActions.Attacks.Actions.Length; i++)
+        //{
+        //    UI_ActionSlot actionSlot = CharacterActions.Attacks.Actions[i];
+        //    if (actionSlot.GetAction)
+        //    {
+        //        actionSlot.ActionSelected -= OnActionSelected;
+        //        actionSlot.ActionSelected += OnActionSelected;
 
-                _actions.Add(actionSlot);
-            }
-        }
+        //        _actions.Add(actionSlot);
+        //    }
+        //}
 
-        for (int i = 0; i < CharacterActions.Items.Actions.Length; i++)
-        {
-            UI_ActionSlot actionSlot = CharacterActions.Items.Actions[i];
-            if (actionSlot.GetAction)
-            {
-                actionSlot.ActionSelected -= OnActionSelected;
-                actionSlot.ActionSelected += OnActionSelected;
+        //for (int i = 0; i < CharacterActions.Spells.Actions.Length; i++)
+        //{
+        //    UI_ActionSlot actionSlot = CharacterActions.Spells.Actions[i];
+        //    if (actionSlot.GetAction)
+        //    {
+        //        actionSlot.ActionSelected -= OnActionSelected;
+        //        actionSlot.ActionSelected += OnActionSelected;
 
-                _actions.Add(actionSlot);
-            }
-        }
+        //        _actions.Add(actionSlot);
+        //    }
+        //}
+
+        //for (int i = 0; i < CharacterActions.Items.Actions.Length; i++)
+        //{
+        //    UI_ActionSlot actionSlot = CharacterActions.Items.Actions[i];
+        //    if (actionSlot.GetAction)
+        //    {
+        //        actionSlot.ActionSelected -= OnActionSelected;
+        //        actionSlot.ActionSelected += OnActionSelected;
+
+        //        _actions.Add(actionSlot);
+        //    }
+        //}
     }
 
     private void OnActionSelected(ActionDescription action)
@@ -309,6 +317,8 @@ public class CharacterBattle : MonoBehaviour
     {
         //CharacterActions.CloseAll();
         _currentSelectedAction = null;
+        PurgeAllActionSlots();
+        CloseActionsMenu();
         TransitionToState(_state, BattleState.Busy);
         List<CharacterBattle> targetsBattle = new List<CharacterBattle>();
         foreach(Character character in targets)
@@ -323,11 +333,18 @@ public class CharacterBattle : MonoBehaviour
 
     private void PurgeAllActionSlots()
     {
-        for (int i = _actions.Count-1; i > 0; i--)
+        foreach(UI_ActionButton actionButton in ActionButtons)
         {
-            _actions[i].ActionSelected -= OnActionSelected;
-            _actions.Remove(_actions[i]);
+            actionButton.ActionSelected -= OnActionSelected;
         }
+
+        ActionButtons.Clear();
+
+        //for (int i = _actions.Count-1; i > 0; i--)
+        //{
+        //    _actions[i].ActionSelected -= OnActionSelected;
+        //    _actions.Remove(_actions[i]);
+        //}
     }
 
     public void RollInitiative(float speed)
@@ -387,11 +404,46 @@ public class CharacterBattle : MonoBehaviour
     public ActionDescription GetRandomAction()
     {
         List<ActionDescription> potentialActions = new List<ActionDescription>();
-        for (int i = 0; i < Actions.Length; i++)
+        CharacterTypeState currentState = CharacterStateHandler.CharacterTypeState;
+
+        switch (currentState)
         {
-            ActionDescription action = Actions[i];
-            if (action) potentialActions.Add(action);
+            case CharacterTypeState.Solid:
+                foreach (ActionSet actionSet in ActionSets)
+                {
+                    potentialActions.Add(actionSet.SolidAction);
+                }
+                break;
+            case CharacterTypeState.Liquid:
+                foreach (ActionSet actionSet in ActionSets)
+                {
+                    potentialActions.Add(actionSet.LiquidAction);
+                }
+                break;
+            case CharacterTypeState.Gas:
+                foreach (ActionSet actionSet in ActionSets)
+                {
+                    potentialActions.Add(actionSet.GasAction);
+                }
+                break;
+            case CharacterTypeState.TriplePoint:
+                foreach (ActionSet actionSet in ActionSets)
+                {
+                    potentialActions.Add(actionSet.SolidAction);
+                    potentialActions.Add(actionSet.LiquidAction);
+                    potentialActions.Add(actionSet.GasAction);
+                }
+                break;
+            default:
+                break;
         }
+
+
+        //for (int i = 0; i < ActionSets.Count; i++)
+        //{
+        //    ActionDescription action = ActionSets[i];
+        //    if (action) potentialActions.Add(action);
+        //}
         if (potentialActions.Count == 0)
         {
             Debug.Log(this + " has no potential actions!");
@@ -567,15 +619,18 @@ public class CharacterBattle : MonoBehaviour
         return viableTargets[randomIndex];
     }
 
-    private void OpenActionsMenu()
+    public void OpenActionsMenu()
     {
-        if (!CharacterActions) return;
-        CharacterActions.OpenAttacks();
+        //if (!CharacterActions) return;
+        //CharacterActions.OpenAttacks();
+        TransitionToState(CurrentState, BattleState.SelectingAction);
+        UIManager.instance.CombatMenu.OpenCombatMenu(this);
     }
 
     private void CloseActionsMenu()
     {
-        if (!CharacterActions) return;
-        CharacterActions.CloseAll();
+        //if (!CharacterActions) return;
+        UIManager.instance.CombatMenu.CloseCombatMenu();
+        //CharacterActions.CloseAll();
     }
 }
