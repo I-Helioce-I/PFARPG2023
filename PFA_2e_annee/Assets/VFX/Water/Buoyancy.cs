@@ -18,6 +18,9 @@ public class Buoyancy : MonoBehaviour
 
     public float waterHeight = 0f;
 
+    public float test = 1f;
+    public float vroom = 1f;
+
     Rigidbody m_Rigidbody;
 
     
@@ -33,10 +36,10 @@ public class Buoyancy : MonoBehaviour
     void FixedUpdate()
     {
         
-        float waveHeight = WaveManager.instance.GetWaveHeight(transform.position.x);
-        float difference = transform.position.y - waterHeight+waveHeight;
+        float waveHeight = 1.0f+WaveManager.instance.GetWaveHeight(transform.position.x);
+        float difference = transform.position.y - waterHeight+waveHeight+test;
 
-        if(difference<waveHeight)
+        if(difference<waveHeight+vroom)
         {
             m_Rigidbody.AddForceAtPosition(Vector3.up * floatingPower * Mathf.Abs(difference), transform.position, ForceMode.Force);
             
