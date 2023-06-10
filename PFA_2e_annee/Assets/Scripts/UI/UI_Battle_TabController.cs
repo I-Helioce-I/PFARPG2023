@@ -1,45 +1,43 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class UI_Battle_TabController : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> tabs;
-    [SerializeField] private GameObject selectedTab;
-    [SerializeField] private UI_Arrow arrow;
-    [SerializeField] private GameObject selectedButton;
+    [SerializeField] private List<GameObject> tabsContainer;
+    [SerializeField] private UI_Arrow setArrow;
+    [ReadOnlyInspector][SerializeField] private GameObject selectedButton;
+    [SerializeField] private GameObject container;
 
     private void Start()
     {
-        foreach (var tab in tabs)
+        //disable all container
+        foreach (var tab in tabsContainer)
         {
             tab.SetActive(false);
         }
-    }
-
-    public void OpenTab(GameObject SelectedTab)
-    {
-        foreach (var tab in tabs)
-        {
-            tab.SetActive(false);
-        }
-        selectedTab = SelectedTab;
-        selectedTab.SetActive(true);
     }
 
     public void SetSelectedButton(GameObject SelectedButton)
     {
-        Debug.Log("n'importe");
         selectedButton = SelectedButton;
-        SetArrowPosition();
+
+        //set arrow
+        setArrow.SetArrowRectTransform(selectedButton);
+    }
+
+    public void CloseAllContainers()
+    {
+        //disable all container
+        foreach (var tab in tabsContainer)
+        {
+            tab.SetActive(false);
+        }
     }
 
     public void Flee()
     {
         Debug.Log("Flee");
-    }
-
-    public void SetArrowPosition()
-    {
-        arrow.SetArrowPosition(selectedButton.transform.position);
     }
 }
