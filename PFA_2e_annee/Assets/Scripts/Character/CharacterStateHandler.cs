@@ -36,7 +36,7 @@ public class CharacterStateHandler : MonoBehaviour
 
     private void Awake()
     {
-        ForceTransitionNoCalls(StartingState);
+        CharacterTypeState = StartingState;
     }
 
     private void TransitionToState(CharacterTypeState toState)

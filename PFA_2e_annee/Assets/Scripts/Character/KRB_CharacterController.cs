@@ -128,6 +128,13 @@ public class KRB_CharacterController : MonoBehaviour, ICharacterController
     private Collider[] _probedColliders = new Collider[8];
     private RaycastHit[] _probedHits = new RaycastHit[8];
     private Vector3 _moveInputVector;
+    public Vector3 MoveInputVector
+    {
+        get
+        {
+            return _moveInputVector;
+        }
+    }
     private Vector3 _lookInputVector;
     private bool _jumpRequested = false;
     private bool _jumpConsumed = false;

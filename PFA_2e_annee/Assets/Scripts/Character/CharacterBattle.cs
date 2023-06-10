@@ -27,6 +27,7 @@ public class CharacterBattle : MonoBehaviour
     [Header("Object references")]
     public KRB_CharacterController CharacterController;
     public CharacterStateHandler CharacterStateHandler;
+    public CharacterAnimatorHandler CharacterAnimatorHandler;
 
     [Header("Current battle")]
     [SerializeField] private BattleManager _battle;
@@ -198,6 +199,7 @@ public class CharacterBattle : MonoBehaviour
             case BattleState.Busy:
                 break;
             case BattleState.Sliding:
+                if (CharacterAnimatorHandler) CharacterAnimatorHandler.Animator.SetBool("isSliding", false);
                 break;
             default:
                 break;
@@ -236,6 +238,7 @@ public class CharacterBattle : MonoBehaviour
             case BattleState.Busy:
                 break;
             case BattleState.Sliding:
+                if (CharacterAnimatorHandler) CharacterAnimatorHandler.Animator.SetBool("isSliding", true);
                 break;
             default:
                 break;
@@ -371,20 +374,49 @@ public class CharacterBattle : MonoBehaviour
             }
             finalPosition = finalPosition / (targets.Count);
 
+            if(CharacterAnimatorHandler) CharacterAnimatorHandler.Animator.SetTrigger("SlideForth");
+
             SlideToPosition(finalPosition, () =>
             {
                 TransitionToState(_state, BattleState.Busy);
                 //Play attacking animation.
-                SlideToPosition(_slideOriginalPosition, () =>
+                if (CharacterAnimatorHandler)
                 {
-                    TransitionToState(_state, BattleState.Idle);
-                    onActionComplete();
-                });
+                    this.CharacterAnimatorHandler.PlayAnimThenAction(action.AnimationName, () =>
+                    {
+                        if (CharacterAnimatorHandler) CharacterAnimatorHandler.Animator.SetTrigger("SlideBack");
+                        SlideToPosition(_slideOriginalPosition, () =>
+                        {
+                            TransitionToState(_state, BattleState.Idle);
+                            onActionComplete();
+                        });
+                    });
+                }
+                else
+                {
+                    SlideToPosition(_slideOriginalPosition, () =>
+                    {
+                        TransitionToState(_state, BattleState.Idle);
+                        onActionComplete();
+                    });
+                }
             });
         }
         else
         {
-            onActionComplete();
+            //PLay attacking animation.
+            if (CharacterAnimatorHandler)
+            {
+                this.CharacterAnimatorHandler.PlayAnimThenAction(action.AnimationName, () =>
+                {
+                    onActionComplete();
+                });
+            }
+            else
+            {
+                onActionComplete();
+            }
+      
         }
     }
 

@@ -210,6 +210,7 @@ public class BattleManager : MonoBehaviour
         foreach(Character character in allCharacters)
         {
             character.Battle.BattleManager = this;
+            if (character.Battle.CharacterAnimatorHandler) character.Battle.CharacterAnimatorHandler.Animator.SetBool("isInCombat", true);
         }
 
         UI_CombatTimelapse timelapse = Instantiate<UI_CombatTimelapse>(CombatTimelapse, CombatCanvas);
