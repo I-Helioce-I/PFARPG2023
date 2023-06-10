@@ -6,8 +6,8 @@ using UnityEngine.Events;
 public class UI_Battle_TabController : MonoBehaviour
 {
     [SerializeField] private List<GameObject> tabsContainer;
-    [SerializeField] private UI_SetArrow setArrow;
-    [ReadOnlyInspector][SerializeField] private GameObject selectedTab;
+    [SerializeField] private UI_Arrow setArrow;
+    [ReadOnlyInspector][SerializeField] private GameObject selectedButton;
     [SerializeField] private GameObject container;
 
     private void Start()
@@ -19,32 +19,21 @@ public class UI_Battle_TabController : MonoBehaviour
         }
     }
 
-    public void SetSelectedTab(GameObject SelectedTab)
+    public void SetSelectedButton(GameObject SelectedButton)
     {
-        Debug.Log("selected");
-
-        ////disable all container
-        //foreach (var tabContainer in tabsContainer)
-        //{
-        //    tabContainer.SetActive(false);
-        //}
-        selectedTab = SelectedTab;
+        selectedButton = SelectedButton;
 
         //set arrow
-        setArrow.SetArrowPosition(selectedTab.transform.position);
+        setArrow.SetArrowRectTransform(selectedButton);
     }
 
-    public void SetDeselectTab()
+    public void CloseAllContainers()
     {
-        foreach (var tabContainer in tabsContainer)
+        //disable all container
+        foreach (var tab in tabsContainer)
         {
-            tabContainer.SetActive(false);
+            tab.SetActive(false);
         }
-    }
-
-    public void OpenSelectedTab()
-    {
-
     }
 
     public void Flee()
