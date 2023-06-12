@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -13,27 +11,47 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private Button settingsButton;
     [SerializeField] private Button quitButton;
 
+    [Header("Settings Panel")]
+    [SerializeField] private GameObject settingsPanel;
+    [SerializeField] private Toggle volumeToggle;
+    [SerializeField] private Slider volumeSlider;
+
     private void Start()
     {
         startButton.Select();
+        settingsPanel.SetActive(false);
     }
 
     public void StartGame()
     {
-        // set scene to load
-        Debug.Log("Start");
+        Debug.Log("Oui oui baguette");
     }
 
     public void OpenSettings()
     {
-        // open settings panel
-        Debug.Log("Settings");
+        MainButtonInteractableSwitch(false);
+
+        settingsPanel.SetActive(true);
+        volumeToggle.Select();
+    }
+
+    public void CloseSettings()
+    {
+        MainButtonInteractableSwitch(true);
+
+        settingsPanel.SetActive(false);
+        startButton.Select();
     }
 
     public void QuitGame()
     {
-        // quit application
-        Debug.Log("Quit");
         Application.Quit();
+    }
+
+    private void MainButtonInteractableSwitch(bool interactable)
+    {
+        startButton.interactable = interactable;
+        settingsButton.interactable = interactable;
+        quitButton.interactable = interactable;
     }
 }
