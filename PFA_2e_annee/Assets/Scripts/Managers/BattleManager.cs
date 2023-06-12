@@ -307,7 +307,9 @@ public class BattleManager : MonoBehaviour
 
     private void SetActiveCharacter(int index = 0)
     {
+        
         _activeCharacter = _turnOrder[index];
+
     }
 
     private void RemoveCharacter(Character character)

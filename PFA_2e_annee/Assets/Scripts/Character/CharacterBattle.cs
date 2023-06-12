@@ -439,6 +439,16 @@ public class CharacterBattle : MonoBehaviour
         TransitionToState(_state, BattleState.Sliding);
     }
 
+    public void StepForward()
+    {
+        Vector3 forwardPos = CharacterController.Motor.CharacterForward * 2f;
+    }
+
+    public void StepBack()
+    {
+
+    }
+
     public Vector3 GetPosition()
     {
         return transform.position;
