@@ -18,13 +18,10 @@ public class KRB_PushableBlock : MonoBehaviour, ICharacterController
     [SerializeField] private float _maxMoveSpeed = 2f;
     [SerializeField] private float _pushedMovementSharpness = 2f;
     [SerializeField] private float _unpushedMovementSharpness = 5f;
-    [SerializeField] private float _orientationSharpness = 10f;
     [SerializeField] private float _pushAcceleration = 1f;
     private float _currentMoveSpeed = 0f;
 
     [Header("Air movement")]
-    [SerializeField] private float _maxAirMoveSpeed = 30f;
-    [SerializeField] private float _airAcceleration = 2f;
     [SerializeField] private float _airDrag = 0f;
 
     [Header("Miscellaneous")]

@@ -107,23 +107,23 @@ public class CharacterBattle : MonoBehaviour
                 //    }
                 //    _currentTargetingIndicator.transform.position = SetTargetingIndicatorPosition(_currentTargetingIndex);
                 //}
-                if (Input.GetMouseButtonDown(0)) //Select
-                {
-                    if (_viableTargets.Count < 1 || _currentSelectedAction == null) return;
-                    List<Character> selectedTargets = new List<Character>();
-                    if (_targetingAllViableTargets)
-                    {
-                        foreach (Character target in _viableTargets)
-                        {
-                            selectedTargets.Add(target);
-                        }
-                    }
-                    else
-                    {
-                        selectedTargets.Add(_viableTargets[_currentTargetingIndex]);
-                    }
-                    ActionConfirm(_currentSelectedAction, selectedTargets);
-                }
+                //if (Input.GetMouseButtonDown(0)) //Select
+                //{
+                //    if (_viableTargets.Count < 1 || _currentSelectedAction == null) return;
+                //    List<Character> selectedTargets = new List<Character>();
+                //    if (_targetingAllViableTargets)
+                //    {
+                //        foreach (Character target in _viableTargets)
+                //        {
+                //            selectedTargets.Add(target);
+                //        }
+                //    }
+                //    else
+                //    {
+                //        selectedTargets.Add(_viableTargets[_currentTargetingIndex]);
+                //    }
+                //    ActionConfirm(_currentSelectedAction, selectedTargets);
+                //}
                 break;
             case BattleState.Busy:
                 break;
@@ -145,7 +145,11 @@ public class CharacterBattle : MonoBehaviour
 
     public void SelectTarget()
     {
-        if (_viableTargets.Count < 1 || _currentSelectedAction == null) return;
+        if (_viableTargets.Count < 1 || _currentSelectedAction == null)
+        {
+            Debug.Log("No viable targets for this ability!");
+            return;
+        }
         List<Character> selectedTargets = new List<Character>();
         if (_targetingAllViableTargets)
         {
@@ -168,6 +172,8 @@ public class CharacterBattle : MonoBehaviour
             _currentTargetingIndex = 0;
         }
         _currentTargetingIndicators[0].transform.position = SetTargetingIndicatorPosition(_currentTargetingIndex);
+
+        Debug.Log(_currentTargetingIndex);
     }
     public void ScrollViableTargetBackward()
     {
@@ -177,6 +183,8 @@ public class CharacterBattle : MonoBehaviour
             _currentTargetingIndex = _viableTargets.Count - 1;
         }
         _currentTargetingIndicators[0].transform.position = SetTargetingIndicatorPosition(_currentTargetingIndex);
+
+        Debug.Log(_currentTargetingIndex);
     }
 
     public void TransitionToState(BattleState fromstate, BattleState state)

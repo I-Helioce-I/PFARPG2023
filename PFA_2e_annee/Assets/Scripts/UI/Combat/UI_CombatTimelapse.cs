@@ -177,34 +177,4 @@ public class UI_CombatTimelapse : MonoBehaviour
         _characterIcons.Add(newIcon);
         _charactersInCombat.Add(character);
     }
-
-    private void SortTimelapse()
-    {
-        List<Character> order = BattleManager.GetTurnOrder;
-        List<Character> allCharactersInBattle = BattleManager.GetAllCharactersInBattle();
-        foreach(UI_CombatTimelapseCharacterIcon characterIcon in _characterIcons)
-        {
-            bool isInOrder = false;
-            foreach(Character character in order)
-            {
-                if (characterIcon.RepresentedCharacter == character)
-                {
-                    isInOrder = true;
-                }
-            }
-            bool isInBattle = false;
-            foreach (Character character in allCharactersInBattle)
-            {
-                if (characterIcon.RepresentedCharacter == character)
-                {
-                    isInBattle = true;
-                }
-            }
-
-
-        }
-        //If character is in order and is in battle, then ConvertIndexToTimelapsePosition.
-        //If character is not in order and is in battle, they can't act anymore. Hide their icon.
-        //If character is not in order and is not in battle, they are dead. Destroy their icon.
-    }
 }

@@ -39,22 +39,16 @@ public class CharacterPortraitHandler : MonoBehaviour
             {
                 case CharacterPortraitEmotion.Neutral:
                     return PortraitSet.Neutral;
-                    break;
                 case CharacterPortraitEmotion.Angry:
                     return PortraitSet.Angry;
-                    break;
                 case CharacterPortraitEmotion.Sad:
                     return PortraitSet.Sad;
-                    break;
                 case CharacterPortraitEmotion.Flustered:
                     return PortraitSet.Flustered;
-                    break;
                 case CharacterPortraitEmotion.Edgy:
                     return PortraitSet.Edgy;
-                    break;
                 default:
                     return PortraitSet.Neutral;
-                    break;
             }
         }
     }

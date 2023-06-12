@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -102,12 +103,17 @@ public class BattleManager : MonoBehaviour
 
     private void Start()
     {
+        CombatCanvas.gameObject.SetActive(false);
+
+        TransitionToState(_state);
+
         if (_startBattleOnStartGame) StartBattle(_playerCharactersInBattle, _enemyCharactersInBattle);
     }
 
     public void TransitionToState(BattleState state)
     {
         _state = state;
+
         switch (_state)
         {
             case BattleState.None:
@@ -165,6 +171,7 @@ public class BattleManager : MonoBehaviour
         //Then do the following.
 
         GameManager.instance.CurrentState = GameManager.GameState.Combat;
+        CombatCanvas.gameObject.SetActive(true);
 
         //Instantiate characters on arena
         List<Character> createdPlayers = new List<Character>();
@@ -232,11 +239,12 @@ public class BattleManager : MonoBehaviour
         //Make victorious characters play their victory anim.
         //Once last screen is validated, ask Loader to transition (normally) back to exploration.
         //Transition to BattleState.none.
-
+        TransitionToState(BattleState.None);
         for (int i = CombatCanvas.childCount - 1; i > 0; i--)
         {
             Destroy(CombatCanvas.GetChild(i));
         }
+        CombatCanvas.gameObject.SetActive(false);
         GameManager.instance.CurrentState = GameManager.GameState.Exploration;
     }
 

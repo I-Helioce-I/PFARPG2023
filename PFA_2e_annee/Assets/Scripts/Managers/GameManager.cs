@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public UniversalVariables UniversalVariables;
 
     [Header("GameState")]
+    public GameState StartingState;
     [SerializeField][ReadOnlyInspector] private GameState _internalState;
 
     [Header("Scene")]
@@ -48,6 +49,11 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+    private void Start()
+    {
+        TransitionToState(StartingState);
     }
     private void TransitionToState(GameState toState)
     {
@@ -78,8 +84,12 @@ public class GameManager : MonoBehaviour
             case GameState.Menu:
                 break;
             case GameState.Exploration:
+                Player.instance.ChangeActionMap("Exploration");
+                CameraManager.instance.SetCamera(CameraManager.instance.ExplorationCameras[0]);
                 break;
             case GameState.Combat:
+                Player.instance.ChangeActionMap("UI");
+                CameraManager.instance.SetCamera(CameraManager.instance.BattleCameras[0]);
                 break;
             default:
                 break;

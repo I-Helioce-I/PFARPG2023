@@ -94,7 +94,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 53.05
+  m_fontSize: 18
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 7756025210149190424}
   - component: {fileID: 7756025210149190429}
   - component: {fileID: 7756025210149190428}
+  - component: {fileID: 2266221999894662101}
   m_Layer: 0
   m_Name: ActionButton
   m_TagString: Untagged
@@ -306,7 +307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 4
+    m_Mode: -1
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -336,7 +337,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7756025210149190431}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2266221999894662101}
+        m_TargetAssemblyTypeName: UI_ActionButton, Assembly-CSharp
+        m_MethodName: Click
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &7756025210149190429
 Animator:
   serializedVersion: 4
@@ -375,3 +388,17 @@ MonoBehaviour:
   info: {fileID: 0}
   _actionIcon: {fileID: 7756025209935957898}
   _actionName: {fileID: 7756025208964462613}
+--- !u!114 &2266221999894662101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7756025210149190426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7859a1b9b7386e44a94045c04bfa3dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 7756025209935957898}
+  Name: {fileID: 7756025208964462613}
