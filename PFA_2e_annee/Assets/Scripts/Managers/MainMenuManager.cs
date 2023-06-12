@@ -8,10 +8,15 @@ public class MainMenuManager : MonoBehaviour
 {
     public static MainMenuManager instance;
 
-    [Header("Buttons")]
-    [SerializeField] public Button startButton;
+    [Header("Main Buttons")]
+    [SerializeField] private Button startButton;
     [SerializeField] private Button settingsButton;
     [SerializeField] private Button quitButton;
+
+    private void Start()
+    {
+        startButton.Select();
+    }
 
     public void StartGame()
     {

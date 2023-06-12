@@ -1479,7 +1479,7 @@ MonoBehaviour:
   - {fileID: 1669000052}
   - {fileID: 502793114}
   - {fileID: 1258118209}
-  setArrow: {fileID: 2026926748}
+  setArrow: {fileID: 0}
   selectedButton: {fileID: 0}
   container: {fileID: 0}
 --- !u!1 &596679896
@@ -1966,6 +1966,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1253784689}
     m_Modifications:
+    - target: {fileID: 6262763724395670848, guid: d7e01b66c731ec144a9068fe4a0f8fea,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262763724395670848, guid: d7e01b66c731ec144a9068fe4a0f8fea,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262763724395670848, guid: d7e01b66c731ec144a9068fe4a0f8fea,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6262763724395670849, guid: d7e01b66c731ec144a9068fe4a0f8fea,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1975,6 +1990,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262763724593410345, guid: d7e01b66c731ec144a9068fe4a0f8fea,
+        type: 3}
+      propertyPath: m_Value
+      value: 2.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262763724593410345, guid: d7e01b66c731ec144a9068fe4a0f8fea,
+        type: 3}
+      propertyPath: m_MaxValue
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262763724593410345, guid: d7e01b66c731ec144a9068fe4a0f8fea,
+        type: 3}
+      propertyPath: m_WholeNumbers
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6262763725811918239, guid: d7e01b66c731ec144a9068fe4a0f8fea,
         type: 3}
@@ -4492,18 +4522,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 5048927169779805079}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2026926748 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5048927170179324171, guid: d433160b2dc9c4447ad7e6db0e376b94,
-    type: 3}
-  m_PrefabInstance: {fileID: 5048927169779805079}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d1e476bbaf026d40b0617315a8285b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &2050419200 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7756025210149190425, guid: b138917af6661a0479dbf34e47184d0d,
