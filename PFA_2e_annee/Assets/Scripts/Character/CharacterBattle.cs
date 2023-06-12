@@ -145,6 +145,7 @@ public class CharacterBattle : MonoBehaviour
 
     public void SelectTarget()
     {
+        Debug.Log(3);
         if (_viableTargets.Count < 1 || _currentSelectedAction == null)
         {
             Debug.Log("No viable targets for this ability!");
@@ -166,6 +167,7 @@ public class CharacterBattle : MonoBehaviour
     }
     public void ScrollViableTargetForward()
     {
+        Debug.Log(1);
         _currentTargetingIndex += 1;
         if (_currentTargetingIndex > _viableTargets.Count - 1)
         {
@@ -177,6 +179,7 @@ public class CharacterBattle : MonoBehaviour
     }
     public void ScrollViableTargetBackward()
     {
+        Debug.Log(2);
         _currentTargetingIndex -= 1;
         if (_currentTargetingIndex < 0)
         {

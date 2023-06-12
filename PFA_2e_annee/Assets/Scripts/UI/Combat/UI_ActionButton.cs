@@ -34,6 +34,7 @@ public class UI_ActionButton : MonoBehaviour, ISelectHandler, IDeselectHandler
 
     public void Click()
     {
+        Debug.Log("Clicked bitch");
         ActionSelected?.Invoke(Action);
     }
 }

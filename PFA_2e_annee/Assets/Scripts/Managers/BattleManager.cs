@@ -171,6 +171,7 @@ public class BattleManager : MonoBehaviour
         //Then do the following.
 
         GameManager.instance.CurrentState = GameManager.GameState.Combat;
+        UIManager.instance.CurrentState = UIManager.UIState.Combat;
         CombatCanvas.gameObject.SetActive(true);
 
         //Instantiate characters on arena
@@ -246,6 +247,7 @@ public class BattleManager : MonoBehaviour
         }
         CombatCanvas.gameObject.SetActive(false);
         GameManager.instance.CurrentState = GameManager.GameState.Exploration;
+        UIManager.instance.CurrentState = UIManager.UIState.HUD;
     }
 
     private void RollAllInitiatives()

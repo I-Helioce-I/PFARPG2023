@@ -129,6 +129,7 @@ public class UIManager : MonoBehaviour
                         case CharacterBattle.BattleState.SelectingAction:
                             break;
                         case CharacterBattle.BattleState.Targeting:
+                            Debug.Log(4);
                             _battleManager.ActiveCharacter.Battle.SelectTarget();
                             break;
                         case CharacterBattle.BattleState.Busy:
@@ -162,6 +163,8 @@ public class UIManager : MonoBehaviour
 
     internal void NavigateUp()
     {
+        Debug.Log("NavigateUp.");
+
         switch (_internalState)
         {
             case UIState.None:
@@ -179,6 +182,7 @@ public class UIManager : MonoBehaviour
                         case CharacterBattle.BattleState.SelectingAction:
                             break;
                         case CharacterBattle.BattleState.Targeting:
+                            Debug.Log(5);
                             _battleManager.ActiveCharacter.Battle.ScrollViableTargetForward();
                             break;
                         case CharacterBattle.BattleState.Busy:
@@ -200,6 +204,8 @@ public class UIManager : MonoBehaviour
     }
     internal void NavigateDown()
     {
+        Debug.Log("NavigateDown.");
+
         switch (_internalState)
         {
             case UIState.None:
@@ -217,6 +223,7 @@ public class UIManager : MonoBehaviour
                         case CharacterBattle.BattleState.SelectingAction:
                             break;
                         case CharacterBattle.BattleState.Targeting:
+                            Debug.Log(6);
                             _battleManager.ActiveCharacter.Battle.ScrollViableTargetBackward();
                             break;
                         case CharacterBattle.BattleState.Busy:
@@ -239,6 +246,8 @@ public class UIManager : MonoBehaviour
 
     internal void Return()
     {
+        Debug.Log("Return button done.");
+
         switch (_internalState)
         {
             case UIState.None:
@@ -254,6 +263,7 @@ public class UIManager : MonoBehaviour
                         case CharacterBattle.BattleState.Idle:
                             break;
                         case CharacterBattle.BattleState.SelectingAction:
+                            Debug.Log("Return to selecting tab");
                             switch (CombatMenu.CurrentState)
                             {
                                 case UI_CombatMenu.UICombatMenuState.Closed:
@@ -270,6 +280,7 @@ public class UIManager : MonoBehaviour
                             }
                             break;
                         case CharacterBattle.BattleState.Targeting:
+                            Debug.Log("Return from targeting");
                             _battleManager.ActiveCharacter.Battle.TransitionToState(_battleManager.ActiveCharacter.Battle.CurrentState, CharacterBattle.BattleState.SelectingAction);
                             CombatMenu.ReturnToNavigateFromTargeting();
                             break;
