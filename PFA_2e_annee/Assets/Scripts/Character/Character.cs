@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    public delegate void CharacterEvent(Character character);
+    public event CharacterEvent CharacterDowned = null;
+
     [Header("References")]
     public CharacterStats Stats;
     public CharacterStateHandler State;
@@ -19,10 +22,20 @@ public class Character : MonoBehaviour
     {
         State.TransitionedFromTo -= Stats.OnStateTransition;
         State.TransitionedFromTo += Stats.OnStateTransition;
+
+        Stats.CharacterDowned -= OnCharacterDowned;
+        Stats.CharacterDowned += OnCharacterDowned;
     }
 
     private void OnDisable()
     {
         State.TransitionedFromTo -= Stats.OnStateTransition;
+
+        Stats.CharacterDowned -= OnCharacterDowned;
+    }
+
+    private void OnCharacterDowned()
+    {
+        CharacterDowned?.Invoke(this);
     }
 }

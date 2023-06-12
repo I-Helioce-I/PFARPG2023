@@ -86,12 +86,12 @@ public class UI_ActionSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         Icon.color = action.IconColor;
         Name.text = action.Name;
 
-        string minDamage = action.MinMaxDamage.x.ToString();
-        string maxDamage = action.MinMaxDamage.y.ToString();
+        //string minDamage = action.MinMaxDamage.x.ToString();
+        //string maxDamage = action.MinMaxDamage.y.ToString();
         string damageType = action.TypeOfDamage.ToString();
         string actionNumber = action.NumberOfTimes.ToString();
 
-        Damage.text = actionNumber + " x " + minDamage + "-" + maxDamage + " " + damageType;
+        //Damage.text = actionNumber + " x " + minDamage + "-" + maxDamage + " " + damageType;
 
         ActionSet?.Invoke(action);
     }

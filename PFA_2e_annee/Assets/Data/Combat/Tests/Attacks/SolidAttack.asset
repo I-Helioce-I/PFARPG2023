@@ -16,7 +16,8 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 1dcb01ee029c3724ba50be81112fa84a, type: 3}
   IconColor: {r: 0.8632076, g: 0.9835007, b: 1, a: 1}
   Type: 0
-  MinMaxDamage: {x: 0, y: 0}
+  Damage: 75
+  DamageIsHeal: 0
   TypeOfDamage: 0
   NumberOfTimes: 0
   EtherCost: 0
@@ -27,3 +28,4 @@ MonoBehaviour:
   TargetsAllViableTargets: 0
   AnimationName: Attack
   doesSlide: 1
+  EffectDelayInSeconds: 0.3

@@ -24,6 +24,7 @@ public class BattleManager : MonoBehaviour
 
     [Header("State")]
     [SerializeField][ReadOnlyInspector] private BattleState _state;
+    [SerializeField][ReadOnlyInspector] private int _roundsSinceStartOfBattle;
 
     [Header("Player Team")]
     [SerializeField] private Transform _playerParent;
@@ -41,6 +42,7 @@ public class BattleManager : MonoBehaviour
     public Transform CombatCanvas;
     public CharacterActions CharacterActionsUI;
     public UI_CombatTimelapse CombatTimelapse;
+    private UI_CombatTimelapse _instantiatedTimelapse;
 
     [Header("Enemy Team")]
     [SerializeField] private Transform _enemyParent;
@@ -173,6 +175,7 @@ public class BattleManager : MonoBehaviour
         GameManager.instance.CurrentState = GameManager.GameState.Combat;
         UIManager.instance.CurrentState = UIManager.UIState.Combat;
         CombatCanvas.gameObject.SetActive(true);
+        _roundsSinceStartOfBattle = 0;
 
         //Instantiate characters on arena
         List<Character> createdPlayers = new List<Character>();
@@ -217,13 +220,21 @@ public class BattleManager : MonoBehaviour
         List<Character> allCharacters = GetAllCharactersInBattle();
         foreach(Character character in allCharacters)
         {
+            Debug.Log(character);
+        }
+        foreach(Character character in allCharacters)
+        {
             character.Battle.BattleManager = this;
+            character.CharacterDowned -= OnCharacterDowned;
+            character.CharacterDowned += OnCharacterDowned;
             if (character.Battle.CharacterAnimatorHandler) character.Battle.CharacterAnimatorHandler.Animator.SetBool("isInCombat", true);
         }
 
         UI_CombatTimelapse timelapse = Instantiate<UI_CombatTimelapse>(CombatTimelapse, CombatCanvas);
-        timelapse.BattleManager = this;
-        timelapse.SetEventListening();
+        _instantiatedTimelapse = timelapse;
+        _instantiatedTimelapse.BattleManager = this;
+        _instantiatedTimelapse.SetEventListening();
+
 
         BattleStarted?.Invoke();
         TurnOrderCreated?.Invoke(allCharacters);
@@ -240,14 +251,27 @@ public class BattleManager : MonoBehaviour
         //Make victorious characters play their victory anim.
         //Once last screen is validated, ask Loader to transition (normally) back to exploration.
         //Transition to BattleState.none.
-        TransitionToState(BattleState.None);
-        for (int i = CombatCanvas.childCount - 1; i > 0; i--)
+
+        Destroy(_instantiatedTimelapse.gameObject);
+        //Destroy instantiated characters.
+        foreach(Character character in GetAllCharactersInBattle())
         {
-            Destroy(CombatCanvas.GetChild(i));
+            RemoveCharacter(character);
         }
+
+        //for (int i = CombatCanvas.childCount - 1; i > 0; i--)
+        //{
+        //    Destroy(CombatCanvas.GetChild(i));
+        //}
+        TransitionToState(BattleState.None);
         CombatCanvas.gameObject.SetActive(false);
         GameManager.instance.CurrentState = GameManager.GameState.Exploration;
         UIManager.instance.CurrentState = UIManager.UIState.HUD;
+    }
+
+    private void OnCharacterDowned(Character character)
+    {
+        RemoveCharacter(character);
     }
 
     private void RollAllInitiatives()
@@ -265,6 +289,13 @@ public class BattleManager : MonoBehaviour
 
     public void GetNextInitiative()
     {
+        //Check if there are still enemies on enemy side.
+        if (_enemyCharactersInBattle.Count <= 0)
+        {
+            EndBattle();
+            return;
+        }
+
         if (_turnOrder.Count > 1)
         {
             _turnOrder.Remove(_turnOrder[0]);
@@ -273,6 +304,7 @@ public class BattleManager : MonoBehaviour
         else
         {
             _turnOrder.Clear();
+            _roundsSinceStartOfBattle += 1;
             RollAllInitiatives();
             SetActiveCharacter();
         }
@@ -316,15 +348,27 @@ public class BattleManager : MonoBehaviour
     {
         if (_playerCharactersInBattle.Contains(character))
         {
+            if (_turnOrder.Contains(character))
+            {
+                _turnOrder.Remove(character);
+                TurnOrderAltered?.Invoke(_turnOrder);
+            }
             _playerCharactersInBattle.Remove(character);
-            _turnOrder.Remove(character);
-            TurnOrderAltered?.Invoke(_turnOrder);
+            character.CharacterDowned -= OnCharacterDowned;
+            Destroy(character.gameObject);
+            //Make character have death animation, and then destroy it later.
         }
         else if (_enemyCharactersInBattle.Contains(character))
         {
+            if (_turnOrder.Contains(character))
+            {
+                _turnOrder.Remove(character);
+                TurnOrderAltered?.Invoke(_turnOrder);
+            }
             _enemyCharactersInBattle.Remove(character);
-            _turnOrder.Remove(character);
-            TurnOrderAltered?.Invoke(_turnOrder);
+            character.CharacterDowned -= OnCharacterDowned;
+            Destroy(character.gameObject);
+            //Remove character from play, and then later destroy it.
         }
         else
         {

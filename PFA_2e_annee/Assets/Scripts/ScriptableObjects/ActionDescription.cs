@@ -31,7 +31,8 @@ public class ActionDescription : ScriptableObject
     public Sprite Icon;
     public Color IconColor;
     public ActionType Type;
-    public Vector2 MinMaxDamage;
+    public float Damage;
+    public bool DamageIsHeal = false;
     public DamageType TypeOfDamage;
     public int NumberOfTimes;
     public float EtherCost;
@@ -48,4 +49,5 @@ public class ActionDescription : ScriptableObject
     [Header("Animation")]
     public string AnimationName;
     public bool doesSlide = false;
+    public float EffectDelayInSeconds = 0f;
 }
