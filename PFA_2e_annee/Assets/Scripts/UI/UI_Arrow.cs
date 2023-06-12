@@ -6,11 +6,6 @@ public class UI_Arrow : MonoBehaviour
 {
     [SerializeField] private GameObject arrow;
 
-    private void Start()
-    {
-        arrow.SetActive(false);
-    }
-
     public void SetArrowPosition(Vector3 target)
     {
         transform.position = target;
