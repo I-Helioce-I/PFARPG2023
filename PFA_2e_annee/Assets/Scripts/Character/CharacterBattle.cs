@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterBattle : MonoBehaviour
@@ -28,6 +27,7 @@ public class CharacterBattle : MonoBehaviour
     public KRB_CharacterController CharacterController;
     public CharacterStateHandler CharacterStateHandler;
     public CharacterAnimatorHandler CharacterAnimatorHandler;
+    public CharacterStats CharacterStats;
 
     [Header("Current battle")]
     [SerializeField] private BattleManager _battle;
@@ -69,6 +69,8 @@ public class CharacterBattle : MonoBehaviour
     private Vector3 _slideTargetPosition;
     private Vector3 _slideOriginalPosition;
     private Action _onSlideComplete;
+    private Vector3 _stepForwardPos;
+    private Vector3 _stepBackPos;
 
 
     private float _slideDuration = .5f;
@@ -88,42 +90,6 @@ public class CharacterBattle : MonoBehaviour
             case BattleState.SelectingAction:
                 break;
             case BattleState.Targeting:
-                //Alter this with UI ActionMap controls for battle.
-                //if (Input.GetAxis("Mouse ScrollWheel") > 0) //Up/Down scrolling
-                //{
-                //    _currentTargetingIndex += 1;
-                //    if (_currentTargetingIndex > _viableTargets.Count - 1)
-                //    {
-                //        _currentTargetingIndex = 0;
-                //    }
-                //    _currentTargetingIndicator.transform.position = SetTargetingIndicatorPosition(_currentTargetingIndex);
-                //}
-                //if (Input.GetAxis("Mouse ScrollWheel") < 0)
-                //{
-                //    _currentTargetingIndex -= 1;
-                //    if (_currentTargetingIndex < 0)
-                //    {
-                //        _currentTargetingIndex = _viableTargets.Count - 1;
-                //    }
-                //    _currentTargetingIndicator.transform.position = SetTargetingIndicatorPosition(_currentTargetingIndex);
-                //}
-                //if (Input.GetMouseButtonDown(0)) //Select
-                //{
-                //    if (_viableTargets.Count < 1 || _currentSelectedAction == null) return;
-                //    List<Character> selectedTargets = new List<Character>();
-                //    if (_targetingAllViableTargets)
-                //    {
-                //        foreach (Character target in _viableTargets)
-                //        {
-                //            selectedTargets.Add(target);
-                //        }
-                //    }
-                //    else
-                //    {
-                //        selectedTargets.Add(_viableTargets[_currentTargetingIndex]);
-                //    }
-                //    ActionConfirm(_currentSelectedAction, selectedTargets);
-                //}
                 break;
             case BattleState.Busy:
                 break;
@@ -145,7 +111,6 @@ public class CharacterBattle : MonoBehaviour
 
     public void SelectTarget()
     {
-        Debug.Log(3);
         if (_viableTargets.Count < 1 || _currentSelectedAction == null)
         {
             Debug.Log("No viable targets for this ability!");
@@ -167,7 +132,6 @@ public class CharacterBattle : MonoBehaviour
     }
     public void ScrollViableTargetForward()
     {
-        Debug.Log(1);
         _currentTargetingIndex += 1;
         if (_currentTargetingIndex > _viableTargets.Count - 1)
         {
@@ -179,7 +143,6 @@ public class CharacterBattle : MonoBehaviour
     }
     public void ScrollViableTargetBackward()
     {
-        Debug.Log(2);
         _currentTargetingIndex -= 1;
         if (_currentTargetingIndex < 0)
         {
@@ -402,6 +365,12 @@ public class CharacterBattle : MonoBehaviour
                             onActionComplete();
                         });
                     });
+                    //Delay damage and actioneffects;
+                    foreach(CharacterBattle target in targets)
+                    {
+                        StartCoroutine(DealEffectsTo(target, action, action.EffectDelayInSeconds));
+                    }
+
                 }
                 else
                 {
@@ -431,22 +400,73 @@ public class CharacterBattle : MonoBehaviour
         }
     }
 
+    private IEnumerator DealEffectsTo(CharacterBattle target, ActionDescription action, float delay)
+    {
+        float timer = 0f;
+        while (timer < delay)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        float stunRoll = UnityEngine.Random.Range(0f, 100f);
+        if (stunRoll <= action.StunChance)
+        {
+            //Do stun.
+        }
+
+        if (action.DamageIsHeal)
+        {
+            float totalHeal = 0;
+            totalHeal += action.Damage;
+            switch (action.TypeOfDamage)
+            {
+                case ActionDescription.DamageType.Physical:
+                    totalHeal += CharacterStats.PhysicalDamage.CurrentValue;
+                    break;
+                case ActionDescription.DamageType.Magical:
+                    totalHeal += CharacterStats.MagicalDamage.CurrentValue;
+                    break;
+                default:
+                    break;
+            }
+
+            target.CharacterStats.Health.Heal(totalHeal);
+
+        }
+        else
+        {
+            float totalDamage = 0;
+            totalDamage += action.Damage;
+            switch (action.TypeOfDamage)
+            {
+                case ActionDescription.DamageType.Physical:
+                    totalDamage += CharacterStats.PhysicalDamage.CurrentValue;
+                    totalDamage -= target.CharacterStats.PhysicalResistance.CurrentValue;
+                    break;
+                case ActionDescription.DamageType.Magical:
+                    totalDamage += CharacterStats.MagicalDamage.CurrentValue;
+                    totalDamage -= target.CharacterStats.MagicalResistance.CurrentValue;
+                    break;
+                default:
+                    break;
+            }
+
+            if (totalDamage < 0)
+            {
+                totalDamage = 0;
+            }
+
+            target.CharacterStats.Health.Damage(totalDamage);
+        }
+    }
+
     private void SlideToPosition(Vector3 slideTargetPosition, Action onSlideComplete)
     {
         _slideTargetPosition = slideTargetPosition;
         _slideOriginalPosition = GetPosition();
         _onSlideComplete = onSlideComplete;
         TransitionToState(_state, BattleState.Sliding);
-    }
-
-    public void StepForward()
-    {
-        Vector3 forwardPos = CharacterController.Motor.CharacterForward * 2f;
-    }
-
-    public void StepBack()
-    {
-
     }
 
     public Vector3 GetPosition()

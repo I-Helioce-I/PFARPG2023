@@ -16,7 +16,8 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 13d92e49481d9d342b8ec1faead7d445, type: 3}
   IconColor: {r: 0.8627451, g: 0.9843137, b: 1, a: 1}
   Type: 1
-  MinMaxDamage: {x: 0, y: 0}
+  Damage: 10
+  DamageIsHeal: 0
   TypeOfDamage: 0
   NumberOfTimes: 0
   EtherCost: 0
@@ -27,3 +28,4 @@ MonoBehaviour:
   TargetsAllViableTargets: 0
   AnimationName: Spell
   doesSlide: 0
+  EffectDelayInSeconds: 0.5

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
+    public delegate void CharacterStatsEvent();
+    public event CharacterStatsEvent CharacterDowned = null;
+
     public CharacterStateHandler CharacterStateHandler;
 
     [Header("Stats")]
@@ -184,6 +187,8 @@ public class CharacterStats : MonoBehaviour
         {
             isDown = true;
             Debug.Log("Character has been downed!");
+
+            CharacterDowned?.Invoke();
         }
     }
 

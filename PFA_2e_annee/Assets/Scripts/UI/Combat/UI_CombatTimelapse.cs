@@ -7,11 +7,14 @@ public class UI_CombatTimelapse : MonoBehaviour
     [Header("Battle manager")]
     public BattleManager BattleManager;
 
+    [Header("Parent transform")]
+    public Transform Parent;
+
     [Header("Prefab")]
     public UI_CombatTimelapseCharacterIcon Prefab;
 
-    private List<UI_CombatTimelapseCharacterIcon> _characterIcons = new List<UI_CombatTimelapseCharacterIcon>();
-    private List<Character> _charactersInCombat = new List<Character>();
+    public List<UI_CombatTimelapseCharacterIcon> _characterIcons = new List<UI_CombatTimelapseCharacterIcon>();
+    public List<Character> _charactersInCombat = new List<Character>();
 
     //private void OnEnable()
     //{
@@ -46,13 +49,22 @@ public class UI_CombatTimelapse : MonoBehaviour
         BattleManager.TurnOrderCreated += OnTurnOrderCreated;
     }
 
+    private void OnDisable()
+    {
+        BattleManager.TurnOrderSet -= OnTurnOrderSet;
+        BattleManager.TurnOrderAltered -= OnTurnOrderAltered;
+        BattleManager.TurnOrderCreated -= OnTurnOrderCreated;
+    }
+
     private void OnTurnOrderCreated(List<Character> characters)
     {
+        _characterIcons.Clear();
+        _charactersInCombat.Clear();
         _charactersInCombat = characters;
 
         foreach (Character character in characters)
         {
-            UI_CombatTimelapseCharacterIcon newIcon = Instantiate<UI_CombatTimelapseCharacterIcon>(Prefab, this.transform);
+            UI_CombatTimelapseCharacterIcon newIcon = Instantiate<UI_CombatTimelapseCharacterIcon>(Prefab, Parent);
             newIcon.RepresentedCharacter = character;
             newIcon.ForceSetValue(0f);
             newIcon.CharacterIcon.color = character.Color;
@@ -119,6 +131,10 @@ public class UI_CombatTimelapse : MonoBehaviour
 
             if (!isInOrder)
             {
+                foreach(UI_CombatTimelapseCharacterIcon ScharacterIcon in _characterIcons)
+                {
+                    Debug.Log(ScharacterIcon.name);
+                }
                 characterIcon.SetIconVisible(false);
             }
         }
@@ -176,5 +192,11 @@ public class UI_CombatTimelapse : MonoBehaviour
         newIcon.RepresentedCharacter = character;
         _characterIcons.Add(newIcon);
         _charactersInCombat.Add(character);
+    }
+
+    public void ClearCharacters()
+    {
+        _characterIcons.Clear();
+        _charactersInCombat.Clear();
     }
 }
