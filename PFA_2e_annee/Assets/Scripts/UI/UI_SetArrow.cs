@@ -6,19 +6,11 @@ public class UI_SetArrow : MonoBehaviour, ISelectHandler, IDeselectHandler
     [Header("Put Arrow prefab")]
     [SerializeField] private GameObject arrow;
 
-    [Header("SFX")]
-    [SerializeField] private AudioSourceManager audioSourceManager;
-    [SerializeField] private AudioClip audioClip;
-
     private GameObject arrowContainer;
 
     public void OnSelect(BaseEventData eventData)
     {
         CreateArrow();
-        if (audioClip != null)
-        {
-            PlaySound();
-        }
     }
 
     public void OnDeselect(BaseEventData eventData)
@@ -45,10 +37,5 @@ public class UI_SetArrow : MonoBehaviour, ISelectHandler, IDeselectHandler
     private void DestroyArrow()
     {
         Destroy(arrowContainer);
-    }
-
-    private void PlaySound()
-    {
-        audioSourceManager.sfx.PlayOneShot(audioClip);
     }
 }
