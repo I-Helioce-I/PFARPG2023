@@ -14,6 +14,7 @@ public class Character : MonoBehaviour
     public InteractibleHandler InteractibleHandler;
     public CharacterStateHandler CharacterStateHandler;
     public KRB_CharacterController CharacterController;
+    public CharacterConditionHandler CharacterConditions;
 
     [Header("Debug")]
     public Color Color;

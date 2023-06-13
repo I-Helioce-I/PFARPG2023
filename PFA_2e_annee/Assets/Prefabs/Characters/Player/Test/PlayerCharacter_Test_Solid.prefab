@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 3996712886237203655}
   - component: {fileID: 3996712886237203654}
   - component: {fileID: 5170518434721278900}
+  - component: {fileID: 3324951757155525243}
   m_Layer: 7
   m_Name: PlayerCharacter_Test_Solid
   m_TagString: Untagged
@@ -280,6 +281,7 @@ MonoBehaviour:
   InteractibleHandler: {fileID: 3996712886237203653}
   CharacterStateHandler: {fileID: 3996712886237203658}
   CharacterController: {fileID: 3996712886237203657}
+  CharacterConditions: {fileID: 3324951757155525243}
   Color: {r: 0.8627451, g: 0.9843137, b: 1, a: 1}
 --- !u!114 &3996712886237203656
 MonoBehaviour:
@@ -414,6 +416,7 @@ MonoBehaviour:
   CharacterStateHandler: {fileID: 3996712886237203658}
   CharacterAnimatorHandler: {fileID: 6733629594955245181}
   CharacterStats: {fileID: 3996712886237203656}
+  ConditionHandler: {fileID: 3324951757155525243}
   _battle: {fileID: 0}
   CharacterActions: {fileID: 0}
   ActionSets:
@@ -443,6 +446,19 @@ MonoBehaviour:
   - {fileID: 3996712886237203659}
   - {fileID: 3996712886237203659}
   - {fileID: 3996712886237203659}
+--- !u!114 &3324951757155525243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3996712886237203661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17118157fcfb13a41b071e006f9c9416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Conditions: []
 --- !u!1 &3996712886813740578
 GameObject:
   m_ObjectHideFlags: 0

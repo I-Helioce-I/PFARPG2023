@@ -28,6 +28,7 @@ public class CharacterBattle : MonoBehaviour
     public CharacterStateHandler CharacterStateHandler;
     public CharacterAnimatorHandler CharacterAnimatorHandler;
     public CharacterStats CharacterStats;
+    public CharacterConditionHandler ConditionHandler;
 
     [Header("Current battle")]
     [SerializeField] private BattleManager _battle;
@@ -412,6 +413,7 @@ public class CharacterBattle : MonoBehaviour
         float stunRoll = UnityEngine.Random.Range(0f, 100f);
         if (stunRoll <= action.StunChance)
         {
+            target.ConditionHandler.IsStunned = true;
             //Do stun.
         }
 

@@ -247,6 +247,7 @@ GameObject:
   - component: {fileID: 67962797526733612}
   - component: {fileID: 67962797526733614}
   - component: {fileID: 67962797526733613}
+  - component: {fileID: 821197540783527357}
   m_Layer: 0
   m_Name: EnemyCharacter_Yellow
   m_TagString: Untagged
@@ -288,6 +289,7 @@ MonoBehaviour:
   InteractibleHandler: {fileID: 0}
   CharacterStateHandler: {fileID: 67962797526733651}
   CharacterController: {fileID: 67962797526733612}
+  CharacterConditions: {fileID: 821197540783527357}
   Color: {r: 1, g: 0.8518007, b: 0, a: 1}
 --- !u!114 &67962797526733648
 MonoBehaviour:
@@ -377,6 +379,7 @@ MonoBehaviour:
   CharacterStateHandler: {fileID: 67962797526733651}
   CharacterAnimatorHandler: {fileID: 0}
   CharacterStats: {fileID: 67962797526733648}
+  ConditionHandler: {fileID: 821197540783527357}
   _battle: {fileID: 0}
   CharacterActions: {fileID: 0}
   ActionSets:
@@ -505,3 +508,16 @@ MonoBehaviour:
   CheckMovementInitialOverlaps: 1
   KillVelocityWhenExceedMaxMovementIterations: 1
   KillRemainingMovementWhenExceedMaxMovementIterations: 1
+--- !u!114 &821197540783527357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67962797526733654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17118157fcfb13a41b071e006f9c9416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Conditions: []
