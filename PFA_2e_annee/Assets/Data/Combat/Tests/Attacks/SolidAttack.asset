@@ -16,12 +16,65 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 1dcb01ee029c3724ba50be81112fa84a, type: 3}
   IconColor: {r: 0.8632076, g: 0.9835007, b: 1, a: 1}
   Type: 0
-  Damage: 75
+  Damage: 25
   DamageIsHeal: 0
   TypeOfDamage: 0
   NumberOfTimes: 0
   EtherCost: 0
   StunChance: 0
+  TemperatureChange: 0
+  StrengthModifier:
+    Type: 100
+    Value: 0
+    Order: 100
+  AgilityModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  IntelligenceModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  ConstitutionModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  VitalityModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  LuckModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  HealthModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  EtherModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  SpeedModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  PhysDMGModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  PhysRESModifier:
+    Type: 100
+    Value: 0
+    Order: 0
+  MagDMGModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  MagRESModifier:
+    Type: 0
+    Value: 0
+    Order: 0
   ViableSourceRow: 0
   ViableTargetRow: 0
   TargetsAllies: 0
