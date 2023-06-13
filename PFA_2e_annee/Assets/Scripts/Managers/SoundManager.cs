@@ -28,6 +28,10 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        SetMasterVolume(MasterVolume);
+        SetMusicVolume(MusicVolume);
+        SetSFXVolume(SFXVolume);
     }
 
     public void SetMasterVolume(float volume)
@@ -53,6 +57,7 @@ public class SoundManager : MonoBehaviour
         if (clip == null)
         {
             Debug.Log("Clip that needed to be played is nonexistent!");
+            return;
         }
         SFXSource.PlayOneShot(clip);
     }
@@ -62,6 +67,7 @@ public class SoundManager : MonoBehaviour
         if (clips.Count <= 0)
         {
             Debug.Log("No clips in clip list sent!");
+            return;
         }
 
         int randomIndex = Random.Range(0, clips.Count);
@@ -75,6 +81,7 @@ public class SoundManager : MonoBehaviour
         if (music == null)
         {
             Debug.Log("Music that needed to be played is nonexistent!");
+            return;
         }
         MusicSource.clip = music;
         MusicSource.loop = true;
