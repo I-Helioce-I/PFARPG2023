@@ -38,6 +38,22 @@ public class ActionDescription : ScriptableObject
     public float EtherCost;
     [Range(0.0f, 100.0f)]
     public float StunChance;
+    public float TemperatureChange = 0f;
+
+    [Header("Stat modifiers")]
+    public StatModifier StrengthModifier;
+    public StatModifier AgilityModifier;
+    public StatModifier IntelligenceModifier;
+    public StatModifier ConstitutionModifier;
+    public StatModifier VitalityModifier;
+    public StatModifier LuckModifier;
+    public StatModifier HealthModifier;
+    public StatModifier EtherModifier;
+    public StatModifier SpeedModifier;
+    public StatModifier PhysDMGModifier;
+    public StatModifier PhysRESModifier;
+    public StatModifier MagDMGModifier;
+    public StatModifier MagRESModifier;
 
     //Will have to change this system below in BattleManager.
     [Header("Need to change to adapt to new targeting rules.")]

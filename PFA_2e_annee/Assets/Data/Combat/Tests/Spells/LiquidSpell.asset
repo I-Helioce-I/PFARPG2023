@@ -16,14 +16,69 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 5b67dc24f78724d4d9147831919a709f, type: 3}
   IconColor: {r: 0, g: 0.49803922, b: 1, a: 1}
   Type: 1
-  MinMaxDamage: {x: 0, y: 0}
+  Damage: 10
+  DamageIsHeal: 0
   TypeOfDamage: 0
   NumberOfTimes: 0
-  EtherCost: 0
+  EtherCost: 10
   StunChance: 0
+  TemperatureChange: 0
+  StrengthModifier:
+    Type: 100
+    Value: 0
+    Order: 100
+  AgilityModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  IntelligenceModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  ConstitutionModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  VitalityModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  LuckModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  HealthModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  EtherModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  SpeedModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  PhysDMGModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  PhysRESModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  MagDMGModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  MagRESModifier:
+    Type: 0
+    Value: 0
+    Order: 0
   ViableSourceRow: 0
   ViableTargetRow: 0
   TargetsAllies: 0
   TargetsAllViableTargets: 0
   AnimationName: Spell
   doesSlide: 0
+  EffectDelayInSeconds: 0

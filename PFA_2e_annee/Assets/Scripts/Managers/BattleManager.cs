@@ -42,7 +42,13 @@ public class BattleManager : MonoBehaviour
     public Transform CombatCanvas;
     public CharacterActions CharacterActionsUI;
     public UI_CombatTimelapse CombatTimelapse;
+    public UI_PlayerCharacterCombatSheet PlayerCharacterCombatSheet;
+    public UI_EnemyCharacterCombatSheet EnemyCharacterCombatSheet;
+    public Transform PlayerCharacterCombatSheetParent;
+    public Transform EnemyCharacterCombatSheetParent;
     private UI_CombatTimelapse _instantiatedTimelapse;
+    private List<UI_PlayerCharacterCombatSheet> _instantiatedPCSheets = new List<UI_PlayerCharacterCombatSheet>();
+    private List<UI_EnemyCharacterCombatSheet> _instantiatedEnemySheets = new List<UI_EnemyCharacterCombatSheet>();
 
     [Header("Enemy Team")]
     [SerializeField] private Transform _enemyParent;
@@ -220,14 +226,24 @@ public class BattleManager : MonoBehaviour
         List<Character> allCharacters = GetAllCharactersInBattle();
         foreach(Character character in allCharacters)
         {
-            Debug.Log(character);
-        }
-        foreach(Character character in allCharacters)
-        {
             character.Battle.BattleManager = this;
             character.CharacterDowned -= OnCharacterDowned;
             character.CharacterDowned += OnCharacterDowned;
             if (character.Battle.CharacterAnimatorHandler) character.Battle.CharacterAnimatorHandler.Animator.SetBool("isInCombat", true);
+        }
+
+        foreach(Character character in _playerCharactersInBattle)
+        {
+            UI_PlayerCharacterCombatSheet characterCombatSheet = Instantiate<UI_PlayerCharacterCombatSheet>(PlayerCharacterCombatSheet, PlayerCharacterCombatSheetParent);
+            characterCombatSheet.InitializeSheet(character.Stats, null);
+            _instantiatedPCSheets.Add(characterCombatSheet);
+        }
+
+        foreach(Character character in _enemyCharactersInBattle)
+        {
+            UI_EnemyCharacterCombatSheet characterCombatSheet = Instantiate<UI_EnemyCharacterCombatSheet>(EnemyCharacterCombatSheet, EnemyCharacterCombatSheetParent);
+            characterCombatSheet.InitializeSheet(character.Stats, null);
+            _instantiatedEnemySheets.Add(characterCombatSheet);
         }
 
         UI_CombatTimelapse timelapse = Instantiate<UI_CombatTimelapse>(CombatTimelapse, CombatCanvas);
@@ -253,8 +269,19 @@ public class BattleManager : MonoBehaviour
         //Transition to BattleState.none.
 
         Destroy(_instantiatedTimelapse.gameObject);
+        _instantiatedTimelapse = null;
+        foreach(UI_PlayerCharacterCombatSheet PCCombatSheet in _instantiatedPCSheets)
+        {
+            Destroy(PCCombatSheet.gameObject);
+        }
+        _instantiatedPCSheets.Clear();
+        foreach (UI_EnemyCharacterCombatSheet EnemyCombatSheet in _instantiatedEnemySheets)
+        {
+            Destroy(EnemyCombatSheet.gameObject);
+        }
+        _instantiatedEnemySheets.Clear();
         //Destroy instantiated characters.
-        foreach(Character character in GetAllCharactersInBattle())
+        foreach (Character character in GetAllCharactersInBattle())
         {
             RemoveCharacter(character);
         }

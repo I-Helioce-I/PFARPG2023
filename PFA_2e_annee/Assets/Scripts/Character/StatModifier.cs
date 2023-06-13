@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public enum StatModifierType
 {
@@ -8,6 +9,7 @@ public enum StatModifierType
     PercentageAdditive = 200,
     PercentageMultiply = 300,
 }
+[Serializable]
 public class StatModifier
 {
     public StatModifierType Type;

@@ -131,10 +131,6 @@ public class UI_CombatTimelapse : MonoBehaviour
 
             if (!isInOrder)
             {
-                foreach(UI_CombatTimelapseCharacterIcon ScharacterIcon in _characterIcons)
-                {
-                    Debug.Log(ScharacterIcon.name);
-                }
                 characterIcon.SetIconVisible(false);
             }
         }

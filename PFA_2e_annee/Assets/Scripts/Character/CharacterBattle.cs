@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class CharacterBattle : MonoBehaviour
@@ -297,6 +298,7 @@ public class CharacterBattle : MonoBehaviour
         _currentSelectedAction = null;
         PurgeAllActionSlots();
         CloseActionsMenu();
+        SpendEther(action.EtherCost);
         TransitionToState(_state, BattleState.Busy);
         List<CharacterBattle> targetsBattle = new List<CharacterBattle>();
         foreach(Character character in targets)
@@ -307,6 +309,11 @@ public class CharacterBattle : MonoBehaviour
         {
             BattleManager.instance.GetNextInitiative();
         });
+    }
+
+    private void SpendEther(float cost)
+    {
+        CharacterStats.Ether.Damage(cost);
     }
 
     private void PurgeAllActionSlots()
@@ -366,12 +373,6 @@ public class CharacterBattle : MonoBehaviour
                             onActionComplete();
                         });
                     });
-                    //Delay damage and actioneffects;
-                    foreach(CharacterBattle target in targets)
-                    {
-                        StartCoroutine(DealEffectsTo(target, action, action.EffectDelayInSeconds));
-                    }
-
                 }
                 else
                 {
@@ -380,6 +381,11 @@ public class CharacterBattle : MonoBehaviour
                         TransitionToState(_state, BattleState.Idle);
                         onActionComplete();
                     });
+                }
+                //Delay damage and actioneffects;
+                foreach (CharacterBattle target in targets)
+                {
+                    StartCoroutine(DealEffectsTo(target, action, action.EffectDelayInSeconds));
                 }
             });
         }
@@ -392,12 +398,18 @@ public class CharacterBattle : MonoBehaviour
                 {
                     onActionComplete();
                 });
+
             }
             else
             {
                 onActionComplete();
             }
-      
+            //Delay damage and effects
+            foreach (CharacterBattle target in targets)
+            {
+                StartCoroutine(DealEffectsTo(target, action, action.EffectDelayInSeconds));
+            }
+
         }
     }
 
@@ -434,6 +446,7 @@ public class CharacterBattle : MonoBehaviour
             }
 
             target.CharacterStats.Health.Heal(totalHeal);
+            Debug.Log(this + " healed " + totalHeal + " health to " + target.name + "!");
 
         }
         else
@@ -460,6 +473,73 @@ public class CharacterBattle : MonoBehaviour
             }
 
             target.CharacterStats.Health.Damage(totalDamage);
+            Debug.Log(this + " dealt " + totalDamage + " damage to " + target.name + "!");
+        }
+
+        if (action.StrengthModifier.Value != 0)
+        {
+            StatModifier modifier = new StatModifier(action.StrengthModifier.Value, action.StrengthModifier.Type, this);
+            target.CharacterStats.Strength.AddModifier(modifier);
+        }
+        if (action.AgilityModifier.Value != 0)
+        {
+            StatModifier modifier = new StatModifier(action.AgilityModifier.Value, action.AgilityModifier.Type, this);
+            target.CharacterStats.Agility.AddModifier(modifier);
+        }
+        if (action.IntelligenceModifier.Value != 0)
+        {
+            StatModifier modifier = new StatModifier(action.IntelligenceModifier.Value, action.IntelligenceModifier.Type, this);
+            target.CharacterStats.Intelligence.AddModifier(modifier);
+        }
+        if (action.ConstitutionModifier.Value != 0)
+        {
+            StatModifier modifier = new StatModifier(action.ConstitutionModifier.Value, action.ConstitutionModifier.Type, this);
+            target.CharacterStats.Constitution.AddModifier(modifier);
+        }
+        if (action.VitalityModifier.Value != 0)
+        {
+            StatModifier modifier = new StatModifier(action.VitalityModifier.Value, action.VitalityModifier.Type, this);
+            target.CharacterStats.Vitality.AddModifier(modifier);
+        }
+        if (action.LuckModifier.Value != 0)
+        {
+            StatModifier modifier = new StatModifier(action.LuckModifier.Value, action.LuckModifier.Type, this);
+            target.CharacterStats.Luck.AddModifier(modifier);
+        }
+        if (action.HealthModifier.Value != 0)
+        {
+            StatModifier modifier = new StatModifier(action.HealthModifier.Value, action.HealthModifier.Type, this);
+            target.CharacterStats.Health.AddModifier(modifier);
+        }
+        if (action.EtherModifier.Value != 0)
+        {
+            StatModifier modifier = new StatModifier(action.EtherModifier.Value, action.EtherModifier.Type, this);
+            target.CharacterStats.Ether.AddModifier(modifier);
+        }
+        if (action.SpeedModifier.Value != 0)
+        {
+            StatModifier modifier = new StatModifier(action.SpeedModifier.Value, action.SpeedModifier.Type, this);
+            target.CharacterStats.Speed.AddModifier(modifier);
+        }
+        if (action.PhysDMGModifier.Value != 0)
+        {
+            StatModifier modifier = new StatModifier(action.PhysDMGModifier.Value, action.PhysDMGModifier.Type, this);
+            target.CharacterStats.PhysicalDamage.AddModifier(modifier);
+        }
+        if (action.PhysRESModifier.Value != 0)
+        {
+            StatModifier modifier = new StatModifier(action.PhysRESModifier.Value, action.PhysRESModifier.Type, this);
+            target.CharacterStats.PhysicalResistance.AddModifier(modifier);
+        }
+        if (action.MagDMGModifier.Value != 0)
+        {
+            StatModifier modifier = new StatModifier(action.MagDMGModifier.Value, action.MagDMGModifier.Type, this);
+            target.CharacterStats.MagicalDamage.AddModifier(modifier);
+        }
+        if (action.MagRESModifier.Value != 0)
+        {
+            StatModifier modifier = new StatModifier(action.MagRESModifier.Value, action.MagRESModifier.Type, this);
+            target.CharacterStats.MagicalResistance.AddModifier(modifier);
         }
     }
 

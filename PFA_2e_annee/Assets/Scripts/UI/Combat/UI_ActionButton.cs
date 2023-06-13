@@ -34,7 +34,22 @@ public class UI_ActionButton : MonoBehaviour, ISelectHandler, IDeselectHandler
 
     public void Click()
     {
-        Debug.Log("Clicked bitch");
-        ActionSelected?.Invoke(Action);
+        if (HasEnoughEther())
+        {
+            ActionSelected?.Invoke(Action);
+        }
+    }
+
+    private bool HasEnoughEther()
+    {
+        if (BattleManager.instance.ActiveCharacter.Stats.Ether.CurrentValue >= Action.EtherCost)
+        {
+            return true;
+        }
+        else
+        {
+            Debug.Log("You don't have enough Ether for this ability!");
+            return false;
+        }
     }
 }
