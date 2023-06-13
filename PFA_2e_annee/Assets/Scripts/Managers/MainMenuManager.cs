@@ -13,13 +13,23 @@ public class MainMenuManager : MonoBehaviour
 
     [Header("Settings Panel")]
     [SerializeField] private GameObject settingsPanel;
-    [SerializeField] private Toggle volumeToggle;
-    [SerializeField] private Slider volumeSlider;
+    [SerializeField] private GameObject settingsHolder;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
 
     private void Start()
     {
         startButton.Select();
-        settingsPanel.SetActive(false);
     }
 
     public void StartGame()
@@ -30,16 +40,12 @@ public class MainMenuManager : MonoBehaviour
     public void OpenSettings()
     {
         MainButtonInteractableSwitch(false);
-
-        settingsPanel.SetActive(true);
-        volumeToggle.Select();
+        Instantiate(settingsPanel, settingsHolder.transform);
     }
 
     public void CloseSettings()
     {
         MainButtonInteractableSwitch(true);
-
-        settingsPanel.SetActive(false);
         startButton.Select();
     }
 
@@ -50,8 +56,8 @@ public class MainMenuManager : MonoBehaviour
 
     private void MainButtonInteractableSwitch(bool interactable)
     {
-        startButton.interactable = interactable;
-        settingsButton.interactable = interactable;
-        quitButton.interactable = interactable;
+        startButton.gameObject.SetActive(interactable);
+        settingsButton.gameObject.SetActive(interactable);
+        quitButton.gameObject.SetActive(interactable);
     }
 }
