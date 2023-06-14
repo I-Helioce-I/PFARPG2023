@@ -12,9 +12,10 @@ public class UIManager : MonoBehaviour
     public event UIStateEvent TransitionedFromTo = null;
 
     [Header("Object references")]
-    [SerializeField] private DialogueUI _dialogueUI;
-    [SerializeField] private BattleManager _battleManager;
+    public DialogueUI DialogueUI;
+    public BattleManager BattleManager;
     public UI_CombatMenu CombatMenu;
+    public UI_Transitioner Transitioner;
 
     public enum UIState
     {
@@ -119,9 +120,9 @@ public class UIManager : MonoBehaviour
             case UIState.HUD:
                 break;
             case UIState.Combat:
-                if (_battleManager.PlayerCharactersInBattle.Contains(_battleManager.ActiveCharacter))
+                if (BattleManager.PlayerCharactersInBattle.Contains(BattleManager.ActiveCharacter))
                 {
-                    CharacterBattle.BattleState state = _battleManager.ActiveCharacter.Battle.CurrentState;
+                    CharacterBattle.BattleState state = BattleManager.ActiveCharacter.Battle.CurrentState;
                     switch (state)
                     {
                         case CharacterBattle.BattleState.Idle:
@@ -129,7 +130,7 @@ public class UIManager : MonoBehaviour
                         case CharacterBattle.BattleState.SelectingAction:
                             break;
                         case CharacterBattle.BattleState.Targeting:
-                            _battleManager.ActiveCharacter.Battle.SelectTarget();
+                            BattleManager.ActiveCharacter.Battle.SelectTarget();
                             break;
                         case CharacterBattle.BattleState.Busy:
                             break;
@@ -142,15 +143,15 @@ public class UIManager : MonoBehaviour
                 }
                 break;
             case UIState.Dialogue:
-                if (_dialogueUI.CurrentWritingCoroutine != null)
+                if (DialogueUI.CurrentWritingCoroutine != null)
                 {
                     Debug.Log("Force write all text");
-                    _dialogueUI.ForceWriteAllText();
+                    DialogueUI.ForceWriteAllText();
                 }
                 else
                 {
                     Debug.Log("Check next line!");
-                    _dialogueUI.CheckNextDialogueLine();
+                    DialogueUI.CheckNextDialogueLine();
                 }
                 break;
             case UIState.Pause:
@@ -169,9 +170,9 @@ public class UIManager : MonoBehaviour
             case UIState.HUD:
                 break;
             case UIState.Combat:
-                if (_battleManager.PlayerCharactersInBattle.Contains(_battleManager.ActiveCharacter))
+                if (BattleManager.PlayerCharactersInBattle.Contains(BattleManager.ActiveCharacter))
                 {
-                    CharacterBattle.BattleState state = _battleManager.ActiveCharacter.Battle.CurrentState;
+                    CharacterBattle.BattleState state = BattleManager.ActiveCharacter.Battle.CurrentState;
                     switch (state)
                     {
                         case CharacterBattle.BattleState.Idle:
@@ -179,7 +180,7 @@ public class UIManager : MonoBehaviour
                         case CharacterBattle.BattleState.SelectingAction:
                             break;
                         case CharacterBattle.BattleState.Targeting:
-                            _battleManager.ActiveCharacter.Battle.ScrollViableTargetForward();
+                            BattleManager.ActiveCharacter.Battle.ScrollViableTargetForward();
                             break;
                         case CharacterBattle.BattleState.Busy:
                             break;
@@ -207,9 +208,9 @@ public class UIManager : MonoBehaviour
             case UIState.HUD:
                 break;
             case UIState.Combat:
-                if (_battleManager.PlayerCharactersInBattle.Contains(_battleManager.ActiveCharacter))
+                if (BattleManager.PlayerCharactersInBattle.Contains(BattleManager.ActiveCharacter))
                 {
-                    CharacterBattle.BattleState state = _battleManager.ActiveCharacter.Battle.CurrentState;
+                    CharacterBattle.BattleState state = BattleManager.ActiveCharacter.Battle.CurrentState;
                     switch (state)
                     {
                         case CharacterBattle.BattleState.Idle:
@@ -217,7 +218,7 @@ public class UIManager : MonoBehaviour
                         case CharacterBattle.BattleState.SelectingAction:
                             break;
                         case CharacterBattle.BattleState.Targeting:
-                            _battleManager.ActiveCharacter.Battle.ScrollViableTargetBackward();
+                            BattleManager.ActiveCharacter.Battle.ScrollViableTargetBackward();
                             break;
                         case CharacterBattle.BattleState.Busy:
                             break;
@@ -246,9 +247,9 @@ public class UIManager : MonoBehaviour
             case UIState.HUD:
                 break;
             case UIState.Combat:
-                if (_battleManager.PlayerCharactersInBattle.Contains(_battleManager.ActiveCharacter))
+                if (BattleManager.PlayerCharactersInBattle.Contains(BattleManager.ActiveCharacter))
                 {
-                    CharacterBattle.BattleState state = _battleManager.ActiveCharacter.Battle.CurrentState;
+                    CharacterBattle.BattleState state = BattleManager.ActiveCharacter.Battle.CurrentState;
                     switch (state)
                     {
                         case CharacterBattle.BattleState.Idle:
@@ -270,7 +271,7 @@ public class UIManager : MonoBehaviour
                             }
                             break;
                         case CharacterBattle.BattleState.Targeting:
-                            _battleManager.ActiveCharacter.Battle.TransitionToState(_battleManager.ActiveCharacter.Battle.CurrentState, CharacterBattle.BattleState.SelectingAction);
+                            BattleManager.ActiveCharacter.Battle.TransitionToState(BattleManager.ActiveCharacter.Battle.CurrentState, CharacterBattle.BattleState.SelectingAction);
                             CombatMenu.ReturnToNavigateFromTargeting();
                             break;
                         case CharacterBattle.BattleState.Busy:

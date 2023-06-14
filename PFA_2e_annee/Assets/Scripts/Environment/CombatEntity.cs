@@ -10,11 +10,17 @@ public class CombatEntity : MonoBehaviour
     {
         CombatEntity handlerEntities = handler.GetComponent<CombatEntity>();
 
-        BattleManager.instance.StartBattle(handlerEntities.CharactersRepresentedInCombat, CharactersRepresentedInCombat);
+        UIManager.instance.Transitioner.Transition(1f, () =>
+        {
+            BattleManager.instance.StartBattle(handlerEntities.CharactersRepresentedInCombat, CharactersRepresentedInCombat);
+        });
     }
 
     public void StartCombatWith(List<Character> otherCharacters)
     {
-        BattleManager.instance.StartBattle(otherCharacters, CharactersRepresentedInCombat);
+        UIManager.instance.Transitioner.Transition(1f, () =>
+        {
+            BattleManager.instance.StartBattle(otherCharacters, CharactersRepresentedInCombat);
+        });
     }
 }
