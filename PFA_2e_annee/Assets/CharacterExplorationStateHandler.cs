@@ -1,54 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public enum CharacterTypeState
+public class CharacterExplorationStateHandler : MonoBehaviour
 {
-    None,
-    Solid,
-    Liquid,
-    Gas,
-    TriplePoint,
-}
-public class CharacterStateHandler : MonoBehaviour
-{
-    public delegate void CharacterTypeStateEvent(CharacterTypeState fromState, CharacterTypeState toState);
-    public event CharacterTypeStateEvent TransitionedFromTo = null;
+    public delegate void CharacterExplorationTypeStateEvent(CharacterTypeState fromState, CharacterTypeState toState);
+    public event CharacterExplorationTypeStateEvent TransitionedFromTo = null;
 
-    public CharacterTypeState StartingState;
-
-    [SerializeField][ReadOnlyInspector] private CharacterTypeState _internalState;
+    [SerializeField] private CharacterTypeState _representedState;
 
     public List<CharacterTypeState> PossibleStates = new List<CharacterTypeState>();
 
-    public GameObject SolidCharacterMesh;
-    public GameObject LiquidCharacterMesh;
-    public GameObject GasCharacterMesh;
+    public Character SolidCharacter;
+    public Character LiquidCharacter;
+    public Character GasCharacter;
 
-    public CharacterTypeState CharacterTypeState
+    public CharacterTypeState RepresentedState
     {
         get
         {
-            return _internalState;
+            return _representedState;
         }
         set
         {
-            if (_internalState == value) return;
+            if (_representedState == value) return;
             TransitionToState(value);
         }
     }
 
-    private void Awake()
+    private void Start()
     {
-        CharacterTypeState = StartingState;
-        TransitionToState(StartingState);
+        
     }
 
     private void TransitionToState(CharacterTypeState toState)
     {
-        CharacterTypeState fromState = _internalState;
-        _internalState = toState;
+        CharacterTypeState fromState = _representedState;
 
         OnCharacterTransition(fromState, toState);
 
@@ -57,18 +44,23 @@ public class CharacterStateHandler : MonoBehaviour
 
     private void OnCharacterTransition(CharacterTypeState fromState, CharacterTypeState toState)
     {
+        Quaternion rotation = Player.instance.CharacterController.Motor.TransientRotation;
+        Vector3 position = Player.instance.CharacterController.Motor.TransientPosition;
+        Player.instance.CharacterController.Motor.SetPosition(PrisonManager.instance.PrisonSpot.position);
+        Player.instance.CharacterController.Motor.enabled = false;
+
+        Player.instance.Character = null;
+        Player.instance.CharacterController = null;
+
         switch (fromState)
         {
             case CharacterTypeState.None:
                 break;
             case CharacterTypeState.Solid:
-                SolidCharacterMesh.SetActive(false);
                 break;
             case CharacterTypeState.Liquid:
-                LiquidCharacterMesh.SetActive(false);
                 break;
             case CharacterTypeState.Gas:
-                GasCharacterMesh.SetActive(false);
                 break;
             case CharacterTypeState.TriplePoint:
                 break;
@@ -81,26 +73,26 @@ public class CharacterStateHandler : MonoBehaviour
             case CharacterTypeState.None:
                 break;
             case CharacterTypeState.Solid:
-                SolidCharacterMesh.SetActive(true);
+                Player.instance.Character = SolidCharacter;
+                Player.instance.CharacterController = SolidCharacter.CharacterController;
                 break;
             case CharacterTypeState.Liquid:
-                LiquidCharacterMesh.SetActive(true);
+                Player.instance.Character = LiquidCharacter;
+                Player.instance.CharacterController = LiquidCharacter.CharacterController;
                 break;
             case CharacterTypeState.Gas:
-                GasCharacterMesh.SetActive(true);
+                Player.instance.Character = GasCharacter;
+                Player.instance.CharacterController = GasCharacter.CharacterController;
                 break;
             case CharacterTypeState.TriplePoint:
                 break;
             default:
                 break;
         }
-    }
 
-    private void ForceTransitionNoCalls(CharacterTypeState toState)
-    {
-        CharacterTypeState fromState = _internalState;
-        _internalState = toState;
-        OnCharacterTransition(fromState, toState);
+        Player.instance.CharacterController.Motor.enabled = true;
+        Player.instance.CharacterController.Motor.SetPositionAndRotation(position, rotation);
+        CameraManager.instance.ExplorationCameras[0].Follow = Player.instance.Character.transform;
     }
 
     public void SwitchStateForward()
@@ -108,7 +100,7 @@ public class CharacterStateHandler : MonoBehaviour
         int currentIndex = -1;
         for (int i = 0; i < PossibleStates.Count; i++)
         {
-            if (_internalState == PossibleStates[i])
+            if (_representedState == PossibleStates[i])
             {
                 currentIndex = i;
             }
@@ -131,7 +123,7 @@ public class CharacterStateHandler : MonoBehaviour
         int currentIndex = -1;
         for (int i = 0; i < PossibleStates.Count; i++)
         {
-            if (_internalState == PossibleStates[i])
+            if (_representedState == PossibleStates[i])
             {
                 currentIndex = i;
             }
@@ -141,16 +133,11 @@ public class CharacterStateHandler : MonoBehaviour
 
         if (currentIndex < 0)
         {
-            TransitionToState(PossibleStates[PossibleStates.Count-1]);
+            TransitionToState(PossibleStates[PossibleStates.Count - 1]);
         }
         else
         {
             TransitionToState(PossibleStates[currentIndex]);
         }
-    }
-
-    public void SwitchStateTo(CharacterTypeState toState)
-    {
-        CharacterTypeState = toState;
     }
 }
