@@ -20,7 +20,14 @@ public class UI_Settings : MonoBehaviour
 
     public void ClosePanel()
     {
-        MainMenuManager.instance.CloseSettings();
+        if (MainMenuManager.instance != null)
+        {
+            MainMenuManager.instance.CloseSettings();
+        }
+        else if (OptionManager.instance !=null)
+        {
+            OptionManager.instance.CloseSettings();
+        }
         Destroy(this.gameObject);
     }
 }
