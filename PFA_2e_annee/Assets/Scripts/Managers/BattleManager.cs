@@ -10,7 +10,8 @@ public class BattleManager : MonoBehaviour
         None,
         WaitingForAction,
         Busy,
-
+        Starting,
+        Victory,
     }
     public delegate void BattleEvent();
     public event BattleEvent BattleStarted = null;
@@ -49,6 +50,8 @@ public class BattleManager : MonoBehaviour
     private UI_CombatTimelapse _instantiatedTimelapse;
     private List<UI_PlayerCharacterCombatSheet> _instantiatedPCSheets = new List<UI_PlayerCharacterCombatSheet>();
     private List<UI_EnemyCharacterCombatSheet> _instantiatedEnemySheets = new List<UI_EnemyCharacterCombatSheet>();
+    public GameObject FightScreen;
+    public UI_CombatLootScreen LootScreen;
 
     [Header("Enemy Team")]
     [SerializeField] private Transform _enemyParent;
@@ -130,42 +133,65 @@ public class BattleManager : MonoBehaviour
                 _turnOrder.Clear();
                 break;
             case BattleState.WaitingForAction:
-                if (_playerCharactersInBattle.Contains(_activeCharacter))
+                if (ActiveCharacterIsStunned())
                 {
-                    _activeCharacter.Battle.OpenActionsMenu();
-
+                    _activeCharacter.Battle.ConditionHandler.IsStunned = false;
+                    GetNextInitiative();
                 }
-                else if (_enemyCharactersInBattle.Contains(_activeCharacter))
+                else
                 {
-                    TransitionToState(BattleState.Busy);
-                    ActionDescription action = _activeCharacter.Battle.GetRandomAction();
-                    List<Character> viableTargets = _activeCharacter.Battle.GetViableTargets(action);
-                    List<CharacterBattle> chosenTargets = new List<CharacterBattle>();
-                    if (action.TargetsAllViableTargets)
+                    if (_playerCharactersInBattle.Contains(_activeCharacter))
                     {
-                        foreach(Character character in viableTargets)
+                        _activeCharacter.Battle.OpenActionsMenu();
+
+                    }
+                    else if (_enemyCharactersInBattle.Contains(_activeCharacter))
+                    {
+                        TransitionToState(BattleState.Busy);
+                        ActionDescription action = _activeCharacter.Battle.GetRandomAction();
+                        List<Character> viableTargets = _activeCharacter.Battle.GetViableTargets(action);
+                        List<CharacterBattle> chosenTargets = new List<CharacterBattle>();
+                        if (action.TargetsAllViableTargets)
                         {
-                            chosenTargets.Add(character.Battle);
+                            foreach (Character character in viableTargets)
+                            {
+                                chosenTargets.Add(character.Battle);
+                            }
                         }
-                    }
-                    else
-                    {
-                        Character target = _activeCharacter.Battle.GetRandomTargetFromViableTargets();
-                        chosenTargets.Add(target.Battle);
-                    }
+                        else
+                        {
+                            Character target = _activeCharacter.Battle.GetRandomTargetFromViableTargets();
+                            chosenTargets.Add(target.Battle);
+                        }
 
 
-                    _activeCharacter.Battle.UseActionOn(chosenTargets, action, () =>
-                    {
-                        GetNextInitiative();
-                    });
+                        _activeCharacter.Battle.UseActionOn(chosenTargets, action, () =>
+                        {
+                            GetNextInitiative();
+                        });
+                    }
                 }
                 break;
             case BattleState.Busy:
                 break;
+            case BattleState.Starting:
+                FightScreen.SetActive(true);
+                CameraManager.instance.SmoothCurrentCameraFov(20f, 60f, 2f, () =>
+                {
+                    StartCombatGameplay();
+                });
+                break;
+            case BattleState.Victory:
+                LootScreen.gameObject.SetActive(true);
+                break;
             default:
                 break;
         }
+    }
+
+    private bool ActiveCharacterIsStunned()
+    {
+        return _activeCharacter.Battle.ConditionHandler.IsStunned;
     }
 
     public void StartBattle(List<Character> playerCharacters, List<Character> enemyCharacters)
@@ -251,17 +277,32 @@ public class BattleManager : MonoBehaviour
         _instantiatedTimelapse.BattleManager = this;
         _instantiatedTimelapse.SetEventListening();
 
-
         BattleStarted?.Invoke();
         TurnOrderCreated?.Invoke(allCharacters);
-
         RollAllInitiatives();
-        SetActiveCharacter();
-        TransitionToState(BattleState.WaitingForAction);
+        _instantiatedTimelapse.gameObject.SetActive(false);
+        TransitionToState(BattleState.Starting);
         //_state = BattleState.WaitingForAction;
     }
 
-    public void EndBattle()
+    public void StartCombatGameplay()
+    {
+        FightScreen.SetActive(false);
+        _instantiatedTimelapse.gameObject.SetActive(true);
+        _instantiatedTimelapse.SetEventListening();
+        SetActiveCharacter();
+        TransitionToState(BattleState.WaitingForAction);
+    }
+
+    public void TransitionOutOfBattle()
+    {
+        UIManager.instance.Transitioner.Transition(1f, () =>
+        {
+            EndBattle();
+        });
+    }
+
+    private void EndBattle()
     {
         //Get the experience and loot screens.
         //Make victorious characters play their victory anim.
@@ -319,7 +360,7 @@ public class BattleManager : MonoBehaviour
         //Check if there are still enemies on enemy side.
         if (_enemyCharactersInBattle.Count <= 0)
         {
-            EndBattle();
+            TransitionToState(BattleState.Victory);          
             return;
         }
 

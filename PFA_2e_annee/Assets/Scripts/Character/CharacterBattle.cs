@@ -78,11 +78,45 @@ public class CharacterBattle : MonoBehaviour
     private float _slideDuration = .5f;
     private float _slideTimer = 0f;
 
+    private void OnEnable()
+    {
+        CharacterStateHandler.TransitionedFromTo -= OnStateTransition;
+        CharacterStateHandler.TransitionedFromTo += OnStateTransition;
+    }
+
+    private void OnDisable()
+    {
+        CharacterStateHandler.TransitionedFromTo -= OnStateTransition;
+    }
+
     public void InitializeCharacterActions()
     {
         //this.CharacterActions.SetActions(Actions);
         //SetCharacterActionListening();
     }
+
+    private void OnStateTransition(CharacterTypeState fromState, CharacterTypeState toState)
+    {
+        switch (toState)
+        {
+            case CharacterTypeState.None:
+                break;
+            case CharacterTypeState.Solid:
+                CharacterAnimatorHandler = CharacterStateHandler.SolidCharacterMesh.GetComponent<CharacterAnimatorHandler>();
+                break;
+            case CharacterTypeState.Liquid:
+                CharacterAnimatorHandler = CharacterStateHandler.LiquidCharacterMesh.GetComponent<CharacterAnimatorHandler>();
+                break;
+            case CharacterTypeState.Gas:
+                CharacterAnimatorHandler = CharacterStateHandler.GasCharacterMesh.GetComponent<CharacterAnimatorHandler>();
+                break;
+            case CharacterTypeState.TriplePoint:
+                break;
+            default:
+                break;
+        }
+    }
+
     private void Update()
     {
         switch (_state)
@@ -540,6 +574,17 @@ public class CharacterBattle : MonoBehaviour
         {
             StatModifier modifier = new StatModifier(action.MagRESModifier.Value, action.MagRESModifier.Type, this);
             target.CharacterStats.MagicalResistance.AddModifier(modifier);
+        }
+
+        if (action.TemperatureChange < 0)
+        {
+            target.CharacterStats.Temperature.Damage(Mathf.Abs(action.TemperatureChange));
+            target.CharacterStateHandler.CheckTemperatureTransitions();
+        }
+        else if (action.TemperatureChange > 0)
+        {
+            target.CharacterStats.Temperature.Heal(action.TemperatureChange);
+            target.CharacterStateHandler.CheckTemperatureTransitions();
         }
     }
 
