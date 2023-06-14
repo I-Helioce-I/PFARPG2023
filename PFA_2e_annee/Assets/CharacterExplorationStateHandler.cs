@@ -28,11 +28,6 @@ public class CharacterExplorationStateHandler : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        
-    }
-
     private void TransitionToState(CharacterTypeState toState)
     {
         CharacterTypeState fromState = _representedState;
@@ -47,7 +42,19 @@ public class CharacterExplorationStateHandler : MonoBehaviour
         Quaternion rotation = Player.instance.CharacterController.Motor.TransientRotation;
         Vector3 position = Player.instance.CharacterController.Motor.TransientPosition;
         Player.instance.CharacterController.Motor.SetPosition(PrisonManager.instance.PrisonSpot.position);
-        Player.instance.CharacterController.Motor.enabled = false;
+        //Player.instance.CharacterController.Motor.SetMovementCollisionsSolvingActivation(false);
+        //Player.instance.CharacterController.Motor.SetGroundSolvingActivation(false);
+
+        PlayerCharacterInputs characterInputs = new PlayerCharacterInputs();
+
+        // Build the CharacterInputs struct
+        characterInputs.MoveAxisForward = 0f;
+        characterInputs.MoveAxisRight = 0f;
+        characterInputs.CameraRotation = Camera.main.transform.rotation;
+        characterInputs.JumpDown = false;
+
+        // Apply inputs to character
+        Player.instance.CharacterController.SetInputs(ref characterInputs);
 
         Player.instance.Character = null;
         Player.instance.CharacterController = null;
@@ -90,7 +97,8 @@ public class CharacterExplorationStateHandler : MonoBehaviour
                 break;
         }
 
-        Player.instance.CharacterController.Motor.enabled = true;
+        //Player.instance.CharacterController.Motor.SetMovementCollisionsSolvingActivation(true);
+        //Player.instance.CharacterController.Motor.SetGroundSolvingActivation(true);
         Player.instance.CharacterController.Motor.SetPositionAndRotation(position, rotation);
         CameraManager.instance.ExplorationCameras[0].Follow = Player.instance.Character.transform;
     }

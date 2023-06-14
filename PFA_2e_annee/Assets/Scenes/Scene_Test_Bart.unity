@@ -2895,10 +2895,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 880068581}
     m_Modifications:
     - target: {fileID: 281179218, guid: 1e807002efbdd7744b51cd2ea51e9519, type: 3}
-      propertyPath: GasCharacter
-      value: 
-      objectReference: {fileID: 331682640}
-    - target: {fileID: 281179218, guid: 1e807002efbdd7744b51cd2ea51e9519, type: 3}
       propertyPath: SolidCharacter
       value: 
       objectReference: {fileID: 136157286}
@@ -2906,6 +2902,16 @@ PrefabInstance:
       propertyPath: LiquidCharacter
       value: 
       objectReference: {fileID: 1866718194}
+    - target: {fileID: 3996712886237203657, guid: 1e807002efbdd7744b51cd2ea51e9519,
+        type: 3}
+      propertyPath: IgnoredColliders.Array.data[0]
+      value: 
+      objectReference: {fileID: 1261667573}
+    - target: {fileID: 3996712886237203657, guid: 1e807002efbdd7744b51cd2ea51e9519,
+        type: 3}
+      propertyPath: IgnoredColliders.Array.data[1]
+      value: 
+      objectReference: {fileID: 1866718199}
     - target: {fileID: 3996712886237203660, guid: 1e807002efbdd7744b51cd2ea51e9519,
         type: 3}
       propertyPath: m_RootOrder
@@ -2966,11 +2972,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCharacter_Test_Gas
       objectReference: {fileID: 0}
-    - target: {fileID: 3996712886237203663, guid: 1e807002efbdd7744b51cd2ea51e9519,
+    - target: {fileID: 5170518434721278900, guid: 1e807002efbdd7744b51cd2ea51e9519,
         type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: CharactersRepresentedInCombat.Array.data[0]
+      value: 
+      objectReference: {fileID: 136157286}
+    - target: {fileID: 5170518434721278900, guid: 1e807002efbdd7744b51cd2ea51e9519,
+        type: 3}
+      propertyPath: CharactersRepresentedInCombat.Array.data[1]
+      value: 
+      objectReference: {fileID: 1866718194}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e807002efbdd7744b51cd2ea51e9519, type: 3}
 --- !u!4 &331682639 stripped
@@ -3249,6 +3260,12 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!136 &343859806 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 3996712886237203662, guid: 1e807002efbdd7744b51cd2ea51e9519,
+    type: 3}
+  m_PrefabInstance: {fileID: 331682638}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &349504256
 GameObject:
   m_ObjectHideFlags: 0
@@ -10331,6 +10348,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1259441100}
   m_CullTransparentMesh: 1
+--- !u!136 &1261667573 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 3996712886237203662, guid: 7213e1c934db60548bf01728c0af1de2,
+    type: 3}
+  m_PrefabInstance: {fileID: 3996712886104265901}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1282631339
 GameObject:
   m_ObjectHideFlags: 0
@@ -15383,10 +15406,16 @@ PrefabInstance:
       propertyPath: SolidCharacter
       value: 
       objectReference: {fileID: 136157286}
-    - target: {fileID: 281179218, guid: 232d12759f2d50342b4c51feca2547ae, type: 3}
-      propertyPath: LiquidCharacter
+    - target: {fileID: 3996712886237203657, guid: 232d12759f2d50342b4c51feca2547ae,
+        type: 3}
+      propertyPath: IgnoredColliders.Array.data[0]
       value: 
-      objectReference: {fileID: 1866718194}
+      objectReference: {fileID: 1261667573}
+    - target: {fileID: 3996712886237203657, guid: 232d12759f2d50342b4c51feca2547ae,
+        type: 3}
+      propertyPath: IgnoredColliders.Array.data[1]
+      value: 
+      objectReference: {fileID: 343859806}
     - target: {fileID: 3996712886237203660, guid: 232d12759f2d50342b4c51feca2547ae,
         type: 3}
       propertyPath: m_RootOrder
@@ -15447,11 +15476,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCharacter_Test_Liquid
       objectReference: {fileID: 0}
-    - target: {fileID: 3996712886237203663, guid: 232d12759f2d50342b4c51feca2547ae,
+    - target: {fileID: 5170518434721278900, guid: 232d12759f2d50342b4c51feca2547ae,
         type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: CharactersRepresentedInCombat.Array.data[0]
+      value: 
+      objectReference: {fileID: 136157286}
+    - target: {fileID: 5170518434721278900, guid: 232d12759f2d50342b4c51feca2547ae,
+        type: 3}
+      propertyPath: CharactersRepresentedInCombat.Array.data[2]
+      value: 
+      objectReference: {fileID: 331682640}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 232d12759f2d50342b4c51feca2547ae, type: 3}
 --- !u!114 &1866718194 stripped
@@ -15469,6 +15503,12 @@ MonoBehaviour:
 --- !u!4 &1866718195 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3996712886237203660, guid: 232d12759f2d50342b4c51feca2547ae,
+    type: 3}
+  m_PrefabInstance: {fileID: 1866718193}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &1866718199 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 3996712886237203662, guid: 232d12759f2d50342b4c51feca2547ae,
     type: 3}
   m_PrefabInstance: {fileID: 1866718193}
   m_PrefabAsset: {fileID: 0}
@@ -17058,13 +17098,19 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 331682640}
     - target: {fileID: 281179218, guid: 7213e1c934db60548bf01728c0af1de2, type: 3}
-      propertyPath: SolidCharacter
-      value: 
-      objectReference: {fileID: 136157286}
-    - target: {fileID: 281179218, guid: 7213e1c934db60548bf01728c0af1de2, type: 3}
       propertyPath: LiquidCharacter
       value: 
       objectReference: {fileID: 1866718194}
+    - target: {fileID: 3996712886237203657, guid: 7213e1c934db60548bf01728c0af1de2,
+        type: 3}
+      propertyPath: IgnoredColliders.Array.data[0]
+      value: 
+      objectReference: {fileID: 1866718199}
+    - target: {fileID: 3996712886237203657, guid: 7213e1c934db60548bf01728c0af1de2,
+        type: 3}
+      propertyPath: IgnoredColliders.Array.data[1]
+      value: 
+      objectReference: {fileID: 343859806}
     - target: {fileID: 3996712886237203660, guid: 7213e1c934db60548bf01728c0af1de2,
         type: 3}
       propertyPath: m_RootOrder
@@ -17125,6 +17171,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCharacter_Test_Solid
       objectReference: {fileID: 0}
+    - target: {fileID: 5170518434721278900, guid: 7213e1c934db60548bf01728c0af1de2,
+        type: 3}
+      propertyPath: CharactersRepresentedInCombat.Array.data[1]
+      value: 
+      objectReference: {fileID: 1866718194}
+    - target: {fileID: 5170518434721278900, guid: 7213e1c934db60548bf01728c0af1de2,
+        type: 3}
+      propertyPath: CharactersRepresentedInCombat.Array.data[2]
+      value: 
+      objectReference: {fileID: 331682640}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7213e1c934db60548bf01728c0af1de2, type: 3}
 --- !u!1001 &6022782113225668250

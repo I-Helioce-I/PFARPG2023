@@ -157,6 +157,11 @@ public class KRB_CharacterController : MonoBehaviour, ICharacterController
         Motor.CharacterController = this;
     }
 
+    private void Start()
+    {
+        _currentCharacterState = CharacterStateHandler.CharacterTypeState;
+    }
+
     private void OnEnable()
     {
         CharacterStateHandler.TransitionedFromTo -= OnCharacterTypeStateTransition;

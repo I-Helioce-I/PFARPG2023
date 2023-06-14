@@ -828,7 +828,9 @@ MonoBehaviour:
   DisplacerDestinationPosition: {x: 0, y: 0, z: 0}
   DisplacerDestinationRotation: {x: 0, y: 0, z: 0, w: 0}
   DisplacementTime: 0
-  IgnoredColliders: []
+  IgnoredColliders:
+  - {fileID: 0}
+  - {fileID: 0}
   BonusOrientationMethod: 0
   BonusOrientationSharpness: 10
   Gravity: {x: 0, y: -30, z: 0}
@@ -1061,7 +1063,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterController: {fileID: 3996712886237203657}
   CharacterStateHandler: {fileID: 3996712886237203658}
-  CharacterAnimatorHandler: {fileID: 6733629594955245181}
+  CharacterAnimatorHandler: {fileID: 1512819378}
   CharacterStats: {fileID: 3996712886237203656}
   ConditionHandler: {fileID: 3324951757155525243}
   _battle: {fileID: 0}
@@ -1090,9 +1092,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharactersRepresentedInCombat:
+  - {fileID: 0}
   - {fileID: 3996712886237203659}
-  - {fileID: 3996712886237203659}
-  - {fileID: 3996712886237203659}
+  - {fileID: 0}
 --- !u!114 &3324951757155525243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1121,7 +1123,7 @@ MonoBehaviour:
   _representedState: 2
   PossibleStates: 010000000200000003000000
   SolidCharacter: {fileID: 0}
-  LiquidCharacter: {fileID: 0}
+  LiquidCharacter: {fileID: 3996712886237203659}
   GasCharacter: {fileID: 0}
 --- !u!1 &3996712886813740578
 GameObject:
