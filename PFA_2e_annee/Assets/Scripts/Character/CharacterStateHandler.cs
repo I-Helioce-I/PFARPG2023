@@ -21,6 +21,11 @@ public class CharacterStateHandler : MonoBehaviour
     [SerializeField][ReadOnlyInspector] private CharacterTypeState _internalState;
 
     public List<CharacterTypeState> PossibleStates = new List<CharacterTypeState>();
+
+    public GameObject SolidCharacterMesh;
+    public GameObject LiquidCharacterMesh;
+    public GameObject GasCharacterMesh;
+
     public CharacterTypeState CharacterTypeState
     {
         get
@@ -37,6 +42,7 @@ public class CharacterStateHandler : MonoBehaviour
     private void Awake()
     {
         CharacterTypeState = StartingState;
+        TransitionToState(StartingState);
     }
 
     private void TransitionToState(CharacterTypeState toState)
@@ -56,10 +62,13 @@ public class CharacterStateHandler : MonoBehaviour
             case CharacterTypeState.None:
                 break;
             case CharacterTypeState.Solid:
+                SolidCharacterMesh.SetActive(false);
                 break;
             case CharacterTypeState.Liquid:
+                LiquidCharacterMesh.SetActive(false);
                 break;
             case CharacterTypeState.Gas:
+                GasCharacterMesh.SetActive(false);
                 break;
             case CharacterTypeState.TriplePoint:
                 break;
@@ -72,10 +81,13 @@ public class CharacterStateHandler : MonoBehaviour
             case CharacterTypeState.None:
                 break;
             case CharacterTypeState.Solid:
+                SolidCharacterMesh.SetActive(true);
                 break;
             case CharacterTypeState.Liquid:
+                LiquidCharacterMesh.SetActive(true);
                 break;
             case CharacterTypeState.Gas:
+                GasCharacterMesh.SetActive(true);
                 break;
             case CharacterTypeState.TriplePoint:
                 break;

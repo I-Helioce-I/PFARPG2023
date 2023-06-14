@@ -137,6 +137,10 @@ public class CharacterStat
         _maxValue = finalValue;
         _currentValue = _maxValue - _damage;
         _isDirty = false;
+
+        MaxValueChanged?.Invoke();
+        ValueChanged?.Invoke();
+
         return finalValue;
     }
 
