@@ -138,6 +138,12 @@ public class BattleManager : MonoBehaviour
                     _activeCharacter.Battle.ConditionHandler.IsStunned = false;
                     GetNextInitiative();
                 }
+                if (_activeCharacter.Battle.ConditionHandler.IsDefending)
+                {
+                    _activeCharacter.Battle.ConditionHandler.IsDefending = false;
+                    _activeCharacter.Battle.CharacterAnimatorHandler.Animator.SetBool("isDefending", false);
+                }
+
                 else
                 {
                     if (_playerCharactersInBattle.Contains(_activeCharacter))
@@ -348,6 +354,11 @@ public class BattleManager : MonoBehaviour
         foreach (Character character in allCharacters)
         {
             character.Battle.RollInitiative(character.Stats.Speed.CurrentValue);
+            if (character.Battle.ConditionHandler.InitiativeFirstInLine)
+            {
+                character.Battle.Initiative += 999f;
+                character.Battle.ConditionHandler.InitiativeFirstInLine = false;
+            }
         }
         allCharacters.Sort(CompareInitiativeOrder);
         _turnOrder = allCharacters;
@@ -360,7 +371,16 @@ public class BattleManager : MonoBehaviour
         //Check if there are still enemies on enemy side.
         if (_enemyCharactersInBattle.Count <= 0)
         {
-            TransitionToState(BattleState.Victory);          
+
+            foreach(Character playerCharacter in _playerCharactersInBattle)
+            {
+                if (playerCharacter != _playerCharactersInBattle[0]) playerCharacter.Battle.CharacterAnimatorHandler.PlayAnim("Victory");
+                else playerCharacter.Battle.CharacterAnimatorHandler.PlayAnimThenAction("Victory", () =>
+                {
+                    TransitionToState(BattleState.Victory);
+                });
+            }
+         
             return;
         }
 
