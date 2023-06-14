@@ -11,6 +11,7 @@ public class Interactible : MonoBehaviour
     [SerializeField] protected bool _forcedInteraction;
     protected SphereCollider _collider;
     protected InteractibleHandler _currentHandler;
+    private CharacterExplorationStateHandler _currentCESH;
 
     public UnityEvent<InteractibleHandler> OnInteract;
 
@@ -34,6 +35,29 @@ public class Interactible : MonoBehaviour
         _interactButtonPrompt.SetActive(show);
     }
 
+    private void OnHandlerStateTransition(CharacterTypeState from, CharacterTypeState to)
+    {
+        switch (to)
+        {
+            case CharacterTypeState.None:
+                break;
+            case CharacterTypeState.Solid:
+                break;
+            case CharacterTypeState.Liquid:
+                break;
+            case CharacterTypeState.Gas:
+                if (_forcedInteraction)
+                {
+                    Interact();
+                }
+                break;
+            case CharacterTypeState.TriplePoint:
+                break;
+            default:
+                break;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         InteractibleHandler character = other.GetComponent<InteractibleHandler>();
@@ -41,7 +65,13 @@ public class Interactible : MonoBehaviour
         {
             character.SetInteractible(this);
             _currentHandler = character;
-
+            CharacterExplorationStateHandler CESH = _currentHandler.GetComponent<CharacterExplorationStateHandler>();
+            if (CESH)
+            {
+                _currentCESH = CESH;
+                _currentCESH.TransitionedFromTo -= OnHandlerStateTransition;
+                _currentCESH.TransitionedFromTo += OnHandlerStateTransition;
+            }
         }
 
         if (_forcedInteraction)
@@ -61,6 +91,8 @@ public class Interactible : MonoBehaviour
         {
             character.NullInteractible();
             _currentHandler = null;
+            _currentCESH.TransitionedFromTo -= OnHandlerStateTransition;
+            _currentCESH = null;
             ShowPrompt(false);
         }
     }
