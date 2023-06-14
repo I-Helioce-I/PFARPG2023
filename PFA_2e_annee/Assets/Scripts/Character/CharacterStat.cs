@@ -7,12 +7,17 @@ using System.Collections.ObjectModel;
 [Serializable]
 public class CharacterStat
 {
+    public delegate void ValueEventWithArgs(float to);
     public delegate void ValueEvent();
+
     public event ValueEvent ValueChanged = null;
     public event ValueEvent MaxValueChanged = null;
     public event ValueEvent CurrentValueReachedZero = null;
     public event ValueEvent CurrentValueReachedFull = null;
     public event ValueEvent CurrentValueBroughtBackFromZero = null;
+
+    public event ValueEventWithArgs ValueChangedTo = null;
+    public event ValueEventWithArgs MaxValueChangedTo = null;
 
     public float BaseValue = 0f;
     [SerializeField][ReadOnlyInspector] private float _maxValue = float.MinValue;
@@ -27,6 +32,7 @@ public class CharacterStat
                 _value =  CalculateValues();
 
                 MaxValueChanged?.Invoke();
+                MaxValueChangedTo?.Invoke(_value);
             }
             return _value;
         }
@@ -39,6 +45,7 @@ public class CharacterStat
             {
                 _currentValue = MaxValue - _damage;
                 ValueChanged?.Invoke();
+                ValueChangedTo?.Invoke(_currentValue);
             }
             return _currentValue;
         }
@@ -141,7 +148,15 @@ public class CharacterStat
         MaxValueChanged?.Invoke();
         ValueChanged?.Invoke();
 
+        MaxValueChangedTo?.Invoke(_maxValue);
+        ValueChangedTo?.Invoke(_currentValue);
+
         return finalValue;
+    }
+
+    public void ForceValue(float value)
+    {
+        _currentValue = value;
     }
 
     public void Damage(float damage)

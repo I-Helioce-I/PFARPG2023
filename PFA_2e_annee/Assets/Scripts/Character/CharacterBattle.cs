@@ -575,6 +575,17 @@ public class CharacterBattle : MonoBehaviour
             StatModifier modifier = new StatModifier(action.MagRESModifier.Value, action.MagRESModifier.Type, this);
             target.CharacterStats.MagicalResistance.AddModifier(modifier);
         }
+
+        if (action.TemperatureChange < 0)
+        {
+            target.CharacterStats.Temperature.Damage(Mathf.Abs(action.TemperatureChange));
+            target.CharacterStateHandler.CheckTemperatureTransitions();
+        }
+        else if (action.TemperatureChange > 0)
+        {
+            target.CharacterStats.Temperature.Heal(action.TemperatureChange);
+            target.CharacterStateHandler.CheckTemperatureTransitions();
+        }
     }
 
     private void SlideToPosition(Vector3 slideTargetPosition, Action onSlideComplete)

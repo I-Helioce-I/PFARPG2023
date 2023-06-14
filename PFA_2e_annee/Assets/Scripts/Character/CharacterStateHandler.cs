@@ -16,6 +16,8 @@ public class CharacterStateHandler : MonoBehaviour
     public delegate void CharacterTypeStateEvent(CharacterTypeState fromState, CharacterTypeState toState);
     public event CharacterTypeStateEvent TransitionedFromTo = null;
 
+    public CharacterStats CharacterStats;
+
     public CharacterTypeState StartingState;
 
     [SerializeField][ReadOnlyInspector] private CharacterTypeState _internalState;
@@ -43,6 +45,41 @@ public class CharacterStateHandler : MonoBehaviour
     {
         CharacterTypeState = StartingState;
         TransitionToState(StartingState);
+    }
+
+    private void Start()
+    {
+        switch (StartingState)
+        {
+            case CharacterTypeState.Solid:
+                CharacterStats.Temperature.Damage(7f);
+                break;
+            case CharacterTypeState.Liquid:
+                CharacterStats.Temperature.Damage(4f);
+                break;
+            case CharacterTypeState.Gas:
+                CharacterStats.Temperature.Damage(1f);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void CheckTemperatureTransitions()
+    {
+        float value = CharacterStats.Temperature.CurrentValue;
+        if (value < 4f)
+        {
+            CharacterTypeState = CharacterTypeState.Solid;
+        }
+        else if (value >= 4f && value < 7f)
+        {
+            CharacterTypeState = CharacterTypeState.Liquid;
+        }
+        else if (value >= 7f && value <= 9f)
+        {
+            CharacterTypeState = CharacterTypeState.Gas;
+        }
     }
 
     private void TransitionToState(CharacterTypeState toState)

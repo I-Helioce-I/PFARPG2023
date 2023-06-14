@@ -638,7 +638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5363021372cee94fa41d98cb7c30787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterStateHandler: {fileID: 0}
+  CharacterStateHandler: {fileID: 7546150622173981574}
   Strength:
     BaseValue: 0
     _maxValue: -3.4028235e+38
@@ -672,7 +672,7 @@ MonoBehaviour:
     _maxValue: -3.4028235e+38
     _currentValue: -3.4028235e+38
   Temperature:
-    BaseValue: 0
+    BaseValue: 9
     _maxValue: -3.4028235e+38
     _currentValue: -3.4028235e+38
   Speed:
@@ -738,6 +738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b3ffae9d1be0342b13b6fcd754aaf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CharacterStats: {fileID: 7546150622173981571}
   StartingState: 1
   _internalState: 0
   PossibleStates: 010000000200000003000000

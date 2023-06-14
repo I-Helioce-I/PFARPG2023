@@ -130,35 +130,43 @@ public class BattleManager : MonoBehaviour
                 _turnOrder.Clear();
                 break;
             case BattleState.WaitingForAction:
-                if (_playerCharactersInBattle.Contains(_activeCharacter))
+                if (ActiveCharacterIsStunned())
                 {
-                    _activeCharacter.Battle.OpenActionsMenu();
-
+                    _activeCharacter.Battle.ConditionHandler.IsStunned = false;
+                    GetNextInitiative();
                 }
-                else if (_enemyCharactersInBattle.Contains(_activeCharacter))
+                else
                 {
-                    TransitionToState(BattleState.Busy);
-                    ActionDescription action = _activeCharacter.Battle.GetRandomAction();
-                    List<Character> viableTargets = _activeCharacter.Battle.GetViableTargets(action);
-                    List<CharacterBattle> chosenTargets = new List<CharacterBattle>();
-                    if (action.TargetsAllViableTargets)
+                    if (_playerCharactersInBattle.Contains(_activeCharacter))
                     {
-                        foreach(Character character in viableTargets)
+                        _activeCharacter.Battle.OpenActionsMenu();
+
+                    }
+                    else if (_enemyCharactersInBattle.Contains(_activeCharacter))
+                    {
+                        TransitionToState(BattleState.Busy);
+                        ActionDescription action = _activeCharacter.Battle.GetRandomAction();
+                        List<Character> viableTargets = _activeCharacter.Battle.GetViableTargets(action);
+                        List<CharacterBattle> chosenTargets = new List<CharacterBattle>();
+                        if (action.TargetsAllViableTargets)
                         {
-                            chosenTargets.Add(character.Battle);
+                            foreach (Character character in viableTargets)
+                            {
+                                chosenTargets.Add(character.Battle);
+                            }
                         }
-                    }
-                    else
-                    {
-                        Character target = _activeCharacter.Battle.GetRandomTargetFromViableTargets();
-                        chosenTargets.Add(target.Battle);
-                    }
+                        else
+                        {
+                            Character target = _activeCharacter.Battle.GetRandomTargetFromViableTargets();
+                            chosenTargets.Add(target.Battle);
+                        }
 
 
-                    _activeCharacter.Battle.UseActionOn(chosenTargets, action, () =>
-                    {
-                        GetNextInitiative();
-                    });
+                        _activeCharacter.Battle.UseActionOn(chosenTargets, action, () =>
+                        {
+                            GetNextInitiative();
+                        });
+                    }
                 }
                 break;
             case BattleState.Busy:
@@ -166,6 +174,11 @@ public class BattleManager : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private bool ActiveCharacterIsStunned()
+    {
+        return _activeCharacter.Battle.ConditionHandler.IsStunned;
     }
 
     public void StartBattle(List<Character> playerCharacters, List<Character> enemyCharacters)
