@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5035802879769404350
+--- !u!114 &-2030446454207870037
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MI_Flag
-  m_Shader: {fileID: -6465566751694194690, guid: 1c11fc7f0e672ae45ab6114a0954c345,
+  m_Name: Shader Graphs_S_OutlineMove
+  m_Shader: {fileID: -6465566751694194690, guid: 78d626c824e7cb14a92beb0c3a52da23,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -48,13 +48,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Amplitude: 0.2
-    - _Amplitude_Second: 0.1
-    - _Frequency: 0.38
-    - _Frequency_Second: 0.21
-    - _Movement_Speed: 0.91
-    - _Movement_Speed_Second: 0.2
+    - _LineThickness: 0.05
     - _QueueControl: 0
     - _QueueOffset: 0
-    m_Colors: []
+    - _Speed: -6.9
+    m_Colors:
+    - _Outline_Color: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
