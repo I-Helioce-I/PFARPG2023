@@ -29,6 +29,8 @@ public class ActionDescription : ScriptableObject
     [Header("Parameters")]
     public string Name;
     public Sprite Icon;
+    [TextArea(5, 10)]
+    public string DescriptionText = "";
     public Color IconColor;
     public ActionType Type;
     public float Damage;
@@ -66,4 +68,8 @@ public class ActionDescription : ScriptableObject
     public string AnimationName;
     public bool doesSlide = false;
     public float EffectDelayInSeconds = 0f;
+
+    [Header("Projectile")]
+    public ActionProjectile Projectile;
+    public float ProjectileShootDelay;
 }

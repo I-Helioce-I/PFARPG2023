@@ -456,7 +456,14 @@ public class CharacterBattle : MonoBehaviour
             {
                 StartCoroutine(DealEffectsTo(target, action, action.EffectDelayInSeconds));
             }
-
+            //Shoot projectile
+            if (action.Projectile)
+            {
+                foreach (CharacterBattle target in targets)
+                {
+                    StartCoroutine(ShootProjectile(target, action, action.ProjectileShootDelay));
+                }
+            }
         }
     }
 
@@ -608,6 +615,21 @@ public class CharacterBattle : MonoBehaviour
             target.CharacterStats.Temperature.Heal(action.TemperatureChange);
             target.CharacterStateHandler.CheckTemperatureTransitions();
         }
+    }
+
+    private IEnumerator ShootProjectile(CharacterBattle target, ActionDescription action, float projectileDelay)
+    {
+        float timer = 0f;
+        while (timer < projectileDelay)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        float projectileTravelTime = action.EffectDelayInSeconds - projectileDelay;
+        Vector3 spawnPoint = this.transform.position + (Vector3.up * 1f);
+        Vector3 targetPoint = target.transform.position + (Vector3.up * 1f);
+        ActionProjectile newProjectile = Instantiate<ActionProjectile>(action.Projectile, spawnPoint, this.transform.rotation);
+        newProjectile.InitializeProjectile(spawnPoint, targetPoint, projectileTravelTime);
     }
 
     private void SlideToPosition(Vector3 slideTargetPosition, Action onSlideComplete)

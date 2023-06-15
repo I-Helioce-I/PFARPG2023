@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 33.391113, y: 0}
-  m_SizeDelta: {x: -66.7822, y: 0}
+  m_AnchoredPosition: {x: 30.000006, y: 0}
+  m_SizeDelta: {x: -59.99999, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7756025208964462612
 CanvasRenderer:
@@ -76,8 +76,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 1090519039
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -94,10 +94,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
-  m_fontSizeBase: 24
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 7756025210149190424}
   - component: {fileID: 7756025210149190429}
   - component: {fileID: 2266221999894662101}
+  - component: {fileID: 7864760014852185242}
   m_Layer: 0
   m_Name: ActionButton
   m_TagString: Untagged
@@ -283,8 +284,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 59ffa90745f0dea48a9072c7c354d7b7, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -359,7 +360,7 @@ Animator:
   m_GameObject: {fileID: 7756025210149190426}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8b2f3ad6299ddf94389d5a1d29553cf2, type: 2}
+  m_Controller: {fileID: 9100000, guid: 09ef8f0c9eeae34438bd9c660ad2452d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -383,3 +384,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 7756025209935957898}
   Name: {fileID: 7756025208964462613}
+--- !u!114 &7864760014852185242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7756025210149190426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edac0196920964d4ab3c7ffa012031c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrow: {fileID: 5048927170179324173, guid: d433160b2dc9c4447ad7e6db0e376b94, type: 3}
+  clip: {fileID: 8300000, guid: 2779408b48290fb46b37ef163e7c3868, type: 3}

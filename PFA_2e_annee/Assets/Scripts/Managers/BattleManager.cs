@@ -138,14 +138,14 @@ public class BattleManager : MonoBehaviour
                     _activeCharacter.Battle.ConditionHandler.IsStunned = false;
                     GetNextInitiative();
                 }
-                if (_activeCharacter.Battle.ConditionHandler.IsDefending)
-                {
-                    _activeCharacter.Battle.ConditionHandler.IsDefending = false;
-                    _activeCharacter.Battle.CharacterAnimatorHandler.Animator.SetBool("isDefending", false);
-                }
-
                 else
                 {
+                    if (_activeCharacter.Battle.ConditionHandler.IsDefending)
+                    {
+                        _activeCharacter.Battle.ConditionHandler.IsDefending = false;
+                        _activeCharacter.Battle.CharacterAnimatorHandler.Animator.SetBool("isDefending", false);
+                    }
+
                     if (_playerCharactersInBattle.Contains(_activeCharacter))
                     {
                         _activeCharacter.Battle.OpenActionsMenu();
