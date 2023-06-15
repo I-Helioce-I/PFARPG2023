@@ -106,6 +106,7 @@ public class UI_CombatMenu : MonoBehaviour
         TransitionToState(UICombatMenuState.WaitingInstruction);
 
         CharacterTypeState currentCharacterState = character.CharacterStateHandler.CharacterTypeState;
+        Debug.Log(character.CharacterStateHandler.CharacterTypeState);
         switch (currentCharacterState)
         {
             case CharacterTypeState.None:
@@ -158,13 +159,13 @@ public class UI_CombatMenu : MonoBehaviour
                     switch (actionSet.SolidAction.Type)
                     {
                         case ActionDescription.ActionType.Attack:
-                            LiquidAttacks.Add(actionSet.SolidAction);
+                            LiquidAttacks.Add(actionSet.LiquidAction);
                             break;
                         case ActionDescription.ActionType.Spell:
-                            LiquidSpells.Add(actionSet.SolidAction);
+                            LiquidSpells.Add(actionSet.LiquidAction);
                             break;
                         case ActionDescription.ActionType.Item:
-                            LiquidItems.Add(actionSet.SolidAction);
+                            LiquidItems.Add(actionSet.LiquidAction);
                             break;
                         default:
                             break;
@@ -195,13 +196,13 @@ public class UI_CombatMenu : MonoBehaviour
                     switch (actionSet.SolidAction.Type)
                     {
                         case ActionDescription.ActionType.Attack:
-                            GasAttacks.Add(actionSet.SolidAction);
+                            GasAttacks.Add(actionSet.GasAction);
                             break;
                         case ActionDescription.ActionType.Spell:
-                            GasSpells.Add(actionSet.SolidAction);
+                            GasSpells.Add(actionSet.GasAction);
                             break;
                         case ActionDescription.ActionType.Item:
-                            GasItems.Add(actionSet.SolidAction);
+                            GasItems.Add(actionSet.GasAction);
                             break;
                         default:
                             break;

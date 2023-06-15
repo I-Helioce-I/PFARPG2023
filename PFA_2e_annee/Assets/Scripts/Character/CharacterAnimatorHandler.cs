@@ -39,8 +39,12 @@ public class CharacterAnimatorHandler : MonoBehaviour
                 }
                 if(!AnimatorIsPlaying(_currentAnimationPlaying) && _animChecked)
                 {
-                    _onAnimationComplete();
-                    _onAnimationComplete = null;
+                    if (_onAnimationComplete != null)
+                    {
+                        _onAnimationComplete();
+                        _onAnimationComplete = null;
+                    }
+
                     _animChecked = false;
                     _internalState = AnimatorState.AnimatorMotor;
                 }
@@ -70,6 +74,13 @@ public class CharacterAnimatorHandler : MonoBehaviour
         Animator.Play(animationName);
         _currentAnimationPlaying = animationName;
         _onAnimationComplete = onAnimationComplete;
+        _internalState = AnimatorState.ForcedAnimation;
+    }
+
+    public void PlayAnim(string animationName)
+    {
+        Animator.Play(animationName);
+        _currentAnimationPlaying = animationName;
         _internalState = AnimatorState.ForcedAnimation;
     }
 

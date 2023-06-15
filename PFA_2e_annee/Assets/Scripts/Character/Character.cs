@@ -8,11 +8,13 @@ public class Character : MonoBehaviour
     public event CharacterEvent CharacterDowned = null;
 
     [Header("References")]
+    new public string name;
     public CharacterStats Stats;
     public CharacterStateHandler State;
     public CharacterBattle Battle;
     public InteractibleHandler InteractibleHandler;
     public CharacterStateHandler CharacterStateHandler;
+    public CharacterExplorationStateHandler CharacterExplorationStateHandler;
     public KRB_CharacterController CharacterController;
     public CharacterConditionHandler CharacterConditions;
 
