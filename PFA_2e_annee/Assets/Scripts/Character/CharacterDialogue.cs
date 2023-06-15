@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CharacterDialogue : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class CharacterDialogue : MonoBehaviour
     [SerializeField][ReadOnlyInspector] private int _numberOfTimesDialogueInitiated = 0;
 
     public CharacterPortraitHandler DefaultSecondaryCharacter;
+
+    public UnityEvent OnDialogueStart;
+    public UnityEvent OnDialogueEnd;
 
     public void StartDialogueOnInteract(InteractibleHandler handler)
     {
@@ -22,7 +26,7 @@ public class CharacterDialogue : MonoBehaviour
             secondaryCharacter = DefaultSecondaryCharacter;
         }
 
-        DialogueUI.instance.InitializeDialogueUI(mainCharacter, secondaryCharacter, DialogueLines);
+        DialogueUI.instance.InitializeDialogueUI(mainCharacter, secondaryCharacter, DialogueLines, this);
         _numberOfTimesDialogueInitiated++;
         //_currentLineIndex = 0;
         //DialogueUI.instance.GoToNextDialogueLine(DialogueLines, _currentLineIndex);
