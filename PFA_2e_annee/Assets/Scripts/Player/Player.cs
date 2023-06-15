@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public KRB_CharacterController CharacterController;
     public PlayerInput PlayerInput;
     //public ExampleCharacterCamera CharacterCamera;
+    public List<Character> AllControlledCharacters = new List<Character>();
 
     private Vector2 _movement = Vector2.zero;
     private bool _jumpPressed = false;
@@ -126,7 +127,7 @@ public class Player : MonoBehaviour
     {
         if (context.performed)
         {
-            Character.CharacterStateHandler.SwitchStateForward();
+            Character.CharacterExplorationStateHandler.SwitchStateForward();
         }
     }
 
@@ -134,7 +135,7 @@ public class Player : MonoBehaviour
     {
         if (context.performed)
         {
-            Character.CharacterStateHandler.SwitchStateBackward();
+            Character.CharacterExplorationStateHandler.SwitchStateBackward();
         }
     }
     #endregion
@@ -176,7 +177,7 @@ public class Player : MonoBehaviour
         // Build the CharacterInputs struct
         characterInputs.MoveAxisForward = _movement.y;
         characterInputs.MoveAxisRight = _movement.x;
-        //characterInputs.CameraRotation = CharacterCamera.Transform.rotation;
+        characterInputs.CameraRotation = Camera.main.transform.rotation;
         characterInputs.JumpDown = _jumpPressed;
 
         // Apply inputs to character

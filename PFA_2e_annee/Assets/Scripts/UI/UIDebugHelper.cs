@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UIDebugHelper : MonoBehaviour
 {
-    public CharacterStateHandler PlayerStateHandler;
+    public CharacterExplorationStateHandler PlayerStateHandler;
 
     public TextMeshProUGUI StateText;
 
@@ -22,7 +22,7 @@ public class UIDebugHelper : MonoBehaviour
 
     private void Start()
     {
-        StateText.text = PlayerStateHandler.CharacterTypeState.ToString();
+        StateText.text = PlayerStateHandler.RepresentedState.ToString();
     }
 
     private void OnStateChanged(CharacterTypeState fromState, CharacterTypeState toState)

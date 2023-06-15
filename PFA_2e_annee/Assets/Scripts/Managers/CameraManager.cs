@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private List<CinemachineVirtualCameraBase> _battleCameras = new List<CinemachineVirtualCameraBase>();
     [SerializeField] private List<CinemachineVirtualCameraBase> _explorationCameras = new List<CinemachineVirtualCameraBase>();
     [SerializeField][ReadOnlyInspector] private CinemachineVirtualCameraBase _currentCamera;
+
+    private IEnumerator _currentCameraCoroutine;
     public List<CinemachineVirtualCameraBase> BattleCameras
     {
         get
@@ -77,5 +80,43 @@ public class CameraManager : MonoBehaviour
             Vcamera.enabled = true;
         }
         _currentCamera.enabled = true;
+    }
+
+    public void SmoothCurrentCameraFov(float from, float to, float overTime, Action onTransitionCompleted)
+    {
+        if (_currentCameraCoroutine != null) StopCoroutine(_currentCameraCoroutine);
+        _currentCameraCoroutine = SmoothFovTransition(from, to, overTime, onTransitionCompleted);
+        StartCoroutine(SmoothFovTransition(from, to, overTime, onTransitionCompleted));
+    }
+
+    private IEnumerator SmoothFovTransition(float from, float to, float overTime, Action onTransitionCompleted)
+    {
+        CinemachineVirtualCamera vcam = _currentCamera.GetComponent<CinemachineVirtualCamera>();
+        vcam.m_Lens.FieldOfView = from;
+        float timer = 0f;
+        float progress = 0f;
+        float FOVfrom = vcam.m_Lens.FieldOfView;
+        float lerpdFOV = FOVfrom;
+
+        while (timer < overTime)
+        {
+            timer += Time.deltaTime;
+            progress = timer / overTime;
+            progress = SmoothProgress(progress);
+            lerpdFOV = Mathf.Lerp(FOVfrom, to, progress);
+            vcam.m_Lens.FieldOfView = lerpdFOV;
+            yield return null;
+        }
+
+        vcam.m_Lens.FieldOfView = to;
+        onTransitionCompleted();
+    }
+
+    private float SmoothProgress(float progress)
+    {
+        progress = Mathf.Lerp(-Mathf.PI / 2, Mathf.PI / 2, progress);
+        progress = Mathf.Sin(progress);
+        progress = (progress / 2f) + .5f;
+        return progress;
     }
 }

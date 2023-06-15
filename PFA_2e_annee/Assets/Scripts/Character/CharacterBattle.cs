@@ -78,11 +78,45 @@ public class CharacterBattle : MonoBehaviour
     private float _slideDuration = .5f;
     private float _slideTimer = 0f;
 
+    private void OnEnable()
+    {
+        CharacterStateHandler.TransitionedFromTo -= OnStateTransition;
+        CharacterStateHandler.TransitionedFromTo += OnStateTransition;
+    }
+
+    private void OnDisable()
+    {
+        CharacterStateHandler.TransitionedFromTo -= OnStateTransition;
+    }
+
     public void InitializeCharacterActions()
     {
         //this.CharacterActions.SetActions(Actions);
         //SetCharacterActionListening();
     }
+
+    private void OnStateTransition(CharacterTypeState fromState, CharacterTypeState toState)
+    {
+        switch (toState)
+        {
+            case CharacterTypeState.None:
+                break;
+            case CharacterTypeState.Solid:
+                CharacterAnimatorHandler = CharacterStateHandler.SolidCharacterMesh.GetComponent<CharacterAnimatorHandler>();
+                break;
+            case CharacterTypeState.Liquid:
+                CharacterAnimatorHandler = CharacterStateHandler.LiquidCharacterMesh.GetComponent<CharacterAnimatorHandler>();
+                break;
+            case CharacterTypeState.Gas:
+                CharacterAnimatorHandler = CharacterStateHandler.GasCharacterMesh.GetComponent<CharacterAnimatorHandler>();
+                break;
+            case CharacterTypeState.TriplePoint:
+                break;
+            default:
+                break;
+        }
+    }
+
     private void Update()
     {
         switch (_state)
@@ -391,13 +425,26 @@ public class CharacterBattle : MonoBehaviour
         }
         else
         {
-            //PLay attacking animation.
+            //Play attacking animation.
             if (CharacterAnimatorHandler)
             {
-                this.CharacterAnimatorHandler.PlayAnimThenAction(action.AnimationName, () =>
+                if (action.Name == "Defend")
+                {
+                    this.CharacterAnimatorHandler.Animator.SetBool("isDefending", true);
+                    this.ConditionHandler.IsDefending = true;
+                }
+
+                if(action.AnimationName != string.Empty)
+                {
+                    this.CharacterAnimatorHandler.PlayAnimThenAction(action.AnimationName, () =>
+                    {
+                        onActionComplete();
+                    });
+                }
+                else
                 {
                     onActionComplete();
-                });
+                }
 
             }
             else
@@ -428,53 +475,62 @@ public class CharacterBattle : MonoBehaviour
             target.ConditionHandler.IsStunned = true;
             //Do stun.
         }
-
-        if (action.DamageIsHeal)
+        if (action.Damage != 0)
         {
-            float totalHeal = 0;
-            totalHeal += action.Damage;
-            switch (action.TypeOfDamage)
+            if (action.DamageIsHeal)
             {
-                case ActionDescription.DamageType.Physical:
-                    totalHeal += CharacterStats.PhysicalDamage.CurrentValue;
-                    break;
-                case ActionDescription.DamageType.Magical:
-                    totalHeal += CharacterStats.MagicalDamage.CurrentValue;
-                    break;
-                default:
-                    break;
+                float totalHeal = 0;
+                totalHeal += action.Damage;
+                switch (action.TypeOfDamage)
+                {
+                    case ActionDescription.DamageType.Physical:
+                        totalHeal += CharacterStats.PhysicalDamage.CurrentValue;
+                        break;
+                    case ActionDescription.DamageType.Magical:
+                        totalHeal += CharacterStats.MagicalDamage.CurrentValue;
+                        break;
+                    default:
+                        break;
+                }
+
+                target.CharacterStats.Health.Heal(totalHeal);
+                Debug.Log(this + " healed " + totalHeal + " health to " + target.name + "!");
+
             }
+            else
+            {
+                float totalDamage = 0;
+                totalDamage += action.Damage;
+                switch (action.TypeOfDamage)
+                {
+                    case ActionDescription.DamageType.Physical:
+                        totalDamage += CharacterStats.PhysicalDamage.CurrentValue;
+                        totalDamage -= target.CharacterStats.PhysicalResistance.CurrentValue;
+                        break;
+                    case ActionDescription.DamageType.Magical:
+                        totalDamage += CharacterStats.MagicalDamage.CurrentValue;
+                        totalDamage -= target.CharacterStats.MagicalResistance.CurrentValue;
+                        break;
+                    default:
+                        break;
+                }
 
-            target.CharacterStats.Health.Heal(totalHeal);
-            Debug.Log(this + " healed " + totalHeal + " health to " + target.name + "!");
+                if (totalDamage < 0)
+                {
+                    totalDamage = 0;
+                }
 
+                if (target.ConditionHandler.IsDefending)
+                {
+                    totalDamage = totalDamage / 2f;
+                    target.ConditionHandler.InitiativeFirstInLine = true;
+                }
+
+                target.CharacterStats.Health.Damage(totalDamage);
+                Debug.Log(this + " dealt " + totalDamage + " damage to " + target.name + "!");
+            }
         }
-        else
-        {
-            float totalDamage = 0;
-            totalDamage += action.Damage;
-            switch (action.TypeOfDamage)
-            {
-                case ActionDescription.DamageType.Physical:
-                    totalDamage += CharacterStats.PhysicalDamage.CurrentValue;
-                    totalDamage -= target.CharacterStats.PhysicalResistance.CurrentValue;
-                    break;
-                case ActionDescription.DamageType.Magical:
-                    totalDamage += CharacterStats.MagicalDamage.CurrentValue;
-                    totalDamage -= target.CharacterStats.MagicalResistance.CurrentValue;
-                    break;
-                default:
-                    break;
-            }
 
-            if (totalDamage < 0)
-            {
-                totalDamage = 0;
-            }
-
-            target.CharacterStats.Health.Damage(totalDamage);
-            Debug.Log(this + " dealt " + totalDamage + " damage to " + target.name + "!");
-        }
 
         if (action.StrengthModifier.Value != 0)
         {
@@ -540,6 +596,17 @@ public class CharacterBattle : MonoBehaviour
         {
             StatModifier modifier = new StatModifier(action.MagRESModifier.Value, action.MagRESModifier.Type, this);
             target.CharacterStats.MagicalResistance.AddModifier(modifier);
+        }
+
+        if (action.TemperatureChange < 0)
+        {
+            target.CharacterStats.Temperature.Damage(Mathf.Abs(action.TemperatureChange));
+            target.CharacterStateHandler.CheckTemperatureTransitions();
+        }
+        else if (action.TemperatureChange > 0)
+        {
+            target.CharacterStats.Temperature.Heal(action.TemperatureChange);
+            target.CharacterStateHandler.CheckTemperatureTransitions();
         }
     }
 

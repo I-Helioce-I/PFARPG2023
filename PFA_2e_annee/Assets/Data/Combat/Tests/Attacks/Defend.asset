@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1dded9426f0444e8c6effd350063d5, type: 3}
+  m_Name: Defend
+  m_EditorClassIdentifier: 
+  Name: Defend
+  Icon: {fileID: 21300000, guid: 37de5b9062eae7047a4034c242d9b05b, type: 3}
+  IconColor: {r: 0, g: 0.4020412, b: 0.5, a: 1}
+  Type: 0
+  Damage: 0
+  DamageIsHeal: 0
+  TypeOfDamage: 0
+  NumberOfTimes: 0
+  EtherCost: 0
+  StunChance: 0
+  TemperatureChange: 0
+  StrengthModifier:
+    Type: 100
+    Value: 0
+    Order: 100
+  AgilityModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  IntelligenceModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  ConstitutionModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  VitalityModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  LuckModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  HealthModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  EtherModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  SpeedModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  PhysDMGModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  PhysRESModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  MagDMGModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  MagRESModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  ViableSourceRow: 0
+  ViableTargetRow: 3
+  TargetsAllies: 0
+  TargetsAllViableTargets: 0
+  AnimationName: 
+  doesSlide: 0
+  EffectDelayInSeconds: 0
