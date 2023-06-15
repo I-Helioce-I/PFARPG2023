@@ -924,6 +924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dec5a7cc89de3d49a108c6a45616198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: 
   Stats: {fileID: 3996712886237203656}
   State: {fileID: 3996712886237203658}
   Battle: {fileID: 3996712886237203654}
@@ -1111,6 +1112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsStunned: 0
   IsDefending: 0
+  InitiativeFirstInLine: 0
 --- !u!114 &281179218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1123,6 +1125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e12c7ef55aeae1f4dacd2739fbcca79f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CharacterController: {fileID: 3996712886237203657}
   _representedState: 3
   PossibleStates: 010000000200000003000000
   SolidCharacter: {fileID: 0}
