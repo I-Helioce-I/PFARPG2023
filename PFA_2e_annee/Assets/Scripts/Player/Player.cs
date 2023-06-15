@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public KRB_CharacterController CharacterController;
     public PlayerInput PlayerInput;
     //public ExampleCharacterCamera CharacterCamera;
+    public List<Character> AllControlledCharacters = new List<Character>();
 
     private Vector2 _movement = Vector2.zero;
     private bool _jumpPressed = false;
