@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class DialogueUI : MonoBehaviour
 {
@@ -35,6 +37,7 @@ public class DialogueUI : MonoBehaviour
     private CharacterPortraitHandler _secondaryCharacterPortraitHandler;
     private DialogueLinesSet _currentDialogue;
     private int _currentLineIndex = -1;
+    private CharacterDialogue _initiator;
 
     private void Awake()
     {
@@ -53,11 +56,12 @@ public class DialogueUI : MonoBehaviour
         DialogueGO.SetActive(false);
     }
 
-    public void InitializeDialogueUI(CharacterPortraitHandler mainCharacter, CharacterPortraitHandler secondaryCharacter, DialogueLinesSet dialogue)
+    public void InitializeDialogueUI(CharacterPortraitHandler mainCharacter, CharacterPortraitHandler secondaryCharacter, DialogueLinesSet dialogue, CharacterDialogue initiator)
     {
         //Open dialogue UI, disable controls.
 
         UIManager.instance.CurrentState = UIManager.UIState.Dialogue;
+        _initiator = initiator;
 
         MainCharacterPortait.sprite = mainCharacter.CurrentPortrait;
         SecondaryCharacterPortrait.sprite = secondaryCharacter.CurrentPortrait;
@@ -70,6 +74,8 @@ public class DialogueUI : MonoBehaviour
         CheckNextDialogueLine();
 
         Player.instance.ChangeActionMap("UI");
+
+        _initiator.OnDialogueStart?.Invoke();
     }
 
     public void CheckNextDialogueLine()
@@ -127,6 +133,9 @@ public class DialogueUI : MonoBehaviour
 
         Player.instance.ChangeActionMap(Player.instance.PreviousActionMap);
         UIManager.instance.CurrentState = UIManager.instance.PreviousState;
+
+        _initiator.OnDialogueEnd?.Invoke();
+        _initiator = null;
 
         //Close dialogue UI, re-enable controls.
     }

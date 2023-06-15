@@ -24,13 +24,18 @@ public class Interactible : MonoBehaviour
         _interactButtonPrompt.SetActive(false);
     }
 
+    private void OnDisable()
+    {
+        ShowPrompt(false);
+    }
+
     public virtual void Interact()
     {
         Debug.Log("Interacted with an interactible!");
         OnInteract?.Invoke(_currentHandler);
     }
 
-    private void ShowPrompt(bool show)
+    public void ShowPrompt(bool show)
     {
         _interactButtonPrompt.SetActive(show);
     }
