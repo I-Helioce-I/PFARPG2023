@@ -89,6 +89,13 @@ public class CameraManager : MonoBehaviour
         StartCoroutine(SmoothFovTransition(from, to, overTime, onTransitionCompleted));
     }
 
+    public void SmoothCurrentCameraRotation(Vector3 from, Vector3 to, float overTime, Action onTransitionCompleted)
+    {
+        if (_currentCameraCoroutine != null) StopCoroutine(_currentCameraCoroutine);
+        _currentCameraCoroutine = SmoothRotation(from, to, overTime, onTransitionCompleted);
+        StartCoroutine(SmoothRotation(from, to, overTime, onTransitionCompleted));
+    }
+
     private IEnumerator SmoothFovTransition(float from, float to, float overTime, Action onTransitionCompleted)
     {
         CinemachineVirtualCamera vcam = _currentCamera.GetComponent<CinemachineVirtualCamera>();
@@ -108,8 +115,34 @@ public class CameraManager : MonoBehaviour
             yield return null;
         }
 
-        vcam.m_Lens.FieldOfView = to;
-        onTransitionCompleted();
+        vcam.m_Lens.FieldOfView = from;
+
+        if (onTransitionCompleted != null) onTransitionCompleted();
+    }
+
+    private IEnumerator SmoothRotation(Vector3 from, Vector3 to, float overTime, Action onTransitionCompleted)
+    {
+        CinemachineVirtualCamera vcam = _currentCamera.GetComponent<CinemachineVirtualCamera>();
+        float timer = 0f;
+        float progress = 0f;
+        Vector3 position = vcam.transform.position;
+        Vector3 lerpdRotation = from;
+
+        vcam.transform.SetPositionAndRotation(position, Quaternion.Euler(from));
+
+        while (timer < overTime)
+        {
+            timer += Time.deltaTime;
+            progress = timer / overTime;
+            progress = SmoothProgress(progress);
+            lerpdRotation = Vector3.Lerp(from, to, progress);
+            vcam.transform.SetPositionAndRotation(position, Quaternion.Euler(lerpdRotation));
+            yield return null;
+        }
+
+        vcam.transform.SetPositionAndRotation(position, Quaternion.Euler(to));
+
+        if (onTransitionCompleted != null) onTransitionCompleted();
     }
 
     private float SmoothProgress(float progress)

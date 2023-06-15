@@ -182,7 +182,7 @@ public class BattleManager : MonoBehaviour
                 break;
             case BattleState.Starting:
                 FightScreen.SetActive(true);
-                CameraManager.instance.SmoothCurrentCameraFov(20f, 60f, 2f, () =>
+                CameraManager.instance.SmoothCurrentCameraRotation(Vector3.zero, new Vector3(60f, 0, 0), 2.5f, () =>
                 {
                     StartCombatGameplay();
                 });
@@ -302,7 +302,7 @@ public class BattleManager : MonoBehaviour
 
     public void TransitionOutOfBattle()
     {
-        UIManager.instance.Transitioner.Transition(1f, () =>
+        UIManager.instance.Transitioner.TransitionOutOfCombat(1f, () =>
         {
             EndBattle();
         });
