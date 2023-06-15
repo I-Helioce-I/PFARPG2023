@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 162.75012, y: 156}
-  m_SizeDelta: {x: 309.5, y: 50}
+  m_AnchoredPosition: {x: -185, y: 156}
+  m_SizeDelta: {x: 305, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8662635353576421364
 CanvasRenderer:
@@ -111,8 +111,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 165.00012, y: 156}
-  m_SizeDelta: {x: 305, y: 50}
+  m_AnchoredPosition: {x: -185, y: 156}
+  m_SizeDelta: {x: 304.99, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8062104292621259925
 CanvasRenderer:
@@ -1474,6 +1474,10 @@ MonoBehaviour:
   - {fileID: 9095961150100716503}
   - {fileID: 9095961151200727499}
   - {fileID: 9095961151154326233}
+  buttonIcons:
+  - {fileID: 9095961150427636103}
+  - {fileID: 9095961150691304686}
+  - {fileID: 9095961150836028163}
   nameTxt: {fileID: 5739240777176226837}
   stateTxt: {fileID: 9095961150215198750}
   currentHealthTxt: {fileID: 9095961150908874080}
@@ -1483,7 +1487,7 @@ MonoBehaviour:
   speedTxt: {fileID: 9095961150207852930}
   physicalDmgTxt: {fileID: 9095961150135102242}
   physicalDefTxt: {fileID: 9095961150361480565}
-  magicDmgTxt: {fileID: 9095961150359204819}
+  magicDmgTxt: {fileID: 9095961149162673941}
   magicDefTxt: {fileID: 9095961149210780836}
 --- !u!1 &9095961149769559070
 GameObject:
@@ -2859,7 +2863,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -97.5, y: 156}
+  m_AnchoredPosition: {x: 252.50012, y: 156}
   m_SizeDelta: {x: 130, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9095961150215198751
@@ -3827,7 +3831,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -250, y: 156}
+  m_AnchoredPosition: {x: 100, y: 156}
   m_SizeDelta: {x: 175, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9095961150834020104

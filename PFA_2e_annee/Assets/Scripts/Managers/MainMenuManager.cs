@@ -1,10 +1,13 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
     public static MainMenuManager instance;
+
+    [SerializeField] private int sceneToLoadOnStart;
 
     [Header("Main Buttons")]
     [SerializeField] private Button startButton;
@@ -34,7 +37,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        Debug.Log("Oui oui baguette");
+        SceneManager.LoadScene(sceneToLoadOnStart);
     }
 
     public void OpenSettings()
