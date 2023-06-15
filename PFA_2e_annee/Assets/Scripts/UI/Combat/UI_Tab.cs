@@ -28,8 +28,9 @@ public class UI_Tab : MonoBehaviour, ISelectHandler, IDeselectHandler
             if (LinkedActions.Count > 0)
             {
                 UIManager.instance.CombatMenu.TransitionToState(UI_CombatMenu.UICombatMenuState.NavigateActions);
-                LinkedActions[0].Select();
+                //LinkedActions[0].Select();
                 ShowLinkedActions(true);
+                LinkedActions[0].Select();
             }
             else
             {

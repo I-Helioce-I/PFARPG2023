@@ -15,6 +15,7 @@ public class UI_PlayerCharacterCombatSheet : MonoBehaviour
     [Header("Health")]
     public float HealthAdaptDuration = .3f;
     public TextMeshProUGUI HealthText;
+    public TextMeshProUGUI MaxHealthText;
 
     public Slider HealthSlider;
     public Image HealthFill;
@@ -24,6 +25,21 @@ public class UI_PlayerCharacterCombatSheet : MonoBehaviour
 
     private float _targetHealthValue;
     private float _currentHealthValueShown;
+    private float _maxHealthValueShown;
+
+    private float MaxHealthValueShown
+    {
+        get
+        {
+            return _maxHealthValueShown;
+        }
+        set
+        {
+            _maxHealthValueShown = value;
+            UpdateMaxHealthText();
+        }
+    }
+
     private float CurrentHealthValueShown
     {
         get
@@ -42,7 +58,7 @@ public class UI_PlayerCharacterCombatSheet : MonoBehaviour
     [Header("Ether")]
     public float EtherAdaptDuration = .5f;
     public TextMeshProUGUI EtherText;
-
+    public TextMeshProUGUI MaxEtherText;
     public Slider EtherSlider;
     public Image EtherFill;
     public Color EtherFull;
@@ -51,6 +67,21 @@ public class UI_PlayerCharacterCombatSheet : MonoBehaviour
 
     private float _targetEtherValue;
     private float _currentEtherValueShown;
+    private float _maxEtherValueShown;
+
+    private float MaxEtherValueShown
+    {
+        get
+        {
+            return _maxEtherValueShown;
+        }
+        set
+        {
+            _maxEtherValueShown = value;
+            UpdateMaxEtherText();
+        }
+    }
+
     private float CurrentEtherValueShown
     {
         get
@@ -86,7 +117,7 @@ public class UI_PlayerCharacterCombatSheet : MonoBehaviour
     {
         _representedStats = stats;
         Portrait.sprite = portrait;
-        LevelText.text = stats.Level.ToString();
+        LevelText.text = "lvl." + stats.Level.ToString();
 
         _representedStats.Health.ValueChanged -= TargetHealthValue;
         _representedStats.Ether.ValueChanged -= TargetEtherValue;
@@ -99,9 +130,13 @@ public class UI_PlayerCharacterCombatSheet : MonoBehaviour
         CurrentHealthValueShown = _representedStats.Health.CurrentValue;
         CalculateHealthBarValue();
         AdaptHealthColor();
+        MaxHealthValueShown = _representedStats.Health.MaxValue;
+
         CurrentEtherValueShown = _representedStats.Ether.CurrentValue;
         CalculateEtherBarValue();
         AdaptEtherColor();
+        MaxEtherValueShown = _representedStats.Ether.MaxValue;
+
         CalculateTemperatureBarValue();
         AdaptTemperatureColor();
     }
@@ -150,7 +185,7 @@ public class UI_PlayerCharacterCombatSheet : MonoBehaviour
     private void AdaptHealthColor()
     {
         Color newColor = Color.white;
-        if(HealthSlider.value <= 1f && HealthSlider.value > .5f)
+        if (HealthSlider.value <= 1f && HealthSlider.value > .5f)
         {
             float interpolation = 1f - ((1f - HealthSlider.value) * 2f);
             newColor = Color.Lerp(HealthMid, HealthFull, interpolation);
@@ -218,9 +253,17 @@ public class UI_PlayerCharacterCombatSheet : MonoBehaviour
     {
         HealthText.text = Mathf.RoundToInt(CurrentHealthValueShown).ToString();
     }
+    private void UpdateMaxHealthText()
+    {
+        MaxHealthText.text = "/ " + Mathf.RoundToInt(MaxHealthValueShown).ToString();
+    }
     private void UpdateEtherText()
     {
         EtherText.text = Mathf.RoundToInt(CurrentEtherValueShown).ToString();
+    }
+    private void UpdateMaxEtherText()
+    {
+        MaxEtherText.text = "/ " + Mathf.RoundToInt(MaxEtherValueShown).ToString();
     }
 
     private IEnumerator ChangeHealthShownValue(float targetValue)
@@ -259,7 +302,7 @@ public class UI_PlayerCharacterCombatSheet : MonoBehaviour
         CurrentEtherValueShown = targetValue;
         CalculateEtherBarValue();
         AdaptEtherColor();
- 
+
         _currentEtherCoroutine = null;
 
     }
