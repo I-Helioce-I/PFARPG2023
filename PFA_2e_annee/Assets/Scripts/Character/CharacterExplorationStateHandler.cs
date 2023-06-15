@@ -7,6 +7,7 @@ public class CharacterExplorationStateHandler : MonoBehaviour
     public delegate void CharacterExplorationTypeStateEvent(CharacterTypeState fromState, CharacterTypeState toState);
     public event CharacterExplorationTypeStateEvent TransitionedFromTo = null;
 
+    public KRB_CharacterController CharacterController;
     [SerializeField] private CharacterTypeState _representedState;
 
     public List<CharacterTypeState> PossibleStates = new List<CharacterTypeState>();
@@ -105,6 +106,8 @@ public class CharacterExplorationStateHandler : MonoBehaviour
 
     public void SwitchStateForward()
     {
+        if (!CharacterController.Motor.GroundingStatus.IsStableOnGround || CharacterController.CurrentCharacterState != CharacterState.Default) return;
+
         int currentIndex = -1;
         for (int i = 0; i < PossibleStates.Count; i++)
         {
@@ -128,6 +131,8 @@ public class CharacterExplorationStateHandler : MonoBehaviour
 
     public void SwitchStateBackward()
     {
+        if (!CharacterController.Motor.GroundingStatus.IsStableOnGround || CharacterController.CurrentCharacterState != CharacterState.Default) return;
+
         int currentIndex = -1;
         for (int i = 0; i < PossibleStates.Count; i++)
         {

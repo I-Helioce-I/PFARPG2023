@@ -35,6 +35,7 @@ public class UI_CombatMenu : MonoBehaviour
 
     [Header("Action info")]
     private int hello = 0;
+    private bool _isOpen = false;
 
     public void TransitionToState(UICombatMenuState state)
     {
@@ -101,6 +102,8 @@ public class UI_CombatMenu : MonoBehaviour
 
     public void OpenCombatMenu(CharacterBattle character)
     {
+        if (_isOpen) return;
+        _isOpen = true;
         //When you open the combat menu, all of the tabs of the combat menu will instantiate their ui_actionbuttons, and initialize them to correspond to the according ActionDescription. All of this according
         //to the character's currentstate.
         TransitionToState(UICombatMenuState.WaitingInstruction);
@@ -288,6 +291,7 @@ public class UI_CombatMenu : MonoBehaviour
             tab.LinkedActions.Clear();
         }
 
+        _isOpen = false;
         TransitionToState(UICombatMenuState.Closed);
     }
 
