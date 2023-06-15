@@ -29,6 +29,8 @@ public class ActionDescription : ScriptableObject
     [Header("Parameters")]
     public string Name;
     public Sprite Icon;
+    [TextArea(5, 10)]
+    public string DescriptionText = "";
     public Color IconColor;
     public ActionType Type;
     public float Damage;
