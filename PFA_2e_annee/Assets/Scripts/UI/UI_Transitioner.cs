@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
 using System;
 
 public class UI_Transitioner : MonoBehaviour
 {
+    [Header("PostProcessing")]
+    private Volume PPVolume;
+
     public Image TransitionIMG;
 
     [Header("Parameters")]
