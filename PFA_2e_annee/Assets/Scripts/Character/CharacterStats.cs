@@ -66,7 +66,7 @@ public class CharacterStats : MonoBehaviour
         Health.CurrentValueBroughtBackFromZero -= CharacterRevive;
     }
 
-    private void Start()
+    private void Awake()
     {
         CalculateAllStats();       
     }
