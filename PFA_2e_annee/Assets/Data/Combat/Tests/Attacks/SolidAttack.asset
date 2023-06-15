@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Solid punch
   Icon: {fileID: 21300000, guid: 1dcb01ee029c3724ba50be81112fa84a, type: 3}
+  DescriptionText: 'Deal <color=#cd0010>25<sprite index=0><color=#ffffff> to <sprite
+    index=2>.
+
+    Stun the enemy.'
   IconColor: {r: 0.8632076, g: 0.9835007, b: 1, a: 1}
   Type: 0
   Damage: 25
@@ -82,3 +86,5 @@ MonoBehaviour:
   AnimationName: Attack
   doesSlide: 1
   EffectDelayInSeconds: 0.3
+  Projectile: {fileID: 0}
+  ProjectileShootDelay: 0

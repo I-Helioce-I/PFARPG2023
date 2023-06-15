@@ -13,6 +13,13 @@ public class UI_ActionButton : MonoBehaviour, ISelectHandler, IDeselectHandler
     public event ActionEvent ActionSelected = null;
 
     private ActionDescription Action;
+    public ActionDescription RepresentedAction
+    {
+        get
+        {
+            return Action;
+        }
+    }
     public Image Icon;
     public TextMeshProUGUI Name;
 
@@ -26,10 +33,13 @@ public class UI_ActionButton : MonoBehaviour, ISelectHandler, IDeselectHandler
     public void OnSelect(BaseEventData eventData)
     {
         //Show action info.
+        UIManager.instance.CombatMenu.ActionInfo.SetActive(true);
+        UIManager.instance.CombatMenu.ActionInfo.GetComponent<UI_SetInfo>().SetInfos(Icon.sprite, Name.text, Action.DescriptionText);
     }
     public void OnDeselect(BaseEventData eventData)
     {
         //Hide action info.
+        UIManager.instance.CombatMenu.ActionInfo.SetActive(false);
     }
 
     public void Click()
