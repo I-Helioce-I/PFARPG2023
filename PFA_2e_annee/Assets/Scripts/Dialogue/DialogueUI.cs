@@ -21,6 +21,8 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private float ChangeLuminosityDuration = .3f;
 
     [Header("Dialogue Text")]
+    public AudioClip VoiceBlip;
+    public int CharactersPerBlip = 5;
     [SerializeField] private float _delayBetweenTwoCharacters = .1f;
     private Coroutine _currentWritingCoroutine;
     public Coroutine CurrentWritingCoroutine
@@ -188,6 +190,7 @@ public class DialogueUI : MonoBehaviour
         //DialogueText.maxVisibleCharacters = 0;
         int totalVisibleCharacters = DialogueText.textInfo.characterCount;
         int counter = 0;
+        int blipCounter = 0;
 
         while (counter <= totalVisibleCharacters)
         {
@@ -201,10 +204,18 @@ public class DialogueUI : MonoBehaviour
             //}
 
             counter += 1;
+            blipCounter += 1;
+            if(blipCounter >= CharactersPerBlip)
+            {
+                SoundManager.instance.PlaySFX(VoiceBlip);
+                blipCounter = 0;
+            }
+            
 
             yield return new WaitForSeconds(_delayBetweenTwoCharacters);
         }
 
+        SoundManager.instance.PlaySFX(VoiceBlip);
         NextPrompt.SetActive(true);
         _currentWritingCoroutine = null;
     }
