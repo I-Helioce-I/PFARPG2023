@@ -14,16 +14,74 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Strong attack
   Icon: {fileID: 21300000, guid: 37de5b9062eae7047a4034c242d9b05b, type: 3}
+  DescriptionText: 
   IconColor: {r: 1, g: 0, b: 0, a: 1}
   Type: 0
-  MinMaxDamage: {x: 10, y: 16}
+  Damage: 0
+  DamageIsHeal: 0
   TypeOfDamage: 0
   NumberOfTimes: 1
   EtherCost: 0
   StunChance: 0
+  TemperatureChange: 0
+  StrengthModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  AgilityModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  IntelligenceModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  ConstitutionModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  VitalityModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  LuckModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  HealthModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  EtherModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  SpeedModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  PhysDMGModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  PhysRESModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  MagDMGModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  MagRESModifier:
+    Type: 0
+    Value: 0
+    Order: 0
   ViableSourceRow: 0
   ViableTargetRow: 0
   TargetsAllies: 0
   TargetsAllViableTargets: 1
   AnimationName: 
   doesSlide: 1
+  EffectDelayInSeconds: 0
+  Projectile: {fileID: 0}
+  ProjectileShootDelay: 0

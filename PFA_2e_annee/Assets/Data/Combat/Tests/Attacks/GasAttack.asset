@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Gas cough
   Icon: {fileID: 21300000, guid: 4e3fb1982828dc34e84555f386a45bc6, type: 3}
-  IconColor: {r: 0, g: 0.4020412, b: 0.5, a: 1}
+  DescriptionText: Deal <color=#cd0010>25<sprite index=0><color=#ffffff> to <sprite
+    index=2>.
+  IconColor: {r: 0, g: 0.40392157, b: 0.5019608, a: 1}
   Type: 0
   Damage: 25
   DamageIsHeal: 0
@@ -82,3 +84,5 @@ MonoBehaviour:
   AnimationName: Attack
   doesSlide: 1
   EffectDelayInSeconds: 0
+  Projectile: {fileID: 0}
+  ProjectileShootDelay: 0
