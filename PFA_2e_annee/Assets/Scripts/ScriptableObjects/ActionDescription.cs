@@ -68,4 +68,8 @@ public class ActionDescription : ScriptableObject
     public string AnimationName;
     public bool doesSlide = false;
     public float EffectDelayInSeconds = 0f;
+
+    [Header("Projectile")]
+    public ActionProjectile Projectile;
+    public float ProjectileShootDelay;
 }

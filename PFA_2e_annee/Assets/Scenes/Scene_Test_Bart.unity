@@ -178,7 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActionButtonPrefab: {fileID: 2266221999894662101, guid: b138917af6661a0479dbf34e47184d0d,
     type: 3}
-  Self: {fileID: 0}
+  Self: {fileID: 4092955}
   LinkedActionsParent: {fileID: 38413141}
   LinkedActions: []
 --- !u!114 &4092955
@@ -1767,7 +1767,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &176212336
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2898,6 +2898,7 @@ MonoBehaviour:
   Character: {fileID: 136157286}
   CharacterController: {fileID: 136157284}
   PlayerInput: {fileID: 320755289}
+  AllControlledCharacters: []
 --- !u!114 &320755289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4529,7 +4530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActionButtonPrefab: {fileID: 2266221999894662101, guid: b138917af6661a0479dbf34e47184d0d,
     type: 3}
-  Self: {fileID: 0}
+  Self: {fileID: 407190295}
   LinkedActionsParent: {fileID: 1151674358}
   LinkedActions: []
 --- !u!114 &407190295
@@ -7967,7 +7968,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &737276112
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14139,7 +14140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActionButtonPrefab: {fileID: 2266221999894662101, guid: b138917af6661a0479dbf34e47184d0d,
     type: 3}
-  Self: {fileID: 0}
+  Self: {fileID: 1298206280}
   LinkedActionsParent: {fileID: 1146533571}
   LinkedActions: []
 --- !u!114 &1298206280

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Defend
   Icon: {fileID: 21300000, guid: 37de5b9062eae7047a4034c242d9b05b, type: 3}
+  DescriptionText: 
   IconColor: {r: 0, g: 0.4020412, b: 0.5, a: 1}
   Type: 0
   Damage: 0
@@ -79,6 +80,8 @@ MonoBehaviour:
   ViableTargetRow: 3
   TargetsAllies: 0
   TargetsAllViableTargets: 0
-  AnimationName: 
+  AnimationName: Defending
   doesSlide: 0
   EffectDelayInSeconds: 0
+  Projectile: {fileID: 0}
+  ProjectileShootDelay: 0
