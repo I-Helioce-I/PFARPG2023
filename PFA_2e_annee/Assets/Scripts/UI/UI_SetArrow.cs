@@ -13,16 +13,18 @@ public class UI_SetArrow : MonoBehaviour, ISelectHandler, IDeselectHandler
 
     public void OnSelect(BaseEventData eventData)
     {
+        Debug.Log(this.name + " is active");
         CreateArrow();
-        SoundManager.instance.PlaySFX(clip);
+        //SoundManager.instance.PlaySFX(clip);
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
+        SoundManager.instance.PlaySFX(clip);
         DestroyArrow();
     }
 
-    private void CreateArrow()
+    public void CreateArrow()
     {
         // instantiate the arrow
         arrowContainer = Instantiate(arrow, this.transform);

@@ -684,8 +684,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 11.5719, y: 0}
+  m_SizeDelta: {x: -23.1439, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &770747732
 MonoBehaviour:
@@ -1066,6 +1066,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6319625262221565153, guid: 2687e41a6e5b25040aa1f883a54fe48c,
+        type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6319625262271438990, guid: 2687e41a6e5b25040aa1f883a54fe48c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1248,6 +1253,7 @@ GameObject:
   - component: {fileID: 893048912}
   - component: {fileID: 893048914}
   - component: {fileID: 893048913}
+  - component: {fileID: 893048915}
   m_Layer: 5
   m_Name: GameLogo
   m_TagString: Untagged
@@ -1272,8 +1278,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 442.49994, y: 264.1507}
-  m_SizeDelta: {x: 885, y: 391.4828}
+  m_AnchoredPosition: {x: 385, y: 250}
+  m_SizeDelta: {x: 1000, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &893048913
 MonoBehaviour:
@@ -1295,7 +1301,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: adf9169074aecc0429515119a6b7c442, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1313,6 +1319,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 893048911}
   m_CullTransparentMesh: 1
+--- !u!95 &893048915
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893048911}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dadb8298f97175f408a12c9c0e141885, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &900630381
 GameObject:
   m_ObjectHideFlags: 0
@@ -1348,8 +1374,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 11.5719, y: 0}
+  m_SizeDelta: {x: -23.1439, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &900630383
 MonoBehaviour:
@@ -1449,6 +1475,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900630381}
   m_CullTransparentMesh: 1
+--- !u!114 &1092640787 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6319625262221565153, guid: 2687e41a6e5b25040aa1f883a54fe48c,
+    type: 3}
+  m_PrefabInstance: {fileID: 835826774}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1196572560
 GameObject:
   m_ObjectHideFlags: 0
@@ -1889,6 +1927,7 @@ MonoBehaviour:
   quitButton: {fileID: 1196572563}
   settingsPanel: {fileID: 230801405}
   settingsHolder: {fileID: 487145951}
+  sliderMasterVolume: {fileID: 1092640787}
 --- !u!4 &1538521284
 Transform:
   m_ObjectHideFlags: 0
@@ -1939,8 +1978,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 11.5719, y: 0}
+  m_SizeDelta: {x: -23.1439, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1666615850
 MonoBehaviour:

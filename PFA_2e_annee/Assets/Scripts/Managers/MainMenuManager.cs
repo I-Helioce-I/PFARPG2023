@@ -18,6 +18,9 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject settingsHolder;
 
+    [Header("SliderSettings")]
+    [SerializeField] private Slider sliderMasterVolume;
+
     private void Awake()
     {
         if (instance == null)
@@ -43,8 +46,9 @@ public class MainMenuManager : MonoBehaviour
 
     public void OpenSettings()
     {
-        MainButtonInteractableSwitch(false);
         settingsPanel.SetActive(true);
+        MainButtonInteractableSwitch(false);
+        sliderMasterVolume.Select();
         //Instantiate(settingsPanel, settingsHolder.transform);
     }
 
@@ -56,7 +60,7 @@ public class MainMenuManager : MonoBehaviour
     public void CloseSettings()
     {
         MainButtonInteractableSwitch(true);
-        startButton.Select();
+        settingsButton.Select();
         settingsPanel.SetActive(false);
     }
 
