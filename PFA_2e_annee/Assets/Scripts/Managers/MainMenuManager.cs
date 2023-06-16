@@ -33,6 +33,7 @@ public class MainMenuManager : MonoBehaviour
     private void Start()
     {
         startButton.Select();
+        UpdateSliderValues();
     }
 
     public void StartGame()
@@ -43,13 +44,20 @@ public class MainMenuManager : MonoBehaviour
     public void OpenSettings()
     {
         MainButtonInteractableSwitch(false);
-        Instantiate(settingsPanel, settingsHolder.transform);
+        settingsPanel.SetActive(true);
+        //Instantiate(settingsPanel, settingsHolder.transform);
+    }
+
+    public void UpdateSliderValues()
+    {
+        settingsPanel.GetComponent<UI_Settings>().SetSlider();
     }
 
     public void CloseSettings()
     {
         MainButtonInteractableSwitch(true);
         startButton.Select();
+        settingsPanel.SetActive(false);
     }
 
     public void QuitGame()
