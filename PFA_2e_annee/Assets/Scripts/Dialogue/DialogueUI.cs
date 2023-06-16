@@ -60,7 +60,7 @@ public class DialogueUI : MonoBehaviour
 
     public void InitializeDialogueUI(CharacterPortraitHandler mainCharacter, CharacterPortraitHandler secondaryCharacter, DialogueLinesSet dialogue, CharacterDialogue initiator)
     {
-        //Open dialogue UI, disable controls.
+        //SetSlider dialogue UI, disable controls.
 
         UIManager.instance.CurrentState = UIManager.UIState.Dialogue;
         _initiator = initiator;
