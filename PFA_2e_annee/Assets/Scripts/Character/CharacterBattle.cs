@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class CharacterBattle : MonoBehaviour
 {
@@ -30,6 +31,11 @@ public class CharacterBattle : MonoBehaviour
     public CharacterAnimatorHandler CharacterAnimatorHandler;
     public CharacterStats CharacterStats;
     public CharacterConditionHandler ConditionHandler;
+
+    [Header("VFX Target Locations")]
+    public Transform Root;
+    public Transform HitPoint;
+    public Transform OverHead;
 
     [Header("Current battle")]
     [SerializeField] private BattleManager _battle;
@@ -474,6 +480,76 @@ public class CharacterBattle : MonoBehaviour
         {
             timer += Time.deltaTime;
             yield return null;
+        }
+
+        //VFX
+        if (action.OnCasterCastVFX)
+        {
+            Vector3 casterPosition = Vector3.zero;
+            switch (action.CasterVFXAttachPoint)
+            {
+                case VFXAttachLocation.Root:
+                    casterPosition = Root.position + (new Vector3(0, 0.01f, 0));                    
+                    break;
+                case VFXAttachLocation.HitPoint:
+                    casterPosition = HitPoint.position;
+                    break;
+                case VFXAttachLocation.OverHead:
+                    casterPosition = OverHead.position;
+                    break;
+            }
+
+            ParticleSystem particleSystem = action.OnCasterCastVFX.GetComponent<ParticleSystem>();
+            VisualEffect visualEffect = action.OnCasterCastVFX.GetComponent<VisualEffect>();
+
+            if (particleSystem)
+            {
+                ParticleSystem particles = Instantiate<ParticleSystem>(particleSystem, casterPosition, transform.rotation);
+                var main = particles.main;
+                particles.Play();
+                main.stopAction = ParticleSystemStopAction.Destroy;
+            }
+            else if (visualEffect)
+            {
+                VisualEffect effect = Instantiate<VisualEffect>(visualEffect, casterPosition, transform.rotation);
+                effect.Play();
+                //No destroy because fuck it whatever UGH
+            }
+
+
+        }
+        if (action.OnTargetCastVFX)
+        {
+            Vector3 targetPosition = Vector3.zero;
+            switch (action.TargetVFXAttachPoint)
+            {
+                case VFXAttachLocation.Root:
+                    targetPosition = target.Root.position + (new Vector3(0, 0.01f, 0));
+                    break;
+                case VFXAttachLocation.HitPoint:
+                    targetPosition = target.HitPoint.position;
+                    break;
+                case VFXAttachLocation.OverHead:
+                    targetPosition = target.OverHead.position;
+                    break;
+            }
+
+            ParticleSystem particleSystem = action.OnTargetCastVFX.GetComponent<ParticleSystem>();
+            VisualEffect visualEffect = action.OnTargetCastVFX.GetComponent<VisualEffect>();
+
+            if (particleSystem)
+            {
+                ParticleSystem particles = Instantiate<ParticleSystem>(particleSystem, targetPosition, transform.rotation);
+                var main = particles.main;
+                particles.Play();
+                main.stopAction = ParticleSystemStopAction.Destroy;
+            }
+            else if (visualEffect)
+            {
+                VisualEffect effect = Instantiate<VisualEffect>(visualEffect, targetPosition, transform.rotation);
+                effect.Play();
+                //No destroy because fuck it whatever UGH
+            }
         }
 
         float stunRoll = UnityEngine.Random.Range(0f, 100f);
