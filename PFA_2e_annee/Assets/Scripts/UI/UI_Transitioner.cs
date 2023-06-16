@@ -5,12 +5,14 @@ using UnityEngine.UI;
 using UnityEngine.Rendering;
 using System;
 using UnityEngine.Rendering.Universal;
+using static System.TimeZoneInfo;
 
 public class UI_Transitioner : MonoBehaviour
 {
     [Header("PostProcessing")]
     [SerializeField] private Volume PPVolume;
     private ChromaticAberration ChromaAberration;
+    [SerializeField] private Animator TransitionBlurAnimator;
 
     public Image TransitionIMG;
 
@@ -22,6 +24,23 @@ public class UI_Transitioner : MonoBehaviour
     private void Awake()
     {
         PPVolume.profile.TryGet<ChromaticAberration>(out ChromaAberration);
+    }
+
+    public void MainMenuStartGameTransition(float waitTime, Action onWaitComplete)
+    {
+        if (_transitionCoroutine != null) StopCoroutine(_transitionCoroutine);
+
+        TransitionBlurAnimator.SetTrigger("Fill");
+        _transitionCoroutine = Wait(waitTime, onWaitComplete);
+        StartCoroutine(Wait(waitTime, onWaitComplete));
+    }
+
+    public void WaitAndThen(float waitTime, Action onWaitComplete)
+    {
+        if (_transitionCoroutine != null) StopCoroutine(_transitionCoroutine);
+
+        _transitionCoroutine = Wait(waitTime, onWaitComplete);
+        StartCoroutine(Wait(waitTime, onWaitComplete));
     }
 
     public void Transition(float transitionTime, Action onTransitionComplete)
@@ -206,6 +225,18 @@ public class UI_Transitioner : MonoBehaviour
 
         timer = 0f;
         TransitionIMG.color = new Color(0, 0, 0, to);
+
+        onTransitionComplete();
+    }
+    private IEnumerator Wait(float waitTime, Action onTransitionComplete)
+    {
+        float timer = 0f;
+
+        while (timer < waitTime)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
 
         onTransitionComplete();
     }

@@ -9,6 +9,9 @@ public class MainMenuManager : MonoBehaviour
 
     [SerializeField] private int sceneToLoadOnStart;
 
+    [Header("Transitioner")]
+    public UI_Transitioner Transitioner;
+
     [Header("Main Buttons")]
     [SerializeField] private Button startButton;
     [SerializeField] private Button settingsButton;
@@ -41,7 +44,11 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(sceneToLoadOnStart);
+        Transitioner.MainMenuStartGameTransition(1.5f, () =>
+        {
+            SceneManager.LoadScene(sceneToLoadOnStart);
+        });
+
     }
 
     public void OpenSettings()
