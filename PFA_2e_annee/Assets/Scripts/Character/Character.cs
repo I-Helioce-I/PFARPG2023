@@ -8,6 +8,8 @@ public class Character : MonoBehaviour
     public event CharacterEvent CharacterDowned = null;
 
     [Header("References")]
+    public Sprite sprite;
+    public Sprite icon;
     new public string name;
     public CharacterStats Stats;
     public CharacterStateHandler State;

@@ -11,9 +11,9 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioMixer MasterMixer;
 
     [Header("Parameters")]
-    public float MasterVolume = 0.7f;
-    public float MusicVolume = 0.5f;
-    public float SFXVolume = 0.5f;
+    public float MasterVolume = 1f;
+    public float MusicVolume = 1f;
+    public float SFXVolume = 1f;
 
     [Header("Sounds")]
     public AudioSource MusicSource, SFXSource;

@@ -2590,6 +2590,7 @@ GameObject:
   - component: {fileID: 6319625260941217084}
   - component: {fileID: 6319625260941217083}
   - component: {fileID: 902385419291487442}
+  - component: {fileID: 8347439996471599259}
   m_Layer: 5
   m_Name: SettingsPanel
   m_TagString: Untagged
@@ -2671,6 +2672,18 @@ MonoBehaviour:
   masterVolumeSlider: {fileID: 6319625262221565153}
   musicVolumeSlider: {fileID: 6319625262130096651}
   soundVolumeSlider: {fileID: 6319625260385380957}
+--- !u!114 &8347439996471599259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6319625260941217081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e22e50ed93bc0674687dafd02d1e8d8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6319625261113078340
 GameObject:
   m_ObjectHideFlags: 0
@@ -2949,7 +2962,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e0fb1bb91c938a842b131dd3e45be522, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 54f6353c9f062544db12990169a3e0b0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3062,7 +3075,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e0fb1bb91c938a842b131dd3e45be522, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 54f6353c9f062544db12990169a3e0b0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -52,7 +52,7 @@ public class OptionSpawn : MonoBehaviour
         Character player = Player.instance.AllControlledCharacters[i];
         CharacterStats stat = player.GetComponent<CharacterStats>();
 
-        //sprites[i] = Player.instance.AllControlledCharacters[i];
+        sprites[i].sprite = Player.instance.AllControlledCharacters[i].sprite;
         names[i].text = player.name;
         levels[i].text = stat.Level.ToString();
         currentHealths[i].text = stat.Health.CurrentValue.ToString();

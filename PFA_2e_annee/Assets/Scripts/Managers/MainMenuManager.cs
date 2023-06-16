@@ -1,10 +1,16 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
     public static MainMenuManager instance;
+
+    [SerializeField] private int sceneToLoadOnStart;
+
+    [Header("Transitioner")]
+    public UI_Transitioner Transitioner;
 
     [Header("Main Buttons")]
     [SerializeField] private Button startButton;
@@ -14,6 +20,9 @@ public class MainMenuManager : MonoBehaviour
     [Header("Settings Panel")]
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject settingsHolder;
+
+    [Header("SliderSettings")]
+    [SerializeField] private Slider sliderMasterVolume;
 
     private void Awake()
     {
@@ -30,23 +39,36 @@ public class MainMenuManager : MonoBehaviour
     private void Start()
     {
         startButton.Select();
+        UpdateSliderValues();
     }
 
     public void StartGame()
     {
-        Debug.Log("Oui oui baguette");
+        Transitioner.MainMenuStartGameTransition(1.5f, () =>
+        {
+            SceneManager.LoadScene(sceneToLoadOnStart);
+        });
+
     }
 
     public void OpenSettings()
     {
+        settingsPanel.SetActive(true);
         MainButtonInteractableSwitch(false);
-        Instantiate(settingsPanel, settingsHolder.transform);
+        sliderMasterVolume.Select();
+        //Instantiate(settingsPanel, settingsHolder.transform);
+    }
+
+    public void UpdateSliderValues()
+    {
+        settingsPanel.GetComponent<UI_Settings>().SetSlider();
     }
 
     public void CloseSettings()
     {
         MainButtonInteractableSwitch(true);
-        startButton.Select();
+        settingsButton.Select();
+        settingsPanel.SetActive(false);
     }
 
     public void QuitGame()

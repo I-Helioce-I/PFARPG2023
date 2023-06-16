@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum VFXAttachLocation
+{
+    Root,
+    HitPoint,
+    OverHead,
+}
+
 [CreateAssetMenu(menuName = "JRPG/Game/Combat/Action")]
 public class ActionDescription : ScriptableObject
 {
@@ -72,4 +79,10 @@ public class ActionDescription : ScriptableObject
     [Header("Projectile")]
     public ActionProjectile Projectile;
     public float ProjectileShootDelay;
+
+    [Header("VFX")]
+    public GameObject OnCasterCastVFX;
+    public VFXAttachLocation CasterVFXAttachPoint;
+    public GameObject OnTargetCastVFX;
+    public VFXAttachLocation TargetVFXAttachPoint;
 }

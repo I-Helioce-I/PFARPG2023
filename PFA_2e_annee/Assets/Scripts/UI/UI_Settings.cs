@@ -10,13 +10,11 @@ public class UI_Settings : MonoBehaviour
     [SerializeField] private Slider musicVolumeSlider;
     [SerializeField] private Slider soundVolumeSlider;
 
-    private void Start()
+    private void Awake()
     {
-        masterVolumeSlider.Select();
-        masterVolumeSlider.value = SoundManager.instance.MasterVolume;
-        musicVolumeSlider.value = SoundManager.instance.MusicVolume;
-        soundVolumeSlider.value = SoundManager.instance.SFXVolume;
+        SetSlider();
     }
+
 
     public void ClosePanel()
     {
@@ -24,10 +22,17 @@ public class UI_Settings : MonoBehaviour
         {
             MainMenuManager.instance.CloseSettings();
         }
-        else if (OptionManager.instance !=null)
+        else if (OptionManager.instance != null)
         {
             OptionManager.instance.CloseSettings();
         }
         Destroy(this.gameObject);
+    }
+
+    public void SetSlider()
+    {
+        masterVolumeSlider.value = SoundManager.instance.MasterVolume;
+        musicVolumeSlider.value = SoundManager.instance.MusicVolume;
+        soundVolumeSlider.value = SoundManager.instance.SFXVolume;
     }
 }

@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class DialogueUI : MonoBehaviour
 {
@@ -19,6 +21,8 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private float ChangeLuminosityDuration = .3f;
 
     [Header("Dialogue Text")]
+    public AudioClip VoiceBlip;
+    public int CharactersPerBlip = 5;
     [SerializeField] private float _delayBetweenTwoCharacters = .1f;
     private Coroutine _currentWritingCoroutine;
     public Coroutine CurrentWritingCoroutine
@@ -35,6 +39,7 @@ public class DialogueUI : MonoBehaviour
     private CharacterPortraitHandler _secondaryCharacterPortraitHandler;
     private DialogueLinesSet _currentDialogue;
     private int _currentLineIndex = -1;
+    private CharacterDialogue _initiator;
 
     private void Awake()
     {
@@ -53,11 +58,12 @@ public class DialogueUI : MonoBehaviour
         DialogueGO.SetActive(false);
     }
 
-    public void InitializeDialogueUI(CharacterPortraitHandler mainCharacter, CharacterPortraitHandler secondaryCharacter, DialogueLinesSet dialogue)
+    public void InitializeDialogueUI(CharacterPortraitHandler mainCharacter, CharacterPortraitHandler secondaryCharacter, DialogueLinesSet dialogue, CharacterDialogue initiator)
     {
-        //Open dialogue UI, disable controls.
+        //SetSlider dialogue UI, disable controls.
 
         UIManager.instance.CurrentState = UIManager.UIState.Dialogue;
+        _initiator = initiator;
 
         MainCharacterPortait.sprite = mainCharacter.CurrentPortrait;
         SecondaryCharacterPortrait.sprite = secondaryCharacter.CurrentPortrait;
@@ -70,6 +76,8 @@ public class DialogueUI : MonoBehaviour
         CheckNextDialogueLine();
 
         Player.instance.ChangeActionMap("UI");
+
+        _initiator.OnDialogueStart?.Invoke();
     }
 
     public void CheckNextDialogueLine()
@@ -128,6 +136,9 @@ public class DialogueUI : MonoBehaviour
         Player.instance.ChangeActionMap(Player.instance.PreviousActionMap);
         UIManager.instance.CurrentState = UIManager.instance.PreviousState;
 
+        _initiator.OnDialogueEnd?.Invoke();
+        _initiator = null;
+
         //Close dialogue UI, re-enable controls.
     }
 
@@ -179,6 +190,7 @@ public class DialogueUI : MonoBehaviour
         //DialogueText.maxVisibleCharacters = 0;
         int totalVisibleCharacters = DialogueText.textInfo.characterCount;
         int counter = 0;
+        int blipCounter = 0;
 
         while (counter <= totalVisibleCharacters)
         {
@@ -192,10 +204,18 @@ public class DialogueUI : MonoBehaviour
             //}
 
             counter += 1;
+            blipCounter += 1;
+            if(blipCounter >= CharactersPerBlip)
+            {
+                SoundManager.instance.PlaySFX(VoiceBlip);
+                blipCounter = 0;
+            }
+            
 
             yield return new WaitForSeconds(_delayBetweenTwoCharacters);
         }
 
+        SoundManager.instance.PlaySFX(VoiceBlip);
         NextPrompt.SetActive(true);
         _currentWritingCoroutine = null;
     }

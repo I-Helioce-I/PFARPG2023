@@ -12,6 +12,7 @@ public class UI_EnemyCharacterCombatSheet : MonoBehaviour
     [Header("Health")]
     public float HealthAdaptDuration = .3f;
     public TextMeshProUGUI HealthText;
+    public TextMeshProUGUI MaxHealthText;
 
     public Slider HealthSlider;
     public Image HealthFill;
@@ -21,6 +22,21 @@ public class UI_EnemyCharacterCombatSheet : MonoBehaviour
 
     private float _targetHealthValue;
     private float _currentHealthValueShown;
+    private float _maxHealthValueShown;
+
+    private float MaxHealthValueShown
+    {
+        get
+        {
+            return _maxHealthValueShown;
+        }
+        set
+        {
+            _maxHealthValueShown = value;
+            UpdateMaxHealthText();
+        }
+    }
+
     private float CurrentHealthValueShown
     {
         get
@@ -66,6 +82,8 @@ public class UI_EnemyCharacterCombatSheet : MonoBehaviour
         CurrentHealthValueShown = _representedStats.Health.CurrentValue;
         CalculateHealthBarValue();
         AdaptHealthColor();
+        MaxHealthValueShown = _representedStats.Health.MaxValue;
+
         CalculateTemperatureBarValue();
         AdaptTemperatureColor();
     }
@@ -149,7 +167,10 @@ public class UI_EnemyCharacterCombatSheet : MonoBehaviour
     {
         HealthText.text = Mathf.RoundToInt(CurrentHealthValueShown).ToString();
     }
-
+    private void UpdateMaxHealthText()
+    {
+        MaxHealthText.text = "/ " + Mathf.RoundToInt(MaxHealthValueShown).ToString();
+    }
     private IEnumerator ChangeHealthShownValue(float targetValue)
     {
         float shownValue = _currentHealthValueShown;

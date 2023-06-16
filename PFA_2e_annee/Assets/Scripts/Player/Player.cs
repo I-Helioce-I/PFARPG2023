@@ -183,4 +183,12 @@ public class Player : MonoBehaviour
         // Apply inputs to character
         CharacterController.SetInputs(ref characterInputs);
     }
+
+    public void AddGasCharacter()
+    {
+        foreach(Character character in AllControlledCharacters)
+        {
+            if (!character.CharacterExplorationStateHandler.PossibleStates.Contains(CharacterTypeState.Gas)) character.CharacterExplorationStateHandler.PossibleStates.Add(CharacterTypeState.Gas);
+        }
+    }
 }

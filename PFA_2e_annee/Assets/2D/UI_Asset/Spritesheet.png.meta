@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Damage
+      name: Sword
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6946300e71d060c4186714d754056dad
-      internalID: 2118182177
+      spriteID: ab09d17e456b1014e923537798bc9a43
+      internalID: -1377168327
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mult
+      name: Multiple
       rect:
         serializedVersion: 2
         x: 256
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fc86a5fc26b357f40997e6e85ee60165
-      internalID: 1476748220
+      spriteID: 5617aa2ff6f83cb4090a1c592902b61c
+      internalID: 389537084
       vertices: []
       indices: 
       edges: []
@@ -161,8 +161,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c8893cc5115b91e48a69c59ba6e043b0
-      internalID: -107929497
+      spriteID: 8a83dde08c81215458aa65a498b5289f
+      internalID: 595054856
       vertices: []
       indices: 
       edges: []
@@ -182,8 +182,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 899d12eada6e3ac49ac17e49d65558cd
-      internalID: 1980548533
+      spriteID: f9b10c71daf2add449afa6a20fd02e5c
+      internalID: -1383280134
       vertices: []
       indices: 
       edges: []
@@ -203,14 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 38ab742fb44c4fa4aad536c902ddf80d
-      internalID: 1914238462
+      spriteID: 0d8cf071ed5984c44addcd28550c8c2b
+      internalID: 985791871
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Heal
+      name: Healt
       rect:
         serializedVersion: 2
         x: 512
@@ -224,8 +224,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f11ec07f35a286b49bf9bd6fb9ba5a53
-      internalID: -402139970
+      spriteID: ae832c0789cd2c44ba489066b5099c29
+      internalID: -496855010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ether
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 260b85be35b00b843ae759d6e5cca01f
+      internalID: 758844000
       vertices: []
       indices: 
       edges: []
@@ -233,7 +254,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: d97f7f134234b984a91c94f15e6f904c
+    spriteID: a1c56ef7cdee4864981236af7e8d4847
     internalID: 0
     vertices: []
     indices: 
@@ -241,12 +262,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Low: 1980548533
-      Heal: -402139970
-      Single: -107929497
-      Damage: 2118182177
-      Mult: 1476748220
-      High: 1914238462
+      Low: -1383280134
+      Sword: -1377168327
+      Single: 595054856
+      Ether: 758844000
+      Healt: -496855010
+      High: 985791871
+      Multiple: 389537084
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
