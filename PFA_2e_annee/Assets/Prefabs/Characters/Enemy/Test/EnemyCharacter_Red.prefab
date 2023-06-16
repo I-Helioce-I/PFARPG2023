@@ -617,6 +617,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dec5a7cc89de3d49a108c6a45616198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+  icon: {fileID: 21300000, guid: 175907b7f13a28441baf0004ee6eafd9, type: 3}
+  name: 
   Stats: {fileID: 7546150622173981571}
   State: {fileID: 7546150622173981574}
   Battle: {fileID: 7546150622173981570}
@@ -859,6 +862,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsStunned: 0
+  IsDefending: 0
+  InitiativeFirstInLine: 0
 --- !u!1 &7546150622298715152
 GameObject:
   m_ObjectHideFlags: 0

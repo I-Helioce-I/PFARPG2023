@@ -1,8 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class OptionManager : MonoBehaviour
@@ -32,8 +29,12 @@ public class OptionManager : MonoBehaviour
     [Space(10)]
     [SerializeField] private Button actualSelect;
     [SerializeField] private GameObject settingHandler;
+    [SerializeField] private Slider masterVolumeSlider;
     [SerializeField] private GameObject panelHandler;
     [SerializeField] private GameObject noMap;
+
+    [SerializeField] private AudioClip openOptionSFX;
+    [SerializeField] private AudioClip closeOptionSFX;
 
     private void Awake()
     {
@@ -49,9 +50,20 @@ public class OptionManager : MonoBehaviour
         actualSelect = buttons[0];
     }
 
+    private void Start()
+    {
+        UpdateSliderValues();
+
+    }
+
+    public void UpdateSliderValues()
+    {
+        settingsPanel.GetComponent<UI_Settings>().SetSlider();
+    }
+
     private void Update()
     {
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Cancel") && GameManager.instance.CurrentState != GameManager.GameState.Combat)
         {
             if (state == optionState.Main)
             {
@@ -81,15 +93,20 @@ public class OptionManager : MonoBehaviour
 
     public void OpenOption()
     {
-        actualSelect = buttons[0];
-        optionPanel.SetActive(true);
         actualSelect.Select();
+
+        SoundManager.instance.PlaySFX(openOptionSFX);
+
+        optionPanel.SetActive(true);
     }
 
     public void CloseOption()
     {
+        actualSelect.Select();
+
+        SoundManager.instance.PlaySFX(closeOptionSFX);
+
         optionPanel.SetActive(false);
-        actualSelect = buttons[0];
     }
 
     public void OpenParty()
@@ -113,13 +130,16 @@ public class OptionManager : MonoBehaviour
     {
         state = optionState.Sub;
         SwitchBackground(false);
-        Instantiate(settingsPanel, settingHandler.transform);
+        settingsPanel.SetActive(true);
+        masterVolumeSlider.Select();
+        //Instantiate(settingsPanel, settingHandler.transform);
     }
 
     public void CloseSettings()
     {
         state = optionState.Main;
         SwitchBackground(true);
+        settingsPanel.SetActive(false);
         actualSelect.Select();
     }
 

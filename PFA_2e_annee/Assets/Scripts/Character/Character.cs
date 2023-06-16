@@ -9,6 +9,7 @@ public class Character : MonoBehaviour
 
     [Header("References")]
     public Sprite sprite;
+    public Sprite icon;
     new public string name;
     public CharacterStats Stats;
     public CharacterStateHandler State;

@@ -599,7 +599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrow: {fileID: 5048927170179324173, guid: d433160b2dc9c4447ad7e6db0e376b94, type: 3}
-  clip: {fileID: 8300000, guid: 2779408b48290fb46b37ef163e7c3868, type: 3}
+  clip: {fileID: 8300000, guid: ae0be2d2b1e6b23428fe1ce67a2e5ec0, type: 3}
 --- !u!222 &679442911
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -921,10 +921,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 433037044}
     m_Modifications:
+    - target: {fileID: 6319625260385380956, guid: 2687e41a6e5b25040aa1f883a54fe48c,
+        type: 3}
+      propertyPath: clip
+      value: 
+      objectReference: {fileID: 8300000, guid: ae0be2d2b1e6b23428fe1ce67a2e5ec0, type: 3}
     - target: {fileID: 6319625260447453413, guid: 2687e41a6e5b25040aa1f883a54fe48c,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6319625260608092493, guid: 2687e41a6e5b25040aa1f883a54fe48c,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6319625260608092493, guid: 2687e41a6e5b25040aa1f883a54fe48c,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6319625260608092493, guid: 2687e41a6e5b25040aa1f883a54fe48c,
         type: 3}
@@ -1066,11 +1081,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6319625262130096650, guid: 2687e41a6e5b25040aa1f883a54fe48c,
+        type: 3}
+      propertyPath: clip
+      value: 
+      objectReference: {fileID: 8300000, guid: ae0be2d2b1e6b23428fe1ce67a2e5ec0, type: 3}
+    - target: {fileID: 6319625262221565152, guid: 2687e41a6e5b25040aa1f883a54fe48c,
+        type: 3}
+      propertyPath: clip
+      value: 
+      objectReference: {fileID: 8300000, guid: ae0be2d2b1e6b23428fe1ce67a2e5ec0, type: 3}
     - target: {fileID: 6319625262221565153, guid: 2687e41a6e5b25040aa1f883a54fe48c,
         type: 3}
       propertyPath: m_Value
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6319625262271438977, guid: 2687e41a6e5b25040aa1f883a54fe48c,
+        type: 3}
+      propertyPath: clip
+      value: 
+      objectReference: {fileID: 8300000, guid: ae0be2d2b1e6b23428fe1ce67a2e5ec0, type: 3}
     - target: {fileID: 6319625262271438990, guid: 2687e41a6e5b25040aa1f883a54fe48c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1141,7 +1171,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 4433479497362081218, guid: 6ab562d11f8ecee4880c4e2661a863c0,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 42f6e25266298464ab5447d605c374bf, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 56e5d9179a67838408e8ae88c30a4c56, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1542,7 +1572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrow: {fileID: 5048927170179324173, guid: d433160b2dc9c4447ad7e6db0e376b94, type: 3}
-  clip: {fileID: 8300000, guid: 2779408b48290fb46b37ef163e7c3868, type: 3}
+  clip: {fileID: 8300000, guid: ae0be2d2b1e6b23428fe1ce67a2e5ec0, type: 3}
 --- !u!114 &1196572563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1777,7 +1807,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrow: {fileID: 5048927170179324173, guid: d433160b2dc9c4447ad7e6db0e376b94, type: 3}
-  clip: {fileID: 8300000, guid: 2779408b48290fb46b37ef163e7c3868, type: 3}
+  clip: {fileID: 8300000, guid: ae0be2d2b1e6b23428fe1ce67a2e5ec0, type: 3}
 --- !u!222 &1273246783
 CanvasRenderer:
   m_ObjectHideFlags: 0
