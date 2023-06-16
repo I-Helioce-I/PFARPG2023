@@ -93,11 +93,11 @@ public class OptionManager : MonoBehaviour
 
     public void OpenOption()
     {
+        optionPanel.SetActive(true);
+
         actualSelect.Select();
 
         SoundManager.instance.PlaySFX(openOptionSFX);
-
-        optionPanel.SetActive(true);
     }
 
     public void CloseOption()
