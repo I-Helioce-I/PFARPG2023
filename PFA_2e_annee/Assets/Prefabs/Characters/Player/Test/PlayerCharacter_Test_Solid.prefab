@@ -665,9 +665,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2115666793217453543}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0, w: -1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 1.3, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3996712886994484670}
@@ -675,7 +675,7 @@ Transform:
   - {fileID: 3530140740844120571}
   m_Father: {fileID: 3996712885464721697}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 360, z: 0}
 --- !u!95 &6178154428632128271
 Animator:
   serializedVersion: 4
@@ -957,6 +957,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
+  icon: {fileID: 0}
   name: 
   Stats: {fileID: 3996712886237203656}
   State: {fileID: 3996712886237203658}
@@ -1081,7 +1082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5679cbbe25d569f4c8327cdf0f19a066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PortraitSet: {fileID: 11400000, guid: b89b95b4382a86c42a02e4c54d731a77, type: 2}
+  PortraitSet: {fileID: 11400000, guid: 22ae08f8dd6153140a1a093351dfb387, type: 2}
   StartingState: 0
   _internalEmotion: 0
 --- !u!114 &3996712886237203654

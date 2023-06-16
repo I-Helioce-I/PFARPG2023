@@ -121,6 +121,7 @@ public class CharacterExplorationStateHandler : MonoBehaviour
 
         if (currentIndex > PossibleStates.Count - 1)
         {
+            //Play transitionIn animation. At the end of the animation
             TransitionToState(PossibleStates[0]);
         }
         else
