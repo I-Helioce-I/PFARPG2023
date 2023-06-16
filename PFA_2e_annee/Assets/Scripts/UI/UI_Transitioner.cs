@@ -32,6 +32,14 @@ public class UI_Transitioner : MonoBehaviour
         StartCoroutine(ScreenTransition(transitionTime, onTransitionComplete));
     }
 
+    public void TransitionFade(float from, float to, float transitionTime, Action onTransitionComplete)
+    {
+        if (_transitionCoroutine != null) StopCoroutine(_transitionCoroutine);
+
+        _transitionCoroutine = ScreenTransitionFade(from, to, transitionTime, onTransitionComplete);
+        StartCoroutine(ScreenTransitionFade(from, to, transitionTime, onTransitionComplete));
+    }
+
     public void TransitionIntoCombat(float transitionTime, Action onTransitionComplete)
     {
         if (_transitionCoroutine != null) StopCoroutine(_transitionCoroutine);
@@ -178,5 +186,27 @@ public class UI_Transitioner : MonoBehaviour
 
         TransitionIMG.color = new Color(1f, 1f, 1f, 0f);
         yield return null;
+    }
+
+    private IEnumerator ScreenTransitionFade(float from, float to, float transitionTime, Action onTransitionComplete)
+    {
+        float timer = 0f;
+
+        TransitionIMG.fillClockwise = true;
+        TransitionIMG.fillAmount = 1f;
+        TransitionIMG.color = new Color (0, 0, 0, from);
+
+        while (timer < transitionTime)
+        {
+            timer += Time.deltaTime;
+            float lerpdAlpha = Mathf.Lerp(from, to, timer / transitionTime);
+            TransitionIMG.color = new Color(0, 0, 0, lerpdAlpha);
+            yield return null;
+        }
+
+        timer = 0f;
+        TransitionIMG.color = new Color(0, 0, 0, to);
+
+        onTransitionComplete();
     }
 }
