@@ -443,7 +443,11 @@ public class BattleManager : MonoBehaviour
             }
             _playerCharactersInBattle.Remove(character);
             character.CharacterDowned -= OnCharacterDowned;
-            Destroy(character.gameObject);
+            character.Battle.CharacterAnimatorHandler.PlayAnimThenAction("Die", () =>
+            {
+                Destroy(character.gameObject);
+            });
+            
             //Make character have death animation, and then destroy it later.
         }
         else if (_enemyCharactersInBattle.Contains(character))
@@ -455,7 +459,10 @@ public class BattleManager : MonoBehaviour
             }
             _enemyCharactersInBattle.Remove(character);
             character.CharacterDowned -= OnCharacterDowned;
-            Destroy(character.gameObject);
+            character.Battle.CharacterAnimatorHandler.PlayAnimThenAction("Die", () =>
+            {
+                Destroy(character.gameObject);
+            });
             //Remove character from play, and then later destroy it.
         }
         else

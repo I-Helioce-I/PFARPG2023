@@ -74,14 +74,16 @@ public class CharacterBattle : MonoBehaviour
     [SerializeField] [ReadOnlyInspector] private List<Character> _viableTargets = new List<Character>();
     private bool _targetingAllViableTargets = false;
 
+    [Header("Sliding parameters")]
+    public float SlideDuration = .5f;
+    public float DistanceToTargetAfterSlide = 2f;
+
     private Vector3 _slideTargetPosition;
     private Vector3 _slideOriginalPosition;
     private Action _onSlideComplete;
     private Vector3 _stepForwardPos;
     private Vector3 _stepBackPos;
 
-
-    private float _slideDuration = .5f;
     private float _slideTimer = 0f;
 
     private void OnEnable()
@@ -136,10 +138,10 @@ public class CharacterBattle : MonoBehaviour
             case BattleState.Busy:
                 break;
             case BattleState.Sliding:
-                Vector3 tmpPos = Vector3.Lerp(_slideOriginalPosition, _slideTargetPosition, _slideTimer / _slideDuration);
+                Vector3 tmpPos = Vector3.Lerp(_slideOriginalPosition, _slideTargetPosition, _slideTimer / SlideDuration);
                 CharacterController.Motor.SetPosition(tmpPos);
                 _slideTimer += Time.deltaTime;
-                if (_slideTimer > _slideDuration)
+                if (_slideTimer > SlideDuration)
                 {
                     _slideTimer = 0f;
                     CharacterController.Motor.SetPosition(_slideTargetPosition);
@@ -391,7 +393,7 @@ public class CharacterBattle : MonoBehaviour
             Vector3 finalPosition = Vector3.zero;
             foreach(CharacterBattle target in targets)
             {
-                Vector3 slideTargetPosition = target.GetPosition() + (GetPosition() - target.GetPosition()).normalized * 2f;
+                Vector3 slideTargetPosition = target.GetPosition() + (GetPosition() - target.GetPosition()).normalized * DistanceToTargetAfterSlide;
                 finalPosition += slideTargetPosition;
             }
             finalPosition = finalPosition / (targets.Count);
@@ -611,6 +613,8 @@ public class CharacterBattle : MonoBehaviour
 
                 target.CharacterStats.Health.Damage(totalDamage);
                 Debug.Log(this + " dealt " + totalDamage + " damage to " + target.name + "!");
+
+                if (target.CharacterStats.Health.CurrentValue > 0) target.CharacterAnimatorHandler.Animator.Play("Hurt");
             }
         }
 
