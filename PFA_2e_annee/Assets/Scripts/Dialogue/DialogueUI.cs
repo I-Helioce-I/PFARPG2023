@@ -33,7 +33,7 @@ public class DialogueUI : MonoBehaviour
         }
     }
 
-    [SerializeField] private GameObject NextPrompt;
+    [SerializeField] private UI_ButtonPrompt NextPrompt;
 
     private CharacterPortraitHandler _mainCharacterPortraitHandler;
     private CharacterPortraitHandler _secondaryCharacterPortraitHandler;
@@ -74,6 +74,8 @@ public class DialogueUI : MonoBehaviour
 
         DialogueGO.SetActive(true);
         CheckNextDialogueLine();
+
+        NextPrompt.ForceDisappear();
 
         Player.instance.ChangeActionMap("UI");
 
@@ -185,7 +187,7 @@ public class DialogueUI : MonoBehaviour
     private IEnumerator WriteNewText()
     {
         DialogueText.ForceMeshUpdate();
-        NextPrompt.SetActive(false);
+        NextPrompt.Appear(false);
 
         //DialogueText.maxVisibleCharacters = 0;
         int totalVisibleCharacters = DialogueText.textInfo.characterCount;
@@ -211,12 +213,10 @@ public class DialogueUI : MonoBehaviour
                 blipCounter = 0;
             }
             
-
             yield return new WaitForSeconds(_delayBetweenTwoCharacters);
         }
 
-        SoundManager.instance.PlaySFX(VoiceBlip);
-        NextPrompt.SetActive(true);
+        NextPrompt.Appear(true);
         _currentWritingCoroutine = null;
     }
 
@@ -228,6 +228,6 @@ public class DialogueUI : MonoBehaviour
         DialogueText.ForceMeshUpdate();
         DialogueText.maxVisibleCharacters = DialogueText.textInfo.characterCount;
 
-        NextPrompt.SetActive(true);
+        NextPrompt.Appear(true);
     }
 }

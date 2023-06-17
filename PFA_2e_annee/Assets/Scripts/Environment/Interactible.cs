@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class Interactible : MonoBehaviour
 {
-    [SerializeField] protected GameObject _interactButtonPrompt;
+    [SerializeField] protected UI_ButtonPrompt _interactButtonPrompt;
 
     [SerializeField] protected float _range;
     [SerializeField] protected bool _forcedInteraction;
@@ -21,7 +21,7 @@ public class Interactible : MonoBehaviour
         _collider.isTrigger = true;
         _collider.radius = _range;
 
-        _interactButtonPrompt.SetActive(false);
+        if (!_forcedInteraction) _interactButtonPrompt.ForceDisappear();
     }
 
     private void OnDisable()
@@ -37,7 +37,8 @@ public class Interactible : MonoBehaviour
 
     public void ShowPrompt(bool show)
     {
-        _interactButtonPrompt.SetActive(show);
+        if (_interactButtonPrompt == null) return;
+        _interactButtonPrompt.Appear(show);
     }
 
     private void OnHandlerStateTransition(CharacterTypeState from, CharacterTypeState to)

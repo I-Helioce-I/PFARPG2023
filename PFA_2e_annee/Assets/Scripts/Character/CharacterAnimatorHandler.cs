@@ -61,9 +61,27 @@ public class CharacterAnimatorHandler : MonoBehaviour
         float forwardVelocity = 0;
         if (CharacterController.MoveInputVector != Vector3.zero)
         {
-            if (Mathf.Abs(CharacterController.Motor.Velocity.x) > 0 || Mathf.Abs(CharacterController.Motor.Velocity.z) > 0)
+            if (CharacterController.IsPushingBlock)
             {
-                forwardVelocity = 1;
+                forwardVelocity = 2.5f;
+            }
+            else if (Mathf.Abs(CharacterController.Motor.Velocity.x) > 0 || Mathf.Abs(CharacterController.Motor.Velocity.z) > 0)
+            {
+                float absX = Mathf.Abs(CharacterController.Motor.Velocity.x);
+                float absZ = Mathf.Abs(CharacterController.Motor.Velocity.z);
+                if (absX > absZ)
+                {
+                    forwardVelocity = absX;
+                }
+                else if (absX < absZ)
+                {
+                    forwardVelocity = absZ;
+                }
+                else
+                {
+                    forwardVelocity = absX;
+                }
+
             }
         }
         Animator.SetFloat("ForwardSpeed", forwardVelocity);

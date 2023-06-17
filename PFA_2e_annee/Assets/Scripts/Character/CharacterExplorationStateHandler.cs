@@ -108,7 +108,7 @@ public class CharacterExplorationStateHandler : MonoBehaviour
 
     public void SwitchStateForward()
     {
-        if (!CharacterController.Motor.GroundingStatus.IsStableOnGround || CharacterController.CurrentCharacterState != CharacterState.Default) return;
+        if (CharacterController.CurrentCharacterState != CharacterState.Default) return;
 
         Player.instance.CanMove = false;
 
@@ -152,7 +152,7 @@ public class CharacterExplorationStateHandler : MonoBehaviour
 
     public void SwitchStateBackward()
     {
-        if (!CharacterController.Motor.GroundingStatus.IsStableOnGround || CharacterController.CurrentCharacterState != CharacterState.Default) return;
+        if (CharacterController.CurrentCharacterState != CharacterState.Default) return;
 
         Player.instance.CanMove = false;
 
