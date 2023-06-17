@@ -73,6 +73,8 @@ public class CharacterBattle : MonoBehaviour
     [SerializeField] [ReadOnlyInspector] private ActionDescription _currentSelectedAction;
     [SerializeField] [ReadOnlyInspector] private List<Character> _viableTargets = new List<Character>();
     private bool _targetingAllViableTargets = false;
+    [SerializeField][ReadOnlyInspector] private UI_PlayerCharacterCombatSheet _currentTargetedPlayerSheet = null;
+    [SerializeField][ReadOnlyInspector] private UI_EnemyCharacterCombatSheet _currentTargetedEnemySheet = null;
 
     [Header("Sliding parameters")]
     public float SlideDuration = .5f;
@@ -182,8 +184,6 @@ public class CharacterBattle : MonoBehaviour
             _currentTargetingIndex = 0;
         }
         _currentTargetingIndicators[0].transform.position = SetTargetingIndicatorPosition(_currentTargetingIndex);
-
-        Debug.Log(_currentTargetingIndex);
     }
     public void ScrollViableTargetBackward()
     {
@@ -193,8 +193,6 @@ public class CharacterBattle : MonoBehaviour
             _currentTargetingIndex = _viableTargets.Count - 1;
         }
         _currentTargetingIndicators[0].transform.position = SetTargetingIndicatorPosition(_currentTargetingIndex);
-
-        Debug.Log(_currentTargetingIndex);
     }
 
     public void TransitionToState(BattleState fromstate, BattleState state)
@@ -213,6 +211,12 @@ public class CharacterBattle : MonoBehaviour
                     Destroy(indicator);
                 }
                 _currentTargetingIndicators.Clear();
+
+                if (_currentTargetedEnemySheet != null) _currentTargetedEnemySheet.Flicker(false);
+                if (_currentTargetedPlayerSheet != null) _currentTargetedPlayerSheet.Flicker(false);
+                _currentTargetedEnemySheet = null;
+                _currentTargetedPlayerSheet = null;
+
                 break;
             case BattleState.Busy:
                 break;
@@ -265,7 +269,40 @@ public class CharacterBattle : MonoBehaviour
 
     private Vector3 SetTargetingIndicatorPosition(int index)
     {
-        return _viableTargets[index].transform.position + (Vector3.up * 3f);
+        //return _viableTargets[index].transform.position + (Vector3.up * 3f);
+
+        if (_currentSelectedAction.TargetsAllies)
+        {
+            //if below is not null, stop flickering.
+            if (_currentTargetedPlayerSheet != null) _currentTargetedPlayerSheet.Flicker(false);
+            _currentTargetedPlayerSheet = null;
+            foreach (UI_PlayerCharacterCombatSheet characterSheet in BattleManager.PlayerSheets)
+            {
+                if (_viableTargets[index] == characterSheet.RepresentedCharacter)
+                {
+                    _currentTargetedPlayerSheet = characterSheet;
+                    _currentTargetedPlayerSheet.Flicker(true);
+                    //Do code on targetedSheet, like make it flicker.
+                }
+            }
+        }
+        else
+        {
+            //if below is not null, stop flickering.
+            if (_currentTargetedEnemySheet != null) _currentTargetedEnemySheet.Flicker(false);
+            _currentTargetedEnemySheet = null;
+            foreach (UI_EnemyCharacterCombatSheet characterSheet in BattleManager.EnemySheets)
+            {
+                if (_viableTargets[index] == characterSheet.RepresentedCharacter)
+                {
+                    _currentTargetedEnemySheet = characterSheet;
+                    _currentTargetedEnemySheet.Flicker(true);
+                    //Do code on targetedSheet, like make it flicker.
+                }
+            }
+        }
+
+        return _viableTargets[index].transform.position;
     }
 
     public void SetCharacterActionListening(List<UI_ActionButton> actionButtons)
@@ -338,6 +375,10 @@ public class CharacterBattle : MonoBehaviour
     {
         //CharacterActions.CloseAll();
         _currentSelectedAction = null;
+        if (_currentTargetedEnemySheet != null) _currentTargetedEnemySheet.Flicker(false);
+        if (_currentTargetedPlayerSheet != null) _currentTargetedPlayerSheet.Flicker(false);
+        _currentTargetedEnemySheet = null;
+        _currentTargetedPlayerSheet = null;
         PurgeAllActionSlots();
         CloseActionsMenu();
         SpendEther(action.EtherCost);
