@@ -156,6 +156,15 @@ public class CharacterExplorationStateHandler : MonoBehaviour
 
         Player.instance.CanMove = false;
 
+        PlayerCharacterInputs characterInputs = new PlayerCharacterInputs();
+
+        characterInputs.MoveAxisForward = 0f;
+        characterInputs.MoveAxisRight = 0f;
+
+        CharacterController.SetInputs(ref characterInputs);
+
+        Player.instance.CharacterController.SetInputs(ref characterInputs);
+
         int currentIndex = -1;
         for (int i = 0; i < PossibleStates.Count; i++)
         {

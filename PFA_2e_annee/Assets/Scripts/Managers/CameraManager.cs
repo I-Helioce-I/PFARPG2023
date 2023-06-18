@@ -11,7 +11,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField][ReadOnlyInspector] private Camera _mainCam;
     [SerializeField] private List<CinemachineVirtualCameraBase> _battleCameras = new List<CinemachineVirtualCameraBase>();
     [SerializeField] private List<CinemachineVirtualCameraBase> _explorationCameras = new List<CinemachineVirtualCameraBase>();
-    [SerializeField][ReadOnlyInspector] private CinemachineVirtualCameraBase _currentCamera;
+    [ReadOnlyInspector] public CinemachineVirtualCameraBase CurrentCamera;
 
     private IEnumerator _currentCameraCoroutine;
     public List<CinemachineVirtualCameraBase> BattleCameras
@@ -48,9 +48,9 @@ public class CameraManager : MonoBehaviour
 
     public void SetCamera(CinemachineVirtualCameraBase camera)
     {
-        if (_currentCamera) _currentCamera.enabled = false;
+        if (CurrentCamera) CurrentCamera.enabled = false;
         camera.enabled = false;
-        _currentCamera = camera;
+        CurrentCamera = camera;
         foreach (CinemachineVirtualCameraBase Vcamera in _battleCameras)
         {
             Vcamera.enabled = false;
@@ -59,13 +59,13 @@ public class CameraManager : MonoBehaviour
         {
             Vcamera.enabled = false;
         }
-        _currentCamera.enabled = true;
+        CurrentCamera.enabled = true;
     }
 
     public void SetCameraField(List<CinemachineVirtualCameraBase> cameraField)
     {
-        _currentCamera.enabled = false;
-        _currentCamera = cameraField[0];
+        CurrentCamera.enabled = false;
+        CurrentCamera = cameraField[0];
         foreach (CinemachineVirtualCameraBase Vcamera in _battleCameras)
         {
             Vcamera.enabled = false;
@@ -79,7 +79,7 @@ public class CameraManager : MonoBehaviour
         {
             Vcamera.enabled = true;
         }
-        _currentCamera.enabled = true;
+        CurrentCamera.enabled = true;
     }
 
     public void SmoothCurrentCameraFov(float from, float to, float overTime, Action onTransitionCompleted)
@@ -98,7 +98,7 @@ public class CameraManager : MonoBehaviour
 
     private IEnumerator SmoothFovTransition(float from, float to, float overTime, Action onTransitionCompleted)
     {
-        CinemachineVirtualCamera vcam = _currentCamera.GetComponent<CinemachineVirtualCamera>();
+        CinemachineVirtualCamera vcam = CurrentCamera.GetComponent<CinemachineVirtualCamera>();
         vcam.m_Lens.FieldOfView = from;
         float timer = 0f;
         float progress = 0f;
@@ -122,7 +122,7 @@ public class CameraManager : MonoBehaviour
 
     private IEnumerator SmoothRotation(Vector3 from, Vector3 to, float overTime, Action onTransitionCompleted)
     {
-        CinemachineVirtualCamera vcam = _currentCamera.GetComponent<CinemachineVirtualCamera>();
+        CinemachineVirtualCamera vcam = CurrentCamera.GetComponent<CinemachineVirtualCamera>();
         float timer = 0f;
         float progress = 0f;
         Vector3 position = vcam.transform.position;

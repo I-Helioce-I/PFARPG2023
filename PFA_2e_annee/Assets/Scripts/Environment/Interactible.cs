@@ -13,20 +13,37 @@ public class Interactible : MonoBehaviour
     protected InteractibleHandler _currentHandler;
     private CharacterExplorationStateHandler _currentCESH;
 
+    [Header("Outline material")]
+    [SerializeField] private Renderer _renderer;
+    [SerializeField] private float _outlineTransitionOverTime = .5f;
+    [SerializeField] private float _lineThickness = .1f;
+    private IEnumerator _outlineCoroutine;
+
+
     public UnityEvent<InteractibleHandler> OnInteract;
 
-    private void Start()
+    private void Awake()
     {
         _collider = GetComponent<SphereCollider>();
         _collider.isTrigger = true;
         _collider.radius = _range;
+        _collider.enabled = this.enabled;
+    }
 
+    private void Start()
+    {
         if (!_forcedInteraction) _interactButtonPrompt.ForceDisappear();
+    }
+
+    private void OnEnable()
+    {
+        _collider.enabled = true;
     }
 
     private void OnDisable()
     {
         ShowPrompt(false);
+        _collider.enabled = false;
     }
 
     public virtual void Interact()
@@ -39,6 +56,22 @@ public class Interactible : MonoBehaviour
     {
         if (_interactButtonPrompt == null) return;
         _interactButtonPrompt.Appear(show);
+
+        if (_outlineCoroutine != null) StopCoroutine(_outlineCoroutine);
+        if (_renderer)
+        {
+            if (show)
+            {
+                _outlineCoroutine = OutlineTransition(0f, _lineThickness, _outlineTransitionOverTime);
+                StartCoroutine(OutlineTransition(0f, _lineThickness, _outlineTransitionOverTime));
+            }
+            else
+            {
+                _outlineCoroutine = OutlineTransition(_lineThickness, 0f, _outlineTransitionOverTime);
+                StartCoroutine(OutlineTransition(_lineThickness, 0f, _outlineTransitionOverTime));
+            }
+        }
+
     }
 
     private void OnHandlerStateTransition(CharacterTypeState from, CharacterTypeState to)
@@ -107,5 +140,22 @@ public class Interactible : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, _range);
+    }
+
+    private IEnumerator OutlineTransition(float fromWidth, float toWidth, float overTime)
+    {
+        Material outlineMat = _renderer.materials[1];
+        outlineMat.SetFloat("_lineThickness", fromWidth);
+
+        float timer = 0f;
+        while (timer < overTime)
+        {
+            timer += Time.deltaTime;
+            float lerpdWidth = Mathf.Lerp(fromWidth, toWidth, timer / overTime);
+            outlineMat.SetFloat("_lineThickness", lerpdWidth);
+            yield return null;
+        }
+
+        outlineMat.SetFloat("_lineThickness", toWidth);
     }
 }
