@@ -73,6 +73,8 @@ public class CharacterBattle : MonoBehaviour
     [SerializeField] [ReadOnlyInspector] private ActionDescription _currentSelectedAction;
     [SerializeField] [ReadOnlyInspector] private List<Character> _viableTargets = new List<Character>();
     private bool _targetingAllViableTargets = false;
+    [SerializeField][ReadOnlyInspector] private List<UI_PlayerCharacterCombatSheet> _currentTargetedPlayerSheets = new List<UI_PlayerCharacterCombatSheet>();
+    [SerializeField][ReadOnlyInspector] private List<UI_EnemyCharacterCombatSheet> _currentTargetedEnemySheets = new List<UI_EnemyCharacterCombatSheet>();
 
     [Header("Sliding parameters")]
     public float SlideDuration = .5f;
@@ -182,8 +184,6 @@ public class CharacterBattle : MonoBehaviour
             _currentTargetingIndex = 0;
         }
         _currentTargetingIndicators[0].transform.position = SetTargetingIndicatorPosition(_currentTargetingIndex);
-
-        Debug.Log(_currentTargetingIndex);
     }
     public void ScrollViableTargetBackward()
     {
@@ -193,8 +193,6 @@ public class CharacterBattle : MonoBehaviour
             _currentTargetingIndex = _viableTargets.Count - 1;
         }
         _currentTargetingIndicators[0].transform.position = SetTargetingIndicatorPosition(_currentTargetingIndex);
-
-        Debug.Log(_currentTargetingIndex);
     }
 
     public void TransitionToState(BattleState fromstate, BattleState state)
@@ -213,6 +211,24 @@ public class CharacterBattle : MonoBehaviour
                     Destroy(indicator);
                 }
                 _currentTargetingIndicators.Clear();
+
+                if (_currentTargetedEnemySheets.Count >= 1)
+                {
+                    foreach(UI_EnemyCharacterCombatSheet enemySheet in _currentTargetedEnemySheets)
+                    {
+                        enemySheet.Flicker(false);
+                    }
+                }
+                if (_currentTargetedPlayerSheets.Count >= 1)
+                {
+                    foreach (UI_PlayerCharacterCombatSheet playerSheet in _currentTargetedPlayerSheets)
+                    {
+                        playerSheet.Flicker(false);
+                    }
+                }
+                _currentTargetedEnemySheets.Clear();
+                _currentTargetedPlayerSheets.Clear();
+
                 break;
             case BattleState.Busy:
                 break;
@@ -245,6 +261,21 @@ public class CharacterBattle : MonoBehaviour
                         _currentTargetingIndicators.Add(newIndicator);
                         _currentTargetingIndicators[i].transform.position = SetTargetingIndicatorPosition(i);
                     }
+
+                    if (_currentTargetedEnemySheets.Count >= 1)
+                    {
+                        foreach (UI_EnemyCharacterCombatSheet enemySheet in _currentTargetedEnemySheets)
+                        {
+                            enemySheet.Flicker(true);
+                        }
+                    }
+                    if (_currentTargetedPlayerSheets.Count >= 1)
+                    {
+                        foreach (UI_PlayerCharacterCombatSheet playerSheet in _currentTargetedPlayerSheets)
+                        {
+                            playerSheet.Flicker(true);
+                        }
+                    }
                 }
                 else
                 {
@@ -265,7 +296,52 @@ public class CharacterBattle : MonoBehaviour
 
     private Vector3 SetTargetingIndicatorPosition(int index)
     {
-        return _viableTargets[index].transform.position + (Vector3.up * 3f);
+        //return _viableTargets[index].transform.position + (Vector3.up * 3f);
+
+        if (_currentSelectedAction.TargetsAllies)
+        {
+            //if below is not null, stop flickering.
+            if (_currentTargetedPlayerSheets.Count >= 1)
+            {
+                foreach (UI_PlayerCharacterCombatSheet playerSheet in _currentTargetedPlayerSheets)
+                {
+                    playerSheet.Flicker(false);
+                }
+            }
+            _currentTargetedPlayerSheets.Clear();
+            foreach (UI_PlayerCharacterCombatSheet characterSheet in BattleManager.PlayerSheets)
+            {
+                if (_viableTargets[index] == characterSheet.RepresentedCharacter)
+                {
+                    _currentTargetedPlayerSheets.Add(characterSheet);
+                    characterSheet.Flicker(true);
+                    //Do code on targetedSheet, like make it flicker.
+                }
+            }
+        }
+        else
+        {
+            //if below is not null, stop flickering.
+            if (_currentTargetedEnemySheets.Count >= 1)
+            {
+                foreach (UI_EnemyCharacterCombatSheet enemySheet in _currentTargetedEnemySheets)
+                {
+                    enemySheet.Flicker(false);
+                }
+            }
+            _currentTargetedEnemySheets.Clear();
+            foreach (UI_EnemyCharacterCombatSheet characterSheet in BattleManager.EnemySheets)
+            {
+                if (_viableTargets[index] == characterSheet.RepresentedCharacter)
+                {
+                    _currentTargetedEnemySheets.Add(characterSheet);
+                    characterSheet.Flicker(true);
+                    //Do code on targetedSheet, like make it flicker.
+                }
+            }
+        }
+
+        return _viableTargets[index].transform.position;
     }
 
     public void SetCharacterActionListening(List<UI_ActionButton> actionButtons)
@@ -338,6 +414,22 @@ public class CharacterBattle : MonoBehaviour
     {
         //CharacterActions.CloseAll();
         _currentSelectedAction = null;
+        if (_currentTargetedEnemySheets.Count >= 1)
+        {
+            foreach (UI_EnemyCharacterCombatSheet enemySheet in _currentTargetedEnemySheets)
+            {
+                enemySheet.Flicker(false);
+            }
+        }
+        if (_currentTargetedPlayerSheets.Count >= 1)
+        {
+            foreach (UI_PlayerCharacterCombatSheet playerSheet in _currentTargetedPlayerSheets)
+            {
+                playerSheet.Flicker(false);
+            }
+        }
+        _currentTargetedEnemySheets.Clear();
+        _currentTargetedPlayerSheets.Clear();
         PurgeAllActionSlots();
         CloseActionsMenu();
         SpendEther(action.EtherCost);

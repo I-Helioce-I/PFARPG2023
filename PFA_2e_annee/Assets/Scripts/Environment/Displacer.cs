@@ -7,6 +7,7 @@ public class Displacer : MonoBehaviour
     [Header("Object references")]
     public Transform From;
     public Transform To;
+    public Spline Spline;
 
     public AnimationCurve FromToCurve;
     public float DisplacementTime;

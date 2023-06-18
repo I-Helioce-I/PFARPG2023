@@ -180,7 +180,7 @@ public class UIManager : MonoBehaviour
                         case CharacterBattle.BattleState.SelectingAction:
                             break;
                         case CharacterBattle.BattleState.Targeting:
-                            BattleManager.ActiveCharacter.Battle.ScrollViableTargetForward();
+                            BattleManager.ActiveCharacter.Battle.ScrollViableTargetBackward();
                             break;
                         case CharacterBattle.BattleState.Busy:
                             break;
@@ -218,7 +218,7 @@ public class UIManager : MonoBehaviour
                         case CharacterBattle.BattleState.SelectingAction:
                             break;
                         case CharacterBattle.BattleState.Targeting:
-                            BattleManager.ActiveCharacter.Battle.ScrollViableTargetBackward();
+                            BattleManager.ActiveCharacter.Battle.ScrollViableTargetForward();
                             break;
                         case CharacterBattle.BattleState.Busy:
                             break;

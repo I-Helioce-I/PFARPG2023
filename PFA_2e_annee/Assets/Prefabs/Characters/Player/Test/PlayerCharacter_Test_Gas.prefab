@@ -907,8 +907,8 @@ MonoBehaviour:
   OrientationSharpness: 10
   OrientationMethod: 1
   MaxAirMoveSpeed: 7
-  AirAccelerationSpeed: 7
-  Drag: 0.1
+  AirAccelerationSpeed: 10
+  Drag: 1
   GasStateGroundCheckDistance: 0.2
   AllowJumpingWhenSliding: 0
   JumpUpSpeed: 10
@@ -1185,6 +1185,8 @@ MonoBehaviour:
   _currentTargetingIndex: 0
   _currentSelectedAction: {fileID: 0}
   _viableTargets: []
+  _currentTargetedPlayerSheets: []
+  _currentTargetedEnemySheets: []
   SlideDuration: 1
   DistanceToTargetAfterSlide: 2
 --- !u!114 &5170518434721278900

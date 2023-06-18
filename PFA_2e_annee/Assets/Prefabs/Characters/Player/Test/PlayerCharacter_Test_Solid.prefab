@@ -851,7 +851,7 @@ MonoBehaviour:
   JumpPreGroundingGraceTime: 0
   JumpPostGroundingGraceTime: 0
   _canPushBlocks: 1
-  _timeToStartPushing: 0.15
+  _timeToStartPushing: 0.1
   _moveInputVectorGrace: 0.8
   _anchorTime: 0.5
   CurrentDisplacer: {fileID: 0}
@@ -1120,6 +1120,8 @@ MonoBehaviour:
   _currentTargetingIndex: 0
   _currentSelectedAction: {fileID: 0}
   _viableTargets: []
+  _currentTargetedPlayerSheets: []
+  _currentTargetedEnemySheets: []
   SlideDuration: 1
   DistanceToTargetAfterSlide: 2
 --- !u!114 &5170518434721278900
