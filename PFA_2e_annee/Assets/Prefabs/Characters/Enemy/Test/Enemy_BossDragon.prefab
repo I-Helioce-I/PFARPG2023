@@ -4234,7 +4234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 175907b7f13a28441baf0004ee6eafd9, type: 3}
   name: 
   Stats: {fileID: 7546150622173981571}
   State: {fileID: 7546150622173981574}
@@ -4349,6 +4349,8 @@ MonoBehaviour:
   _currentTargetingIndex: 0
   _currentSelectedAction: {fileID: 0}
   _viableTargets: []
+  _currentTargetedPlayerSheets: []
+  _currentTargetedEnemySheets: []
   SlideDuration: 1.5
   DistanceToTargetAfterSlide: 3.5
 --- !u!114 &7546150622173981574
