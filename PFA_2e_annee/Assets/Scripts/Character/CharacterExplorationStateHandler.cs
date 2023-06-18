@@ -100,13 +100,26 @@ public class CharacterExplorationStateHandler : MonoBehaviour
 
         //Player.instance.CharacterController.Motor.SetMovementCollisionsSolvingActivation(true);
         //Player.instance.CharacterController.Motor.SetGroundSolvingActivation(true);
+        Player.instance.CanMove = true;
         Player.instance.CharacterController.Motor.SetPositionAndRotation(position, rotation);
+        Player.instance.Character.ExplorationAnimatorHandler.PlayAnim("TransitionOut");
         CameraManager.instance.ExplorationCameras[0].Follow = Player.instance.Character.transform;
     }
 
     public void SwitchStateForward()
     {
-        if (!CharacterController.Motor.GroundingStatus.IsStableOnGround || CharacterController.CurrentCharacterState != CharacterState.Default) return;
+        if (CharacterController.CurrentCharacterState != CharacterState.Default) return;
+
+        Player.instance.CanMove = false;
+
+        PlayerCharacterInputs characterInputs = new PlayerCharacterInputs();
+
+        characterInputs.MoveAxisForward = 0f;
+        characterInputs.MoveAxisRight = 0f;
+
+        CharacterController.SetInputs(ref characterInputs);
+
+        Player.instance.CharacterController.SetInputs(ref characterInputs);
 
         int currentIndex = -1;
         for (int i = 0; i < PossibleStates.Count; i++)
@@ -121,17 +134,36 @@ public class CharacterExplorationStateHandler : MonoBehaviour
 
         if (currentIndex > PossibleStates.Count - 1)
         {
-            TransitionToState(PossibleStates[0]);
+            //Play transitionIn animation. At the end of the animation, play transitionOut animation.
+            Player.instance.Character.ExplorationAnimatorHandler.PlayAnimThenAction("TransitionIn", () =>
+            {
+                TransitionToState(PossibleStates[0]);
+            });
+            
         }
         else
         {
-            TransitionToState(PossibleStates[currentIndex]);
+            Player.instance.Character.ExplorationAnimatorHandler.PlayAnimThenAction("TransitionIn", () =>
+            {
+                TransitionToState(PossibleStates[currentIndex]);
+            });       
         }
     }
 
     public void SwitchStateBackward()
     {
-        if (!CharacterController.Motor.GroundingStatus.IsStableOnGround || CharacterController.CurrentCharacterState != CharacterState.Default) return;
+        if (CharacterController.CurrentCharacterState != CharacterState.Default) return;
+
+        Player.instance.CanMove = false;
+
+        PlayerCharacterInputs characterInputs = new PlayerCharacterInputs();
+
+        characterInputs.MoveAxisForward = 0f;
+        characterInputs.MoveAxisRight = 0f;
+
+        CharacterController.SetInputs(ref characterInputs);
+
+        Player.instance.CharacterController.SetInputs(ref characterInputs);
 
         int currentIndex = -1;
         for (int i = 0; i < PossibleStates.Count; i++)
@@ -146,11 +178,17 @@ public class CharacterExplorationStateHandler : MonoBehaviour
 
         if (currentIndex < 0)
         {
-            TransitionToState(PossibleStates[PossibleStates.Count - 1]);
+            Player.instance.Character.ExplorationAnimatorHandler.PlayAnimThenAction("TransitionIn", () =>
+            {
+                TransitionToState(PossibleStates[PossibleStates.Count - 1]);
+            });
         }
         else
         {
-            TransitionToState(PossibleStates[currentIndex]);
+            Player.instance.Character.ExplorationAnimatorHandler.PlayAnimThenAction("TransitionIn", () =>
+            {
+                TransitionToState(PossibleStates[currentIndex]);
+            });
         }
     }
 }

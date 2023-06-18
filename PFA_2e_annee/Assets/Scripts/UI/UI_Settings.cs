@@ -29,11 +29,6 @@ public class UI_Settings : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    private void OnEnable()
-    {
-        masterVolumeSlider.Select();
-    }
-
     public void SetSlider()
     {
         masterVolumeSlider.value = SoundManager.instance.MasterVolume;

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Defend
   m_EditorClassIdentifier: 
   Name: Defend
-  Icon: {fileID: 21300000, guid: 37de5b9062eae7047a4034c242d9b05b, type: 3}
+  Icon: {fileID: -871067721, guid: 5d8a41e902c90ac4590dc1611e20de24, type: 3}
   DescriptionText: Reduce all incoming <sprite index=0> by 50%.
   IconColor: {r: 0, g: 0.4020412, b: 0.5, a: 1}
   Type: 0
@@ -85,3 +85,8 @@ MonoBehaviour:
   EffectDelayInSeconds: 0
   Projectile: {fileID: 0}
   ProjectileShootDelay: 0
+  OnCasterCastVFX: {fileID: 9093418656468177120, guid: 11597ce8a6a8b8b43b5d5275d7a38720,
+    type: 3}
+  CasterVFXAttachPoint: 2
+  OnTargetCastVFX: {fileID: 0}
+  TargetVFXAttachPoint: 0

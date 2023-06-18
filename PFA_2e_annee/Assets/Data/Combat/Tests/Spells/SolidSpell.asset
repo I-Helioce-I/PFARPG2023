@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b1dded9426f0444e8c6effd350063d5, type: 3}
   m_Name: SolidSpell
   m_EditorClassIdentifier: 
-  Name: ROCK AND STONE MFER
-  Icon: {fileID: 21300000, guid: 13d92e49481d9d342b8ec1faead7d445, type: 3}
+  Name: IceSpike
+  Icon: {fileID: -284283824, guid: 5d8a41e902c90ac4590dc1611e20de24, type: 3}
   DescriptionText: Deal <color=#549e99>10<sprite index=0><color=#ffffff> to 1<sprite
     index=2>.
   IconColor: {r: 0.8627451, g: 0.9843137, b: 1, a: 1}
@@ -86,3 +86,9 @@ MonoBehaviour:
   EffectDelayInSeconds: 0.5
   Projectile: {fileID: 0}
   ProjectileShootDelay: 0
+  OnCasterCastVFX: {fileID: 9174215928865918887, guid: 772ab62dddb608548ba71a75efeff055,
+    type: 3}
+  CasterVFXAttachPoint: 0
+  OnTargetCastVFX: {fileID: 9174215928865918887, guid: 772ab62dddb608548ba71a75efeff055,
+    type: 3}
+  TargetVFXAttachPoint: 0

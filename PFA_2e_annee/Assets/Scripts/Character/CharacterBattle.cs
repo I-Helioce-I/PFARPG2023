@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class CharacterBattle : MonoBehaviour
 {
@@ -30,6 +31,11 @@ public class CharacterBattle : MonoBehaviour
     public CharacterAnimatorHandler CharacterAnimatorHandler;
     public CharacterStats CharacterStats;
     public CharacterConditionHandler ConditionHandler;
+
+    [Header("VFX Target Locations")]
+    public Transform Root;
+    public Transform HitPoint;
+    public Transform OverHead;
 
     [Header("Current battle")]
     [SerializeField] private BattleManager _battle;
@@ -67,6 +73,12 @@ public class CharacterBattle : MonoBehaviour
     [SerializeField] [ReadOnlyInspector] private ActionDescription _currentSelectedAction;
     [SerializeField] [ReadOnlyInspector] private List<Character> _viableTargets = new List<Character>();
     private bool _targetingAllViableTargets = false;
+    [SerializeField][ReadOnlyInspector] private List<UI_PlayerCharacterCombatSheet> _currentTargetedPlayerSheets = new List<UI_PlayerCharacterCombatSheet>();
+    [SerializeField][ReadOnlyInspector] private List<UI_EnemyCharacterCombatSheet> _currentTargetedEnemySheets = new List<UI_EnemyCharacterCombatSheet>();
+
+    [Header("Sliding parameters")]
+    public float SlideDuration = .5f;
+    public float DistanceToTargetAfterSlide = 2f;
 
     private Vector3 _slideTargetPosition;
     private Vector3 _slideOriginalPosition;
@@ -74,8 +86,6 @@ public class CharacterBattle : MonoBehaviour
     private Vector3 _stepForwardPos;
     private Vector3 _stepBackPos;
 
-
-    private float _slideDuration = .5f;
     private float _slideTimer = 0f;
 
     private void OnEnable()
@@ -130,10 +140,10 @@ public class CharacterBattle : MonoBehaviour
             case BattleState.Busy:
                 break;
             case BattleState.Sliding:
-                Vector3 tmpPos = Vector3.Lerp(_slideOriginalPosition, _slideTargetPosition, _slideTimer / _slideDuration);
+                Vector3 tmpPos = Vector3.Lerp(_slideOriginalPosition, _slideTargetPosition, _slideTimer / SlideDuration);
                 CharacterController.Motor.SetPosition(tmpPos);
                 _slideTimer += Time.deltaTime;
-                if (_slideTimer > _slideDuration)
+                if (_slideTimer > SlideDuration)
                 {
                     _slideTimer = 0f;
                     CharacterController.Motor.SetPosition(_slideTargetPosition);
@@ -174,8 +184,6 @@ public class CharacterBattle : MonoBehaviour
             _currentTargetingIndex = 0;
         }
         _currentTargetingIndicators[0].transform.position = SetTargetingIndicatorPosition(_currentTargetingIndex);
-
-        Debug.Log(_currentTargetingIndex);
     }
     public void ScrollViableTargetBackward()
     {
@@ -185,8 +193,6 @@ public class CharacterBattle : MonoBehaviour
             _currentTargetingIndex = _viableTargets.Count - 1;
         }
         _currentTargetingIndicators[0].transform.position = SetTargetingIndicatorPosition(_currentTargetingIndex);
-
-        Debug.Log(_currentTargetingIndex);
     }
 
     public void TransitionToState(BattleState fromstate, BattleState state)
@@ -205,6 +211,24 @@ public class CharacterBattle : MonoBehaviour
                     Destroy(indicator);
                 }
                 _currentTargetingIndicators.Clear();
+
+                if (_currentTargetedEnemySheets.Count >= 1)
+                {
+                    foreach(UI_EnemyCharacterCombatSheet enemySheet in _currentTargetedEnemySheets)
+                    {
+                        enemySheet.Flicker(false);
+                    }
+                }
+                if (_currentTargetedPlayerSheets.Count >= 1)
+                {
+                    foreach (UI_PlayerCharacterCombatSheet playerSheet in _currentTargetedPlayerSheets)
+                    {
+                        playerSheet.Flicker(false);
+                    }
+                }
+                _currentTargetedEnemySheets.Clear();
+                _currentTargetedPlayerSheets.Clear();
+
                 break;
             case BattleState.Busy:
                 break;
@@ -237,6 +261,21 @@ public class CharacterBattle : MonoBehaviour
                         _currentTargetingIndicators.Add(newIndicator);
                         _currentTargetingIndicators[i].transform.position = SetTargetingIndicatorPosition(i);
                     }
+
+                    if (_currentTargetedEnemySheets.Count >= 1)
+                    {
+                        foreach (UI_EnemyCharacterCombatSheet enemySheet in _currentTargetedEnemySheets)
+                        {
+                            enemySheet.Flicker(true);
+                        }
+                    }
+                    if (_currentTargetedPlayerSheets.Count >= 1)
+                    {
+                        foreach (UI_PlayerCharacterCombatSheet playerSheet in _currentTargetedPlayerSheets)
+                        {
+                            playerSheet.Flicker(true);
+                        }
+                    }
                 }
                 else
                 {
@@ -257,7 +296,52 @@ public class CharacterBattle : MonoBehaviour
 
     private Vector3 SetTargetingIndicatorPosition(int index)
     {
-        return _viableTargets[index].transform.position + (Vector3.up * 3f);
+        //return _viableTargets[index].transform.position + (Vector3.up * 3f);
+
+        if (_currentSelectedAction.TargetsAllies)
+        {
+            //if below is not null, stop flickering.
+            if (_currentTargetedPlayerSheets.Count >= 1)
+            {
+                foreach (UI_PlayerCharacterCombatSheet playerSheet in _currentTargetedPlayerSheets)
+                {
+                    playerSheet.Flicker(false);
+                }
+            }
+            _currentTargetedPlayerSheets.Clear();
+            foreach (UI_PlayerCharacterCombatSheet characterSheet in BattleManager.PlayerSheets)
+            {
+                if (_viableTargets[index] == characterSheet.RepresentedCharacter)
+                {
+                    _currentTargetedPlayerSheets.Add(characterSheet);
+                    characterSheet.Flicker(true);
+                    //Do code on targetedSheet, like make it flicker.
+                }
+            }
+        }
+        else
+        {
+            //if below is not null, stop flickering.
+            if (_currentTargetedEnemySheets.Count >= 1)
+            {
+                foreach (UI_EnemyCharacterCombatSheet enemySheet in _currentTargetedEnemySheets)
+                {
+                    enemySheet.Flicker(false);
+                }
+            }
+            _currentTargetedEnemySheets.Clear();
+            foreach (UI_EnemyCharacterCombatSheet characterSheet in BattleManager.EnemySheets)
+            {
+                if (_viableTargets[index] == characterSheet.RepresentedCharacter)
+                {
+                    _currentTargetedEnemySheets.Add(characterSheet);
+                    characterSheet.Flicker(true);
+                    //Do code on targetedSheet, like make it flicker.
+                }
+            }
+        }
+
+        return _viableTargets[index].transform.position;
     }
 
     public void SetCharacterActionListening(List<UI_ActionButton> actionButtons)
@@ -330,6 +414,22 @@ public class CharacterBattle : MonoBehaviour
     {
         //CharacterActions.CloseAll();
         _currentSelectedAction = null;
+        if (_currentTargetedEnemySheets.Count >= 1)
+        {
+            foreach (UI_EnemyCharacterCombatSheet enemySheet in _currentTargetedEnemySheets)
+            {
+                enemySheet.Flicker(false);
+            }
+        }
+        if (_currentTargetedPlayerSheets.Count >= 1)
+        {
+            foreach (UI_PlayerCharacterCombatSheet playerSheet in _currentTargetedPlayerSheets)
+            {
+                playerSheet.Flicker(false);
+            }
+        }
+        _currentTargetedEnemySheets.Clear();
+        _currentTargetedPlayerSheets.Clear();
         PurgeAllActionSlots();
         CloseActionsMenu();
         SpendEther(action.EtherCost);
@@ -385,7 +485,7 @@ public class CharacterBattle : MonoBehaviour
             Vector3 finalPosition = Vector3.zero;
             foreach(CharacterBattle target in targets)
             {
-                Vector3 slideTargetPosition = target.GetPosition() + (GetPosition() - target.GetPosition()).normalized * 2f;
+                Vector3 slideTargetPosition = target.GetPosition() + (GetPosition() - target.GetPosition()).normalized * DistanceToTargetAfterSlide;
                 finalPosition += slideTargetPosition;
             }
             finalPosition = finalPosition / (targets.Count);
@@ -476,6 +576,76 @@ public class CharacterBattle : MonoBehaviour
             yield return null;
         }
 
+        //VFX
+        if (action.OnCasterCastVFX)
+        {
+            Vector3 casterPosition = Vector3.zero;
+            switch (action.CasterVFXAttachPoint)
+            {
+                case VFXAttachLocation.Root:
+                    casterPosition = Root.position + (new Vector3(0, 0.01f, 0));                    
+                    break;
+                case VFXAttachLocation.HitPoint:
+                    casterPosition = HitPoint.position;
+                    break;
+                case VFXAttachLocation.OverHead:
+                    casterPosition = OverHead.position;
+                    break;
+            }
+
+            ParticleSystem particleSystem = action.OnCasterCastVFX.GetComponent<ParticleSystem>();
+            VisualEffect visualEffect = action.OnCasterCastVFX.GetComponent<VisualEffect>();
+
+            if (particleSystem)
+            {
+                ParticleSystem particles = Instantiate<ParticleSystem>(particleSystem, casterPosition, transform.rotation);
+                var main = particles.main;
+                particles.Play();
+                main.stopAction = ParticleSystemStopAction.Destroy;
+            }
+            else if (visualEffect)
+            {
+                VisualEffect effect = Instantiate<VisualEffect>(visualEffect, casterPosition, transform.rotation);
+                effect.Play();
+                //No destroy because fuck it whatever UGH
+            }
+
+
+        }
+        if (action.OnTargetCastVFX)
+        {
+            Vector3 targetPosition = Vector3.zero;
+            switch (action.TargetVFXAttachPoint)
+            {
+                case VFXAttachLocation.Root:
+                    targetPosition = target.Root.position + (new Vector3(0, 0.01f, 0));
+                    break;
+                case VFXAttachLocation.HitPoint:
+                    targetPosition = target.HitPoint.position;
+                    break;
+                case VFXAttachLocation.OverHead:
+                    targetPosition = target.OverHead.position;
+                    break;
+            }
+
+            ParticleSystem particleSystem = action.OnTargetCastVFX.GetComponent<ParticleSystem>();
+            VisualEffect visualEffect = action.OnTargetCastVFX.GetComponent<VisualEffect>();
+
+            if (particleSystem)
+            {
+                ParticleSystem particles = Instantiate<ParticleSystem>(particleSystem, targetPosition, transform.rotation);
+                var main = particles.main;
+                particles.Play();
+                main.stopAction = ParticleSystemStopAction.Destroy;
+            }
+            else if (visualEffect)
+            {
+                VisualEffect effect = Instantiate<VisualEffect>(visualEffect, targetPosition, transform.rotation);
+                effect.Play();
+                //No destroy because fuck it whatever UGH
+            }
+        }
+
         float stunRoll = UnityEngine.Random.Range(0f, 100f);
         if (stunRoll <= action.StunChance)
         {
@@ -535,6 +705,8 @@ public class CharacterBattle : MonoBehaviour
 
                 target.CharacterStats.Health.Damage(totalDamage);
                 Debug.Log(this + " dealt " + totalDamage + " damage to " + target.name + "!");
+
+                if (target.CharacterStats.Health.CurrentValue > 0) target.CharacterAnimatorHandler.Animator.Play("Hurt");
             }
         }
 

@@ -111,10 +111,35 @@ public class UI_PlayerCharacterCombatSheet : MonoBehaviour
 
     private IEnumerator _currentTemperatureCoroutine;
 
+    [Header("UI Objects")]
+    public GameObject Background;
+    public float FlickerDuration = .2f;
+    private bool _isFlickering = false;
+    private float _timer = 0f;
+
+    private Character _representedCharacter;
+    public Character RepresentedCharacter => _representedCharacter;
     private CharacterStats _representedStats;
 
-    public void InitializeSheet(CharacterStats stats, Sprite portrait)
+    private void Update()
     {
+        if (_isFlickering)
+        {
+            if (_timer < FlickerDuration)
+            {
+                _timer += Time.deltaTime;
+            }
+            else
+            {
+                _timer = 0f;
+                Background.SetActive(!Background.activeSelf);
+            }
+        }
+    }
+
+    public void InitializeSheet(Character character, CharacterStats stats, Sprite portrait)
+    {
+        _representedCharacter = character;
         _representedStats = stats;
         Portrait.sprite = portrait;
         LevelText.text = "lvl." + stats.Level.ToString();
@@ -329,5 +354,9 @@ public class UI_PlayerCharacterCombatSheet : MonoBehaviour
 
     }
 
-
+    public void Flicker(bool doFlicker)
+    {
+        _isFlickering = doFlicker;
+        if (!doFlicker) Background.SetActive(true);
+    }
 }

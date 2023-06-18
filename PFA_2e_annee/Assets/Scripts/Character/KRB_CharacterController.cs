@@ -573,7 +573,8 @@ public class KRB_CharacterController : MonoBehaviour, ICharacterController
                             currentVelocity = Motor.GetVelocityForMovePosition(Motor.TransientPosition, tmpPositionAnchor, deltaTime);
                             break;
                         case DisplacementState.Displacing:
-                            Vector3 tmpDisplacement = Vector3.Lerp(DisplacerTargetPosition, DisplacerDestinationPosition, CurrentDisplacer.FromToCurve.Evaluate(_displacementTimer / DisplacementTime));
+                            Vector3 tmpDisplacement = CurrentDisplacer.Spline.FollowSpline(CurrentDisplacer.FromToCurve.Evaluate(_displacementTimer / DisplacementTime));
+                            //Vector3 tmpDisplacement = Vector3.Lerp(DisplacerTargetPosition, DisplacerDestinationPosition, CurrentDisplacer.FromToCurve.Evaluate(_displacementTimer / DisplacementTime));
                             currentVelocity = Motor.GetVelocityForMovePosition(Motor.TransientPosition, tmpDisplacement, deltaTime);
                             break;
                         case DisplacementState.Deanchoring:

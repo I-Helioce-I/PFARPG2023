@@ -5,12 +5,14 @@ using UnityEngine.UI;
 using UnityEngine.Rendering;
 using System;
 using UnityEngine.Rendering.Universal;
+using static System.TimeZoneInfo;
 
 public class UI_Transitioner : MonoBehaviour
 {
     [Header("PostProcessing")]
     [SerializeField] private Volume PPVolume;
     private ChromaticAberration ChromaAberration;
+    [SerializeField] private Animator TransitionBlurAnimator;
 
     public Image TransitionIMG;
 
@@ -24,12 +26,37 @@ public class UI_Transitioner : MonoBehaviour
         PPVolume.profile.TryGet<ChromaticAberration>(out ChromaAberration);
     }
 
+    public void MainMenuStartGameTransition(float waitTime, Action onWaitComplete)
+    {
+        if (_transitionCoroutine != null) StopCoroutine(_transitionCoroutine);
+
+        TransitionBlurAnimator.SetTrigger("Fill");
+        _transitionCoroutine = Wait(waitTime, onWaitComplete);
+        StartCoroutine(Wait(waitTime, onWaitComplete));
+    }
+
+    public void WaitAndThen(float waitTime, Action onWaitComplete)
+    {
+        if (_transitionCoroutine != null) StopCoroutine(_transitionCoroutine);
+
+        _transitionCoroutine = Wait(waitTime, onWaitComplete);
+        StartCoroutine(Wait(waitTime, onWaitComplete));
+    }
+
     public void Transition(float transitionTime, Action onTransitionComplete)
     {
         if (_transitionCoroutine != null) StopCoroutine(_transitionCoroutine);
 
         _transitionCoroutine = ScreenTransition(transitionTime, onTransitionComplete);
         StartCoroutine(ScreenTransition(transitionTime, onTransitionComplete));
+    }
+
+    public void TransitionFade(float from, float to, float transitionTime, Action onTransitionComplete)
+    {
+        if (_transitionCoroutine != null) StopCoroutine(_transitionCoroutine);
+
+        _transitionCoroutine = ScreenTransitionFade(from, to, transitionTime, onTransitionComplete);
+        StartCoroutine(ScreenTransitionFade(from, to, transitionTime, onTransitionComplete));
     }
 
     public void TransitionIntoCombat(float transitionTime, Action onTransitionComplete)
@@ -178,5 +205,39 @@ public class UI_Transitioner : MonoBehaviour
 
         TransitionIMG.color = new Color(1f, 1f, 1f, 0f);
         yield return null;
+    }
+
+    private IEnumerator ScreenTransitionFade(float from, float to, float transitionTime, Action onTransitionComplete)
+    {
+        float timer = 0f;
+
+        TransitionIMG.fillClockwise = true;
+        TransitionIMG.fillAmount = 1f;
+        TransitionIMG.color = new Color (0, 0, 0, from);
+
+        while (timer < transitionTime)
+        {
+            timer += Time.deltaTime;
+            float lerpdAlpha = Mathf.Lerp(from, to, timer / transitionTime);
+            TransitionIMG.color = new Color(0, 0, 0, lerpdAlpha);
+            yield return null;
+        }
+
+        timer = 0f;
+        TransitionIMG.color = new Color(0, 0, 0, to);
+
+        onTransitionComplete();
+    }
+    private IEnumerator Wait(float waitTime, Action onTransitionComplete)
+    {
+        float timer = 0f;
+
+        while (timer < waitTime)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        onTransitionComplete();
     }
 }

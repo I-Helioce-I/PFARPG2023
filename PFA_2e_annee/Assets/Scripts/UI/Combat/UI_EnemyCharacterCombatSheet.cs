@@ -66,10 +66,35 @@ public class UI_EnemyCharacterCombatSheet : MonoBehaviour
 
     private IEnumerator _currentTemperatureCoroutine;
 
-    private CharacterStats _representedStats;
+    [Header("UI Objects")]
+    public GameObject Background;
+    public float FlickerDuration = .2f;
+    private bool _isFlickering = false;
+    private float _timer = 0f;
 
-    public void InitializeSheet(CharacterStats stats, Sprite portrait)
+    private CharacterStats _representedStats;
+    private Character _representedCharacter;
+    public Character RepresentedCharacter => _representedCharacter;
+
+
+    private void Update()
     {
+        if (_isFlickering)
+        {
+            if (_timer < FlickerDuration)
+            {
+                _timer += Time.deltaTime;
+            }
+            else
+            {
+                _timer = 0f;
+                Background.SetActive(!Background.activeSelf);
+            }
+        }
+    }
+    public void InitializeSheet(Character character, CharacterStats stats, Sprite portrait)
+    {
+        _representedCharacter = character;
         _representedStats = stats;
         Portrait.sprite = portrait;
 
@@ -211,5 +236,10 @@ public class UI_EnemyCharacterCombatSheet : MonoBehaviour
 
         _currentTemperatureCoroutine = null;
 
+    }
+
+    public void Flicker(bool doFlicker)
+    {
+        _isFlickering = doFlicker;
     }
 }

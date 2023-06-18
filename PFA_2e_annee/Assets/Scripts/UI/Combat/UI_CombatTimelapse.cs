@@ -16,6 +16,8 @@ public class UI_CombatTimelapse : MonoBehaviour
     public List<UI_CombatTimelapseCharacterIcon> _characterIcons = new List<UI_CombatTimelapseCharacterIcon>();
     public List<Character> _charactersInCombat = new List<Character>();
 
+    private float _spacingBetweenIcons = .15f;
+
     //private void OnEnable()
     //{
     //    BattleManager.TurnOrderSet -= OnTurnOrderSet;
@@ -67,7 +69,7 @@ public class UI_CombatTimelapse : MonoBehaviour
             UI_CombatTimelapseCharacterIcon newIcon = Instantiate<UI_CombatTimelapseCharacterIcon>(Prefab, Parent);
             newIcon.RepresentedCharacter = character;
             newIcon.ForceSetValue(0f);
-            newIcon.CharacterIcon.color = character.Color;
+            newIcon.CharacterIcon.sprite = character.icon;
             _characterIcons.Add(newIcon);
         }
     }
@@ -80,7 +82,7 @@ public class UI_CombatTimelapse : MonoBehaviour
             {
                 if (characterIcon.RepresentedCharacter == order[i])
                 {
-                    characterIcon.SetDestinationValue(1 - (0.1f * i));
+                    characterIcon.SetDestinationValue(1 - (_spacingBetweenIcons * i));
                 }
             }
         }
@@ -141,7 +143,7 @@ public class UI_CombatTimelapse : MonoBehaviour
             {
                 if (characterIcon.RepresentedCharacter == order[i])
                 {
-                    characterIcon.SetDestinationValue(1 - (0.1f * i));
+                    characterIcon.SetDestinationValue(1 - (_spacingBetweenIcons * i));
                 }
             }
         }

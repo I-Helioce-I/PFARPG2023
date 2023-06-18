@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b50367dc884ed5b43ac8975aa831bf75, type: 3}
+  m_Name: Dialogue_StartLevel
+  m_EditorClassIdentifier: 
+  DialogueLines:
+  - Emotion: 0
+    MainCharacterSpeaking: 1
+    Text: W... What? What happened?... I don't understand!
+  - Emotion: 0
+    MainCharacterSpeaking: 1
+    Text: And... You! Where do you come from?! What's that mask you're wearing?
+  - Emotion: 0
+    MainCharacterSpeaking: 0
+    Text: Stop shouting.
+  - Emotion: 0
+    MainCharacterSpeaking: 0
+    Text: It seems the spell had a few... issues.
+  - Emotion: 0
+    MainCharacterSpeaking: 1
+    Text: You messed up the casting?! How did you-
+  - Emotion: 4
+    MainCharacterSpeaking: 0
+    Text: WE messed it up. And I would have managed had it not been for YOU.
+  - Emotion: 0
+    MainCharacterSpeaking: 0
+    Text: The spell seems to have divided us, somehow.
+  - Emotion: 0
+    MainCharacterSpeaking: 1
+    Text: And what do we do now?!
+  - Emotion: 0
+    MainCharacterSpeaking: 0
+    Text: We should look for grandfather. He'll know a way to reverse this.
+  - Emotion: 4
+    MainCharacterSpeaking: 1
+    Text: Gramps loves the library! If anything, he'll be there!
+  - Emotion: 0
+    MainCharacterSpeaking: 0
+    Text: Not so fast. Look at us. You're ice, and I'm water.
+  - Emotion: 4
+    MainCharacterSpeaking: 0
+    Text: It's only logical that a part of us is missing.
+  - Emotion: 4
+    MainCharacterSpeaking: 1
+    Text: Let's go get 'em! Onwards!

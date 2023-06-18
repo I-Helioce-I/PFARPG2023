@@ -9,6 +9,7 @@ public class Character : MonoBehaviour
 
     [Header("References")]
     public Sprite sprite;
+    public Sprite icon;
     new public string name;
     public CharacterStats Stats;
     public CharacterStateHandler State;
@@ -18,6 +19,7 @@ public class Character : MonoBehaviour
     public CharacterExplorationStateHandler CharacterExplorationStateHandler;
     public KRB_CharacterController CharacterController;
     public CharacterConditionHandler CharacterConditions;
+    public CharacterAnimatorHandler ExplorationAnimatorHandler;
 
     [Header("Debug")]
     public Color Color;

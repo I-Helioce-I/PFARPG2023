@@ -14,6 +14,19 @@ public class Player : MonoBehaviour
     //public ExampleCharacterCamera CharacterCamera;
     public List<Character> AllControlledCharacters = new List<Character>();
 
+
+    private bool _canMove = true;
+    public bool CanMove
+    {
+        get
+        {
+            return _canMove;
+        }
+        set
+        {
+            _canMove = value;
+        }
+    }
     private Vector2 _movement = Vector2.zero;
     private bool _jumpPressed = false;
     private string _previousActionMap;
@@ -172,6 +185,7 @@ public class Player : MonoBehaviour
 
     private void HandleCharacterInput()
     {
+        if (!_canMove) return;
         PlayerCharacterInputs characterInputs = new PlayerCharacterInputs();
 
         // Build the CharacterInputs struct
@@ -186,7 +200,7 @@ public class Player : MonoBehaviour
 
     public void AddGasCharacter()
     {
-        foreach(Character character in AllControlledCharacters)
+        foreach (Character character in AllControlledCharacters)
         {
             if (!character.CharacterExplorationStateHandler.PossibleStates.Contains(CharacterTypeState.Gas)) character.CharacterExplorationStateHandler.PossibleStates.Add(CharacterTypeState.Gas);
         }

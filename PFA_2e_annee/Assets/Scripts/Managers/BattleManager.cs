@@ -50,6 +50,8 @@ public class BattleManager : MonoBehaviour
     private UI_CombatTimelapse _instantiatedTimelapse;
     private List<UI_PlayerCharacterCombatSheet> _instantiatedPCSheets = new List<UI_PlayerCharacterCombatSheet>();
     private List<UI_EnemyCharacterCombatSheet> _instantiatedEnemySheets = new List<UI_EnemyCharacterCombatSheet>();
+    public List<UI_EnemyCharacterCombatSheet> EnemySheets => _instantiatedEnemySheets;
+    public List<UI_PlayerCharacterCombatSheet> PlayerSheets => _instantiatedPCSheets;
     public GameObject FightScreen;
     public UI_CombatLootScreen LootScreen;
 
@@ -267,14 +269,14 @@ public class BattleManager : MonoBehaviour
         foreach(Character character in _playerCharactersInBattle)
         {
             UI_PlayerCharacterCombatSheet characterCombatSheet = Instantiate<UI_PlayerCharacterCombatSheet>(PlayerCharacterCombatSheet, PlayerCharacterCombatSheetParent);
-            characterCombatSheet.InitializeSheet(character.Stats, null);
+            characterCombatSheet.InitializeSheet(character, character.Stats, null);
             _instantiatedPCSheets.Add(characterCombatSheet);
         }
 
         foreach(Character character in _enemyCharactersInBattle)
         {
             UI_EnemyCharacterCombatSheet characterCombatSheet = Instantiate<UI_EnemyCharacterCombatSheet>(EnemyCharacterCombatSheet, EnemyCharacterCombatSheetParent);
-            characterCombatSheet.InitializeSheet(character.Stats, null);
+            characterCombatSheet.InitializeSheet(character, character.Stats, null);
             _instantiatedEnemySheets.Add(characterCombatSheet);
         }
 
@@ -443,7 +445,11 @@ public class BattleManager : MonoBehaviour
             }
             _playerCharactersInBattle.Remove(character);
             character.CharacterDowned -= OnCharacterDowned;
-            Destroy(character.gameObject);
+            character.Battle.CharacterAnimatorHandler.PlayAnimThenAction("Die", () =>
+            {
+                Destroy(character.gameObject);
+            });
+            
             //Make character have death animation, and then destroy it later.
         }
         else if (_enemyCharactersInBattle.Contains(character))
@@ -455,7 +461,10 @@ public class BattleManager : MonoBehaviour
             }
             _enemyCharactersInBattle.Remove(character);
             character.CharacterDowned -= OnCharacterDowned;
-            Destroy(character.gameObject);
+            character.Battle.CharacterAnimatorHandler.PlayAnimThenAction("Die", () =>
+            {
+                Destroy(character.gameObject);
+            });
             //Remove character from play, and then later destroy it.
         }
         else
