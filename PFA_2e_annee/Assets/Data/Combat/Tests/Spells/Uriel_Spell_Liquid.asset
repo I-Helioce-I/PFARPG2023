@@ -10,21 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b1dded9426f0444e8c6effd350063d5, type: 3}
-  m_Name: Leaghan_Spell_Liquid
+  m_Name: Uriel_Spell_Liquid
   m_EditorClassIdentifier: 
-  Name: Tidal wave
+  Name: Cool down
   Icon: {fileID: -284283824, guid: 5d8a41e902c90ac4590dc1611e20de24, type: 3}
-  DescriptionText: Deal <color=#cd0010>30<sprite index=0><color=#ffffff> to <sprite
-    index=1>.
+  DescriptionText: Decrease 2 <sprite index=3> to all allies.
   IconColor: {r: 1, g: 1, b: 1, a: 1}
   Type: 1
-  Damage: 30
-  DamageIsHeal: 0
+  Damage: 0
+  DamageIsHeal: 1
   TypeOfDamage: 1
   NumberOfTimes: 0
-  EtherCost: 15
-  StunChance: 0
-  TemperatureChange: 0
+  EtherCost: 10
+  StunChance: 100
+  TemperatureChange: -2
   StrengthModifier:
     Type: 0
     Value: 0
@@ -83,11 +82,12 @@ MonoBehaviour:
   TargetsAllViableTargets: 1
   AnimationName: Spell
   doesSlide: 0
-  EffectDelayInSeconds: 2.5
-  Projectile: {fileID: 6673724340227333083, guid: f3e05509ef6d1ba4989a890c0a029b8b,
+  EffectDelayInSeconds: 0.5
+  Projectile: {fileID: 0}
+  ProjectileShootDelay: 0
+  OnCasterCastVFX: {fileID: 1802171706812414518, guid: 27a3895f01ee201458d84eb873f7ea26,
     type: 3}
-  ProjectileShootDelay: 0.5
-  OnCasterCastVFX: {fileID: 0}
-  CasterVFXAttachPoint: 0
-  OnTargetCastVFX: {fileID: 0}
-  TargetVFXAttachPoint: 0
+  CasterVFXAttachPoint: 1
+  OnTargetCastVFX: {fileID: 2797143505055082783, guid: 3db9aaebb8c2fd84b839b2f6fa96288c,
+    type: 3}
+  TargetVFXAttachPoint: 2

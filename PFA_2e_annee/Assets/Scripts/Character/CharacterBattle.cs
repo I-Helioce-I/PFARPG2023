@@ -525,6 +525,16 @@ public class CharacterBattle : MonoBehaviour
         }
         else
         {
+            //Shoot projectile
+            if (action.Projectile)
+            {
+                //onActionComplete = () => WaitAndThen(action.EffectDelayInSeconds, onActionComplete);
+
+                foreach (CharacterBattle target in targets)
+                {
+                    StartCoroutine(ShootProjectile(target, action, action.ProjectileShootDelay));
+                }
+            }
             //Play attacking animation.
             if (CharacterAnimatorHandler)
             {
@@ -538,12 +548,28 @@ public class CharacterBattle : MonoBehaviour
                 {
                     this.CharacterAnimatorHandler.PlayAnimThenAction(action.AnimationName, () =>
                     {
-                        onActionComplete();
+                        if (action.Projectile)
+                        {
+                            WaitAndThen(action.EffectDelayInSeconds, onActionComplete);
+                        }
+                        else
+                        {
+                            onActionComplete();
+                        }
+
                     });
                 }
                 else
                 {
-                    onActionComplete();
+                    if (action.Projectile)
+                    {
+                        WaitAndThen(action.EffectDelayInSeconds, onActionComplete);
+                    }
+                    else
+                    {
+                        onActionComplete();
+                    }
+
                 }
 
             }
@@ -556,15 +582,26 @@ public class CharacterBattle : MonoBehaviour
             {
                 StartCoroutine(DealEffectsTo(target, action, action.EffectDelayInSeconds));
             }
-            //Shoot projectile
-            if (action.Projectile)
-            {
-                foreach (CharacterBattle target in targets)
-                {
-                    StartCoroutine(ShootProjectile(target, action, action.ProjectileShootDelay));
-                }
-            }
         }
+    }
+
+    private void WaitAndThen(float wait, Action andThen)
+    {
+        Debug.Log("!");
+        StartCoroutine(WaitAndThenCoroutine(wait, andThen));
+    }
+
+    private IEnumerator WaitAndThenCoroutine(float wait, Action andThen)
+    {
+        float timer = 0f;
+        while (timer < wait)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        Debug.Log("!!!");
+        Debug.Log(andThen);
+        if (andThen != null) andThen();
     }
 
     private IEnumerator DealEffectsTo(CharacterBattle target, ActionDescription action, float delay)
