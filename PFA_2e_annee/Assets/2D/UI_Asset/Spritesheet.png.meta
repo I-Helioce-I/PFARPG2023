@@ -119,7 +119,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab09d17e456b1014e923537798bc9a43
+      spriteID: c413b2b131bdfe341b43e49bfbc8d632
       internalID: -1377168327
       vertices: []
       indices: 
@@ -140,7 +140,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5617aa2ff6f83cb4090a1c592902b61c
+      spriteID: 2715352b09c38d847977e45eb11c369c
       internalID: 389537084
       vertices: []
       indices: 
@@ -161,7 +161,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8a83dde08c81215458aa65a498b5289f
+      spriteID: 39d6f5d7398822740844ccd75ee9a324
       internalID: 595054856
       vertices: []
       indices: 
@@ -182,7 +182,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9b10c71daf2add449afa6a20fd02e5c
+      spriteID: 051d412bd5fa19243947b3f8cf57c525
       internalID: -1383280134
       vertices: []
       indices: 
@@ -203,14 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0d8cf071ed5984c44addcd28550c8c2b
+      spriteID: 711518b1bd7fd70409328e3c65dcf496
       internalID: 985791871
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Healt
+      name: Heal
       rect:
         serializedVersion: 2
         x: 512
@@ -224,8 +224,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ae832c0789cd2c44ba489066b5099c29
-      internalID: -496855010
+      spriteID: 53afc4af7bb98fa4d8cc9c059a2d0936
+      internalID: -2052264114
       vertices: []
       indices: 
       edges: []
@@ -245,8 +245,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 260b85be35b00b843ae759d6e5cca01f
+      spriteID: b1279177b7367ce45aa0330d867b53ea
       internalID: 758844000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gold
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 609412616e304f8489bc8cafe39af9fc
+      internalID: -890904594
       vertices: []
       indices: 
       edges: []
@@ -263,10 +284,11 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Low: -1383280134
+      Heal: -2052264114
       Sword: -1377168327
       Single: 595054856
       Ether: 758844000
-      Healt: -496855010
+      Gold: -890904594
       High: 985791871
       Multiple: 389537084
   spritePackingTag: 
