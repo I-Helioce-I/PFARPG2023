@@ -70,12 +70,12 @@ public class OptionManager : MonoBehaviour
                 if (optionPanel.activeSelf)
                 {
                     CloseOption();
-                    Player.instance.PlayerInput.enabled = true;
+                    //Player.instance.PlayerInput.enabled = true;
                 }
                 else
                 {
                     OpenOption();
-                    Player.instance.PlayerInput.enabled = false;
+                    //Player.instance.PlayerInput.enabled = false;
                 }
             }
             else
