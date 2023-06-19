@@ -184,7 +184,7 @@ public class BattleManager : MonoBehaviour
                 break;
             case BattleState.Starting:
                 FightScreen.SetActive(true);
-                CameraManager.instance.SmoothCurrentCameraRotation(Vector3.zero, new Vector3(60f, 0, 0), 2.5f, () =>
+                CameraManager.instance.SmoothCurrentCameraRotation(Vector3.zero, new Vector3(30f, 0, 0), 2.5f, () =>
                 {
                     StartCombatGameplay();
                 });

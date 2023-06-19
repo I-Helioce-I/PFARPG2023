@@ -488,14 +488,22 @@ public class KRB_CharacterController : MonoBehaviour, ICharacterController
                         }
 
                         // Gravity
-                        if (_currentCharacterState == CharacterTypeState.Solid || _currentCharacterState == CharacterTypeState.Liquid)
+                        if (GameManager.instance.CurrentState == GameManager.GameState.Combat)
                         {
                             currentVelocity += Gravity * deltaTime;
                         }
-                        else if (_currentCharacterState == CharacterTypeState.Gas && Physics.Raycast(Motor.TransientPosition, Vector3.down, GasStateGroundCheckDistance, Motor.StableGroundLayers))
+                        else
                         {
-                            currentVelocity += Gravity * deltaTime;
+                            if (_currentCharacterState == CharacterTypeState.Solid || _currentCharacterState == CharacterTypeState.Liquid)
+                            {
+                                currentVelocity += Gravity * deltaTime;
+                            }
+                            else if (_currentCharacterState == CharacterTypeState.Gas && Physics.Raycast(Motor.TransientPosition, Vector3.down, GasStateGroundCheckDistance, Motor.StableGroundLayers))
+                            {
+                                currentVelocity += Gravity * deltaTime;
+                            }
                         }
+
 
                         // Drag
                         currentVelocity *= (1f / (1f + (Drag * deltaTime)));
