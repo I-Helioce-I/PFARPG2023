@@ -498,9 +498,17 @@ public class KRB_CharacterController : MonoBehaviour, ICharacterController
                             {
                                 currentVelocity += Gravity * deltaTime;
                             }
-                            else if (_currentCharacterState == CharacterTypeState.Gas && Physics.Raycast(Motor.TransientPosition, Vector3.down, GasStateGroundCheckDistance, Motor.StableGroundLayers))
+                            else if (_currentCharacterState == CharacterTypeState.Gas)
                             {
-                                currentVelocity += Gravity * deltaTime;
+                                if (Physics.Raycast(Motor.TransientPosition, Vector3.down, GasStateGroundCheckDistance, Motor.StableGroundLayers))
+                                {
+                                    currentVelocity += Gravity * deltaTime;
+                                }
+                                else
+                                {
+                                    currentVelocity += new Vector3(0f, -1.5f, 0f) * deltaTime;
+                                }
+                                
                             }
                         }
 
