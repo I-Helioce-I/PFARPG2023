@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b1dded9426f0444e8c6effd350063d5, type: 3}
-  m_Name: Dragon_Attack_Solid
+  m_Name: Isen_Attack_Gas
   m_EditorClassIdentifier: 
-  Name: Solid bite
-  Icon: {fileID: 21300000, guid: 6e01fda0fb1fa634b807c7cc1dab3fc1, type: 3}
-  DescriptionText: 
+  Name: Gas burst
+  Icon: {fileID: 1544271648, guid: 5d8a41e902c90ac4590dc1611e20de24, type: 3}
+  DescriptionText: Deal <color=#cd0010>25<sprite index=0><color=#ffffff> to <sprite
+    index=2>.
   IconColor: {r: 1, g: 1, b: 1, a: 1}
   Type: 0
-  Damage: 10
+  Damage: 25
   DamageIsHeal: 0
   TypeOfDamage: 0
   NumberOfTimes: 0
@@ -82,7 +83,7 @@ MonoBehaviour:
   TargetsAllViableTargets: 0
   AnimationName: Attack
   doesSlide: 1
-  EffectDelayInSeconds: 1
+  EffectDelayInSeconds: 0.3
   Projectile: {fileID: 0}
   ProjectileShootDelay: 0
   OnCasterCastVFX: {fileID: 0}

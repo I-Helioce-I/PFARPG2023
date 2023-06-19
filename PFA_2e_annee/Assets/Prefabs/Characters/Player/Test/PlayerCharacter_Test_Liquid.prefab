@@ -1152,9 +1152,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17118157fcfb13a41b071e006f9c9416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsStunned: 0
   IsDefending: 0
   InitiativeFirstInLine: 0
+  _overHead: {fileID: 1262175114056189311}
+  _stunnedParticles: {fileID: 953220815503892305, guid: 3f3de3112971af542b1de770d35c0927,
+    type: 3}
 --- !u!114 &281179218
 MonoBehaviour:
   m_ObjectHideFlags: 0

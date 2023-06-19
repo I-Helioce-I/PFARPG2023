@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b1dded9426f0444e8c6effd350063d5, type: 3}
-  m_Name: Dragon_Attack_Solid
+  m_Name: Dragon_Fireball_Solid
   m_EditorClassIdentifier: 
-  Name: Solid bite
-  Icon: {fileID: 21300000, guid: 6e01fda0fb1fa634b807c7cc1dab3fc1, type: 3}
+  Name: DragonFireballS
+  Icon: {fileID: 0}
   DescriptionText: 
-  IconColor: {r: 1, g: 1, b: 1, a: 1}
-  Type: 0
-  Damage: 10
+  IconColor: {r: 0, g: 0, b: 0, a: 0}
+  Type: 1
+  Damage: 20
   DamageIsHeal: 0
-  TypeOfDamage: 0
+  TypeOfDamage: 1
   NumberOfTimes: 0
   EtherCost: 0
   StunChance: 0
-  TemperatureChange: 0
+  TemperatureChange: 2
   StrengthModifier:
     Type: 0
     Value: 0
@@ -80,13 +80,14 @@ MonoBehaviour:
   ViableTargetRow: 0
   TargetsAllies: 0
   TargetsAllViableTargets: 0
-  AnimationName: Attack
-  doesSlide: 1
-  EffectDelayInSeconds: 1
-  Projectile: {fileID: 0}
-  ProjectileShootDelay: 0
+  AnimationName: Spell
+  doesSlide: 0
+  EffectDelayInSeconds: 2
+  Projectile: {fileID: 6673724340227333083, guid: 1a317a6677d7f01448af11239a352857,
+    type: 3}
+  ProjectileShootDelay: 1.03
   OnCasterCastVFX: {fileID: 0}
   CasterVFXAttachPoint: 0
-  OnTargetCastVFX: {fileID: 8763576034015411407, guid: 96fd1d15dc2158440a5b3f6621c1df3b,
+  OnTargetCastVFX: {fileID: 3186439473703098401, guid: c15bb6f2f871a8d4b9545434fec37f3b,
     type: 3}
-  TargetVFXAttachPoint: 1
+  TargetVFXAttachPoint: 2

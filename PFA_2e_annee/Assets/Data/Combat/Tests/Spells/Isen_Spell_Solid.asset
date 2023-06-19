@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b1dded9426f0444e8c6effd350063d5, type: 3}
-  m_Name: Dragon_Attack_Solid
+  m_Name: Isen_Spell_Solid
   m_EditorClassIdentifier: 
-  Name: Solid bite
-  Icon: {fileID: 21300000, guid: 6e01fda0fb1fa634b807c7cc1dab3fc1, type: 3}
-  DescriptionText: 
+  Name: Frigid healing
+  Icon: {fileID: 1980357398, guid: 5d8a41e902c90ac4590dc1611e20de24, type: 3}
+  DescriptionText: Restore 10<sprite index=2>.
   IconColor: {r: 1, g: 1, b: 1, a: 1}
-  Type: 0
+  Type: 1
   Damage: 10
-  DamageIsHeal: 0
-  TypeOfDamage: 0
+  DamageIsHeal: 1
+  TypeOfDamage: 1
   NumberOfTimes: 0
-  EtherCost: 0
+  EtherCost: 10
   StunChance: 0
   TemperatureChange: 0
   StrengthModifier:
@@ -78,15 +78,15 @@ MonoBehaviour:
     Order: 0
   ViableSourceRow: 0
   ViableTargetRow: 0
-  TargetsAllies: 0
+  TargetsAllies: 1
   TargetsAllViableTargets: 0
-  AnimationName: Attack
-  doesSlide: 1
-  EffectDelayInSeconds: 1
+  AnimationName: Spell
+  doesSlide: 0
+  EffectDelayInSeconds: 0.5
   Projectile: {fileID: 0}
   ProjectileShootDelay: 0
   OnCasterCastVFX: {fileID: 0}
   CasterVFXAttachPoint: 0
-  OnTargetCastVFX: {fileID: 8763576034015411407, guid: 96fd1d15dc2158440a5b3f6621c1df3b,
+  OnTargetCastVFX: {fileID: 8217378242573470499, guid: f054ac0a83e46404ebe90ea80e088da6,
     type: 3}
-  TargetVFXAttachPoint: 1
+  TargetVFXAttachPoint: 0

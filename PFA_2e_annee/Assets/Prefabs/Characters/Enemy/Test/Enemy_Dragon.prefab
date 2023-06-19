@@ -402,9 +402,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17118157fcfb13a41b071e006f9c9416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsStunned: 0
   IsDefending: 0
   InitiativeFirstInLine: 0
+  _overHead: {fileID: 265890172138797688}
+  _stunnedParticles: {fileID: 953220815503892305, guid: 3f3de3112971af542b1de770d35c0927,
+    type: 3}
 --- !u!1 &86440332062300571
 GameObject:
   m_ObjectHideFlags: 0
@@ -2763,7 +2765,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4022491352781340089}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 0}
+  m_LocalPosition: {x: 0, y: 1.963, z: 0.457}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5642,7 +5644,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8958371970834975363}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0.811, z: 0.629}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
