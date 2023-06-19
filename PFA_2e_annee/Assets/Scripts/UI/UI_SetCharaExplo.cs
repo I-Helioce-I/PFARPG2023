@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,6 +33,12 @@ public class UI_SetCharaExplo : MonoBehaviour
     [SerializeField] private Image urielMask;
     [SerializeField] private RectTransform urielRT;
 
+    [Header("Lerp")]
+    [SerializeField] private Vector3 endPos = new Vector3(0, 125, 0);
+    [SerializeField] private Vector3 startPos = new Vector3(0, -75, 0);
+    [SerializeField] private float duration = 3f;
+    private float elapseTime;
+
     private Vector2 selectedSD;
     private Vector2 unselectedSD;
 
@@ -46,6 +51,8 @@ public class UI_SetCharaExplo : MonoBehaviour
     private Color unselectedColor;
 
     private IEnumerator _currentSwitchingCoroutine;
+
+    private Quaternion newRotation;
 
     private void Start()
     {
@@ -111,95 +118,105 @@ public class UI_SetCharaExplo : MonoBehaviour
 
     private void ChangeType()
     {
+        ChangeSizeDelta();
+        ChangeAnchoredPosition();
+        ChangeColor();
+    }
+
+    private void ChangeSizeDelta()
+    {
         switch (charaSelected)
         {
             case CharaSelected.Isen:
                 isenRT.sizeDelta = selectedSD;
                 leaghanRT.sizeDelta = unselectedSD;
                 urielRT.sizeDelta = unselectedSD;
-
-                //isenRT.anchoredPosition = Vector3.Lerp(isenRT.anchoredPosition, selectedAP, speedChange);
-                //leaghanRT.anchoredPosition = Vector3.Lerp(leaghanRT.anchoredPosition, unselectedRightAP, speedChange);
-                //urielRT.anchoredPosition = Vector3.Lerp(urielRT.anchoredPosition, unselectedLeftAP, speedChange);
-
-                //isenRT.anchoredPosition = selectedAP;
-                //leaghanRT.anchoredPosition = unselectedRightAP;
-                //urielRT.anchoredPosition = unselectedLeftAP;
-
-                isenBG.color = selectedColor;
-                isenMask.color = selectedColor;
-                leaghanBG.color = unselectedColor;
-                leaghanMask.color = unselectedColor;
-                urielBG.color = unselectedColor;
-                urielMask.color = unselectedColor;
                 break;
-
             case CharaSelected.Leaghan:
                 isenRT.sizeDelta = unselectedSD;
                 leaghanRT.sizeDelta = selectedSD;
                 urielRT.sizeDelta = unselectedSD;
-
-                //isenRT.anchoredPosition = Vector3.Lerp(isenRT.anchoredPosition, unselectedLeftAP, speedChange);
-                //leaghanRT.anchoredPosition = Vector3.Lerp(leaghanRT.anchoredPosition, selectedAP, speedChange);
-                //urielRT.anchoredPosition = Vector3.Lerp(urielRT.anchoredPosition, unselectedRightAP, speedChange);
-
-                //isenRT.anchoredPosition = unselectedLeftAP;
-                //leaghanRT.anchoredPosition = selectedAP;
-                //urielRT.anchoredPosition = unselectedRightAP;
-
-                isenBG.color = unselectedColor;
-                isenMask.color = unselectedColor;
-                leaghanBG.color = selectedColor;
-                leaghanMask.color = selectedColor;
-                urielBG.color = unselectedColor;
-                urielMask.color = unselectedColor;
                 break;
-
             case CharaSelected.Uriel:
                 isenRT.sizeDelta = unselectedSD;
                 leaghanRT.sizeDelta = unselectedSD;
                 urielRT.sizeDelta = selectedSD;
-
-                //isenRT.anchoredPosition = Vector3.Lerp(isenRT.anchoredPosition, unselectedRightAP, speedChange);
-                //leaghanRT.anchoredPosition = Vector3.Lerp(leaghanRT.anchoredPosition, unselectedLeftAP, speedChange);
-                //urielRT.anchoredPosition = Vector3.Lerp(urielRT.anchoredPosition, selectedAP, speedChange);
-
-                //isenRT.anchoredPosition = unselectedRightAP;
-                //leaghanRT.anchoredPosition = unselectedLeftAP;
-                //urielRT.anchoredPosition = selectedAP;
-
-                isenBG.color = unselectedColor;
-                isenMask.color = unselectedColor;
-                leaghanBG.color = unselectedColor;
-                leaghanMask.color = unselectedColor;
-                urielBG.color = selectedColor;
-                urielMask.color = selectedColor;
                 break;
+        }
+    }
 
+    private void ChangeAnchoredPosition()
+    {
+        switch (charaSelected)
+        {
+            case CharaSelected.Isen:
+                isenRT.anchoredPosition = selectedAP;
+
+                leaghanRT.anchoredPosition = unselectedRightAP;
+
+                urielRT.anchoredPosition = unselectedLeftAP;
+
+                break;
+            case CharaSelected.Leaghan:
+                isenRT.anchoredPosition = unselectedLeftAP;
+
+                leaghanRT.anchoredPosition = selectedAP;
+
+                urielRT.anchoredPosition = unselectedRightAP;
+
+                break;
+            case CharaSelected.Uriel:
+                isenRT.anchoredPosition = unselectedRightAP;
+
+                leaghanRT.anchoredPosition = unselectedLeftAP;
+
+                urielRT.anchoredPosition = selectedAP;
+
+                break;
             default:
                 break;
         }
     }
 
-    private IEnumerator SwitchToChar(CharaSelected fromCharacter, CharaSelected toCharacter, float overTime)
+    private void ChangeColor()
     {
-        float timer = 0f;
-
-        while(timer < overTime)
+        switch (charaSelected)
         {
-            timer += Time.deltaTime;
-            yield return null;
+            case CharaSelected.Isen:
+                isenBG.color = selectedColor;
+                isenMask.color = selectedColor;
+
+                leaghanBG.color = unselectedColor;
+                leaghanMask.color = unselectedColor;
+
+                urielBG.color = unselectedColor;
+                urielMask.color = unselectedColor;
+
+                break;
+            case CharaSelected.Leaghan:
+                isenBG.color = unselectedColor;
+                isenMask.color = unselectedColor;
+
+                leaghanBG.color = selectedColor;
+                leaghanMask.color = selectedColor;
+
+                urielBG.color = unselectedColor;
+                urielMask.color = unselectedColor;
+
+                break;
+            case CharaSelected.Uriel:
+                isenBG.color = unselectedColor;
+                isenMask.color = unselectedColor;
+
+                leaghanBG.color = unselectedColor;
+                leaghanMask.color = unselectedColor;
+
+                urielBG.color = selectedColor;
+                urielMask.color = selectedColor;
+
+                break;
+            default:
+                break;
         }
-
-        yield return null;
-    }
-
-    private IEnumerator SwitchRotation()
-    {
-        // from -> to
-        //Quaternion rot = circle.transform.rotation;
-        //rot = Vector3.Lerp(circle.transform.rotation, circle.transform.rotation.z + 120, speedChange);
-
-        yield return null;
     }
 }

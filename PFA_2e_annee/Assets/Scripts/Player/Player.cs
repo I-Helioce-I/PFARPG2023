@@ -150,6 +150,7 @@ public class Player : MonoBehaviour
         if (context.performed)
         {
             Character.CharacterExplorationStateHandler.SwitchStateBackward();
+            UIManager.instance.CharaExploration.BackwardVer();
         }
     }
     #endregion

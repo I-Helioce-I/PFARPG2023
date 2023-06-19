@@ -80,7 +80,7 @@ public class PartyPanelSpawn : MonoBehaviour
         CharacterStats stat = player.GetComponent<CharacterStats>();
 
         buttonIcons[i].sprite = Player.instance.AllControlledCharacters[i].sprite;
-        nameTxt.text = player.name;
+        nameTxt.text = player.charaName;
         stateTxt.text = stat.CharacterStateHandler.StartingState.ToString();
         currentHealthTxt.text = stat.Health.CurrentValue.ToString();
         maxHealthTxt.text = "/ " + stat.Health.MaxValue.ToString();

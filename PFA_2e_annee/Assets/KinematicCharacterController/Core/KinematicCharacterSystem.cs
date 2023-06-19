@@ -52,7 +52,7 @@ namespace KinematicCharacterController
         /// <summary>
         /// Sets the maximum capacity of the character motors list, to prevent allocations when adding characters
         /// </summary>
-        /// <param name="capacity"></param>
+        /// <param charaName="capacity"></param>
         public static void SetCharacterMotorsCapacity(int capacity)
         {
             if (capacity < CharacterMotors.Count)
@@ -81,7 +81,7 @@ namespace KinematicCharacterController
         /// <summary>
         /// Sets the maximum capacity of the physics movers list, to prevent allocations when adding movers
         /// </summary>
-        /// <param name="capacity"></param>
+        /// <param charaName="capacity"></param>
         public static void SetPhysicsMoversCapacity(int capacity)
         {
             if (capacity < PhysicsMovers.Count)
