@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1dded9426f0444e8c6effd350063d5, type: 3}
+  m_Name: Uriel_Attack_Gas
+  m_EditorClassIdentifier: 
+  Name: Vapor puff
+  Icon: {fileID: 1544271648, guid: 5d8a41e902c90ac4590dc1611e20de24, type: 3}
+  DescriptionText: Deal <color=#cd0010>10<sprite index=0><color=#ffffff> to <sprite
+    index=2>.
+  IconColor: {r: 1, g: 1, b: 1, a: 1}
+  Type: 0
+  Damage: 10
+  DamageIsHeal: 0
+  TypeOfDamage: 0
+  NumberOfTimes: 0
+  EtherCost: 0
+  StunChance: 0
+  TemperatureChange: 0
+  StrengthModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  AgilityModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  IntelligenceModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  ConstitutionModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  VitalityModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  LuckModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  HealthModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  EtherModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  SpeedModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  PhysDMGModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  PhysRESModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  MagDMGModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  MagRESModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  ViableSourceRow: 0
+  ViableTargetRow: 0
+  TargetsAllies: 0
+  TargetsAllViableTargets: 0
+  AnimationName: Attack
+  doesSlide: 0
+  EffectDelayInSeconds: 1.3
+  Projectile: {fileID: 6673724340227333083, guid: 11fa54c823ccfa448b124d29db681605,
+    type: 3}
+  ProjectileShootDelay: 0.3
+  OnCasterCastVFX: {fileID: 0}
+  CasterVFXAttachPoint: 0
+  OnTargetCastVFX: {fileID: 0}
+  TargetVFXAttachPoint: 0

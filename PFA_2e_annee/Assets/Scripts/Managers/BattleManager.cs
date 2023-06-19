@@ -436,6 +436,11 @@ public class BattleManager : MonoBehaviour
 
     private void RemoveCharacter(Character character)
     {
+        if (character.CharacterConditions.IsStunned)
+        {
+            character.CharacterConditions.IsStunned = false;
+        }
+
         if (_playerCharactersInBattle.Contains(character))
         {
             if (_turnOrder.Contains(character))

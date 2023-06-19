@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1dded9426f0444e8c6effd350063d5, type: 3}
+  m_Name: Dragon_Fireball_Solid
+  m_EditorClassIdentifier: 
+  Name: DragonFireballS
+  Icon: {fileID: 0}
+  DescriptionText: 
+  IconColor: {r: 0, g: 0, b: 0, a: 0}
+  Type: 1
+  Damage: 20
+  DamageIsHeal: 0
+  TypeOfDamage: 1
+  NumberOfTimes: 0
+  EtherCost: 0
+  StunChance: 0
+  TemperatureChange: 2
+  StrengthModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  AgilityModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  IntelligenceModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  ConstitutionModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  VitalityModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  LuckModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  HealthModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  EtherModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  SpeedModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  PhysDMGModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  PhysRESModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  MagDMGModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  MagRESModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  ViableSourceRow: 0
+  ViableTargetRow: 0
+  TargetsAllies: 0
+  TargetsAllViableTargets: 0
+  AnimationName: Spell
+  doesSlide: 0
+  EffectDelayInSeconds: 2
+  Projectile: {fileID: 6673724340227333083, guid: 1a317a6677d7f01448af11239a352857,
+    type: 3}
+  ProjectileShootDelay: 1.03
+  OnCasterCastVFX: {fileID: 0}
+  CasterVFXAttachPoint: 0
+  OnTargetCastVFX: {fileID: 3186439473703098401, guid: c15bb6f2f871a8d4b9545434fec37f3b,
+    type: 3}
+  TargetVFXAttachPoint: 2

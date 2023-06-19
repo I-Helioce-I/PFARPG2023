@@ -20,7 +20,7 @@ MonoBehaviour:
   Type: 1
   Damage: 10
   DamageIsHeal: 0
-  TypeOfDamage: 0
+  TypeOfDamage: 1
   NumberOfTimes: 0
   EtherCost: 10
   StunChance: 0
@@ -86,3 +86,7 @@ MonoBehaviour:
   EffectDelayInSeconds: 0
   Projectile: {fileID: 0}
   ProjectileShootDelay: 0
+  OnCasterCastVFX: {fileID: 0}
+  CasterVFXAttachPoint: 0
+  OnTargetCastVFX: {fileID: 0}
+  TargetVFXAttachPoint: 0

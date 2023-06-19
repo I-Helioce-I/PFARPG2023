@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1dded9426f0444e8c6effd350063d5, type: 3}
+  m_Name: Uriel_Spell_Gas
+  m_EditorClassIdentifier: 
+  Name: Stunning gas
+  Icon: {fileID: -284283824, guid: 5d8a41e902c90ac4590dc1611e20de24, type: 3}
+  DescriptionText: Stun 1 <sprite index=2>.
+  IconColor: {r: 1, g: 1, b: 1, a: 1}
+  Type: 1
+  Damage: 0
+  DamageIsHeal: 1
+  TypeOfDamage: 1
+  NumberOfTimes: 0
+  EtherCost: 10
+  StunChance: 100
+  TemperatureChange: 0
+  StrengthModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  AgilityModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  IntelligenceModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  ConstitutionModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  VitalityModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  LuckModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  HealthModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  EtherModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  SpeedModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  PhysDMGModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  PhysRESModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  MagDMGModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  MagRESModifier:
+    Type: 0
+    Value: 0
+    Order: 0
+  ViableSourceRow: 0
+  ViableTargetRow: 0
+  TargetsAllies: 0
+  TargetsAllViableTargets: 0
+  AnimationName: Spell
+  doesSlide: 0
+  EffectDelayInSeconds: 0.5
+  Projectile: {fileID: 0}
+  ProjectileShootDelay: 0
+  OnCasterCastVFX: {fileID: 7702138749317573511, guid: 63c707d5e517642498926eaa238483e9,
+    type: 3}
+  CasterVFXAttachPoint: 1
+  OnTargetCastVFX: {fileID: 330128636148730598, guid: 73424429f36782b408113a80e82f2876,
+    type: 3}
+  TargetVFXAttachPoint: 1

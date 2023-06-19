@@ -1174,8 +1174,8 @@ MonoBehaviour:
   _battle: {fileID: 0}
   CharacterActions: {fileID: 0}
   ActionSets:
-  - {fileID: 11400000, guid: c62c85a337ace69459402e7bcea018f2, type: 2}
-  - {fileID: 11400000, guid: 33ea66bd35f7fc246a00af1e6919a399, type: 2}
+  - {fileID: 11400000, guid: 4cdeef4a4565fd84aa223f76c615f099, type: 2}
+  - {fileID: 11400000, guid: 325fc63e42fec8047900a64f06055eba, type: 2}
   - {fileID: 11400000, guid: 50fb13053824b4e4c9f9b2eada8844d4, type: 2}
   Initiative: -3.4028235e+38
   IsEnemy: 0
@@ -1217,9 +1217,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17118157fcfb13a41b071e006f9c9416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsStunned: 0
   IsDefending: 0
   InitiativeFirstInLine: 0
+  _overHead: {fileID: 1136292931115612248}
+  _stunnedParticles: {fileID: 953220815503892305, guid: 3f3de3112971af542b1de770d35c0927,
+    type: 3}
 --- !u!114 &281179218
 MonoBehaviour:
   m_ObjectHideFlags: 0
