@@ -939,6 +939,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 710699452}
   To: {fileID: 1214948012}
+  Spline: {fileID: 0}
   FromToCurve:
     serializedVersion: 2
     m_Curve:
@@ -1702,6 +1703,9 @@ MonoBehaviour:
   _interactButtonPrompt: {fileID: 1186159833}
   _range: 2
   _forcedInteraction: 0
+  _renderer: {fileID: 0}
+  _outlineTransitionOverTime: 0.5
+  _lineThickness: 0.1
   OnInteract:
     m_PersistentCalls:
       m_Calls:
@@ -5073,6 +5077,9 @@ MonoBehaviour:
   _interactButtonPrompt: {fileID: 248483058}
   _range: 2
   _forcedInteraction: 1
+  _renderer: {fileID: 0}
+  _outlineTransitionOverTime: 0.5
+  _lineThickness: 0.1
   OnInteract:
     m_PersistentCalls:
       m_Calls:
@@ -5486,6 +5493,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 1488981139}
   To: {fileID: 1189100501}
+  Spline: {fileID: 0}
   FromToCurve:
     serializedVersion: 2
     m_Curve:
@@ -5783,6 +5791,9 @@ MonoBehaviour:
   _interactButtonPrompt: {fileID: 248483058}
   _range: 2
   _forcedInteraction: 1
+  _renderer: {fileID: 0}
+  _outlineTransitionOverTime: 0.5
+  _lineThickness: 0.1
   OnInteract:
     m_PersistentCalls:
       m_Calls:
@@ -6722,6 +6733,9 @@ MonoBehaviour:
   _interactButtonPrompt: {fileID: 248483058}
   _range: 2
   _forcedInteraction: 1
+  _renderer: {fileID: 0}
+  _outlineTransitionOverTime: 0.5
+  _lineThickness: 0.1
   OnInteract:
     m_PersistentCalls:
       m_Calls:
@@ -7118,6 +7132,9 @@ MonoBehaviour:
   _interactButtonPrompt: {fileID: 1721652951}
   _range: 2.5
   _forcedInteraction: 0
+  _renderer: {fileID: 0}
+  _outlineTransitionOverTime: 0.5
+  _lineThickness: 0.1
   OnInteract:
     m_PersistentCalls:
       m_Calls:
@@ -7496,6 +7513,9 @@ MonoBehaviour:
   _interactButtonPrompt: {fileID: 1937302274}
   _range: 2.5
   _forcedInteraction: 0
+  _renderer: {fileID: 0}
+  _outlineTransitionOverTime: 0.5
+  _lineThickness: 0.1
   OnInteract:
     m_PersistentCalls:
       m_Calls:
@@ -8095,6 +8115,9 @@ MonoBehaviour:
   _interactButtonPrompt: {fileID: 802892233}
   _range: 2
   _forcedInteraction: 1
+  _renderer: {fileID: 0}
+  _outlineTransitionOverTime: 0.5
+  _lineThickness: 0.1
   OnInteract:
     m_PersistentCalls:
       m_Calls:
@@ -8478,6 +8501,9 @@ MonoBehaviour:
   _interactButtonPrompt: {fileID: 1404103606}
   _range: 2
   _forcedInteraction: 1
+  _renderer: {fileID: 0}
+  _outlineTransitionOverTime: 0.5
+  _lineThickness: 0.1
   OnInteract:
     m_PersistentCalls:
       m_Calls:
@@ -8539,6 +8565,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 503289099}
   To: {fileID: 1248444421}
+  Spline: {fileID: 0}
   FromToCurve:
     serializedVersion: 2
     m_Curve:
@@ -9114,6 +9141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 649407437}
   To: {fileID: 503289099}
+  Spline: {fileID: 0}
   FromToCurve:
     serializedVersion: 2
     m_Curve:
@@ -11646,6 +11674,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 663433897}
   To: {fileID: 455759041}
+  Spline: {fileID: 0}
   FromToCurve:
     serializedVersion: 2
     m_Curve:
@@ -13030,6 +13059,9 @@ MonoBehaviour:
   _interactButtonPrompt: {fileID: 201361700}
   _range: 1
   _forcedInteraction: 0
+  _renderer: {fileID: 0}
+  _outlineTransitionOverTime: 0.5
+  _lineThickness: 0.1
   OnInteract:
     m_PersistentCalls:
       m_Calls:
@@ -13240,6 +13272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PPVolume: {fileID: 832575518}
+  TransitionBlurAnimator: {fileID: 0}
   TransitionIMG: {fileID: 1737685301}
   OnFullTransitionWaitTime: 0.5
 --- !u!1 &1227507657
@@ -13514,6 +13547,9 @@ MonoBehaviour:
   _interactButtonPrompt: {fileID: 248483058}
   _range: 2
   _forcedInteraction: 1
+  _renderer: {fileID: 0}
+  _outlineTransitionOverTime: 0.5
+  _lineThickness: 0.1
   OnInteract:
     m_PersistentCalls:
       m_Calls:
@@ -16221,7 +16257,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh34230
+  m_Name: pb_Mesh44100
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -16602,6 +16638,9 @@ MonoBehaviour:
   _interactButtonPrompt: {fileID: 1023542118}
   _range: 1
   _forcedInteraction: 0
+  _renderer: {fileID: 0}
+  _outlineTransitionOverTime: 0.5
+  _lineThickness: 0.1
   OnInteract:
     m_PersistentCalls:
       m_Calls:
@@ -17273,6 +17312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 455759041}
   To: {fileID: 604588613}
+  Spline: {fileID: 0}
   FromToCurve:
     serializedVersion: 2
     m_Curve:
@@ -19147,6 +19187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 1248444421}
   To: {fileID: 663433897}
+  Spline: {fileID: 0}
   FromToCurve:
     serializedVersion: 2
     m_Curve:
@@ -19554,7 +19595,7 @@ MonoBehaviour:
   - {fileID: 2041221501}
   _explorationCameras:
   - {fileID: 519063692}
-  _currentCamera: {fileID: 0}
+  CurrentCamera: {fileID: 0}
 --- !u!1 &1797714235
 GameObject:
   m_ObjectHideFlags: 0
@@ -19601,6 +19642,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   From: {fileID: 604588613}
   To: {fileID: 649407437}
+  Spline: {fileID: 0}
   FromToCurve:
     serializedVersion: 2
     m_Curve:
