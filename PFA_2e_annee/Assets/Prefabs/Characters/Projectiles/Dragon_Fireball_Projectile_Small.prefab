@@ -249,10 +249,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6673724340227333080}
     m_Modifications:
+    - target: {fileID: 3962113184271653398, guid: ab05088f414942442a86858d4d0ef1e0,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4551205425608993641, guid: ab05088f414942442a86858d4d0ef1e0,
         type: 3}
       propertyPath: m_Name
       value: VFX_EnemisProj&FlameFollow
+      objectReference: {fileID: 0}
+    - target: {fileID: 5049592880161301726, guid: ab05088f414942442a86858d4d0ef1e0,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9059241564104538580, guid: ab05088f414942442a86858d4d0ef1e0,
         type: 3}
