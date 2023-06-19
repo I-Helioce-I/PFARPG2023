@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     public BattleManager BattleManager;
     public UI_CombatMenu CombatMenu;
     public UI_Transitioner Transitioner;
+    public UI_SetCharaExplo CharaExploration;
 
     public enum UIState
     {
