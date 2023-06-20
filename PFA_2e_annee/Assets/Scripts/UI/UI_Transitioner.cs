@@ -51,6 +51,24 @@ public class UI_Transitioner : MonoBehaviour
         StartCoroutine(ScreenTransition(transitionTime, onTransitionComplete));
     }
 
+    public void TransitionToNewArea()
+    {
+        if (_transitionCoroutine != null) StopCoroutine(_transitionCoroutine);
+
+        _transitionCoroutine = ScreenTransitionFade(0f, 1f, 1f, () =>
+        {
+            WaitAndThen(2.5f, () =>{
+                StartCoroutine(ScreenTransitionFade(1f, 0f, 2f, null));
+            });           
+        });
+        StartCoroutine(ScreenTransitionFade(0f, 1f, 1f, () =>
+        {
+            WaitAndThen(2.5f, () => {
+                StartCoroutine(ScreenTransitionFade(1f, 0f, 2f, null));
+            });
+        }));
+    }
+
     public void TransitionFade(float from, float to, float transitionTime, Action onTransitionComplete)
     {
         if (_transitionCoroutine != null) StopCoroutine(_transitionCoroutine);
