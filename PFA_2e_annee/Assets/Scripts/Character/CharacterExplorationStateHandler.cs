@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class CharacterExplorationStateHandler : MonoBehaviour
@@ -15,6 +16,16 @@ public class CharacterExplorationStateHandler : MonoBehaviour
     public Character SolidCharacter;
     public Character LiquidCharacter;
     public Character GasCharacter;
+
+    public ParticleSystem VFX_ElementalSwirl;
+    public ParticleSystem VFX_TransitionFlash;
+    private IEnumerator _currentFlashCoroutine;
+    private Renderer[] _renderers;
+
+    private void Awake()
+    {
+        _renderers = GetComponentsInChildren<Renderer>();
+    }
 
     public CharacterTypeState RepresentedState
     {
@@ -100,10 +111,14 @@ public class CharacterExplorationStateHandler : MonoBehaviour
 
         //Player.instance.CharacterController.Motor.SetMovementCollisionsSolvingActivation(true);
         //Player.instance.CharacterController.Motor.SetGroundSolvingActivation(true);
-        Player.instance.CanMove = true;
         Player.instance.CharacterController.Motor.SetPositionAndRotation(position, rotation);
-        Player.instance.Character.ExplorationAnimatorHandler.PlayAnim("TransitionOut");
+        Player.instance.Character.ExplorationAnimatorHandler.PlayAnimThenAction("TransitionOut", () =>
+        {
+            Player.instance.CanMove = true;
+        });
         CameraManager.instance.ExplorationCameras[0].Follow = Player.instance.Character.transform;
+        Player.instance.Character.CharacterExplorationStateHandler.VFX_ElementalSwirl.Play();
+        Player.instance.Character.CharacterExplorationStateHandler.VFX_TransitionFlash.Play();
     }
 
     public void SwitchStateForward()
@@ -135,6 +150,7 @@ public class CharacterExplorationStateHandler : MonoBehaviour
         if (currentIndex > PossibleStates.Count - 1)
         {
             //Play transitionIn animation. At the end of the animation, play transitionOut animation.
+            Flash(1f, 100f);
             Player.instance.Character.ExplorationAnimatorHandler.PlayAnimThenAction("TransitionIn", () =>
             {
                 TransitionToState(PossibleStates[0]);
@@ -143,6 +159,7 @@ public class CharacterExplorationStateHandler : MonoBehaviour
         }
         else
         {
+            Flash(1f, 100f);
             Player.instance.Character.ExplorationAnimatorHandler.PlayAnimThenAction("TransitionIn", () =>
             {
                 TransitionToState(PossibleStates[currentIndex]);
@@ -189,6 +206,45 @@ public class CharacterExplorationStateHandler : MonoBehaviour
             {
                 TransitionToState(PossibleStates[currentIndex]);
             });
+        }
+    }
+
+    private void Flash(float fromIntensity, float toIntensity)
+    {
+        foreach (Renderer renderer in _renderers)
+        {
+            Debug.Log(renderer.material);
+        }
+
+        if (_currentFlashCoroutine != null) StopCoroutine(_currentFlashCoroutine);
+        _currentFlashCoroutine = MeshFlash(fromIntensity, toIntensity, .5f);
+        StartCoroutine(MeshFlash(fromIntensity, toIntensity, .5f));
+    }
+
+    private IEnumerator MeshFlash(float fromIntensity, float toIntensity, float overTime)
+    {
+        float timer = 0f;
+
+        foreach (Renderer renderer in _renderers)
+        {
+            renderer.material.SetFloat("_albedoIntensity", fromIntensity);
+        }
+
+        while (timer < overTime)
+        {
+            timer += Time.deltaTime;
+            float lerpdIntensity = Mathf.Lerp(fromIntensity, toIntensity, timer / overTime);
+            foreach (Renderer renderer in _renderers)
+            {
+                renderer.material.SetFloat("_albedoIntensity", lerpdIntensity);
+            }
+            yield return null;
+        }
+
+        //Revert to original colors
+        foreach (Renderer renderer in _renderers)
+        {
+            renderer.material.SetFloat("_albedoIntensity", fromIntensity);
         }
     }
 }
