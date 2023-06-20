@@ -229,7 +229,7 @@ public class CharacterExplorationStateHandler : MonoBehaviour
 
         foreach (Renderer renderer in _renderers)
         {
-            renderer.material.SetFloat("_Albedo_Intensity", fromIntensity);
+            renderer.material.SetFloat("_albedoIntensity", fromIntensity);
         }
 
         while (timer < overTime)
@@ -238,7 +238,7 @@ public class CharacterExplorationStateHandler : MonoBehaviour
             float lerpdIntensity = Mathf.Lerp(fromIntensity, toIntensity, timer / overTime);
             foreach (Renderer renderer in _renderers)
             {
-                renderer.material.SetFloat("_Albedo_Intensity", lerpdIntensity);
+                renderer.material.SetFloat("_albedoIntensity", lerpdIntensity);
             }
             yield return null;
         }
@@ -248,14 +248,14 @@ public class CharacterExplorationStateHandler : MonoBehaviour
         {
             foreach (Renderer renderer in _renderers)
             {
-                renderer.material.SetFloat("_Albedo_Intensity", fromIntensity);
+                renderer.material.SetFloat("_albedoIntensity", fromIntensity);
             }
         }
         else
         {
             foreach (Renderer renderer in _renderers)
             {
-                renderer.material.SetFloat("_Albedo_Intensity", toIntensity);
+                renderer.material.SetFloat("_albedoIntensity", toIntensity);
             }
         }
 
