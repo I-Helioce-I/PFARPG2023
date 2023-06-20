@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     public PlayerInput PlayerInput;
     //public ExampleCharacterCamera CharacterCamera;
     public List<Character> AllControlledCharacters = new List<Character>();
-
+    [SerializeField] private Character GasCharacter;
 
     private bool _canMove = true;
     public bool CanMove
@@ -141,7 +141,7 @@ public class Player : MonoBehaviour
         if (context.performed)
         {
             Character.CharacterExplorationStateHandler.SwitchStateForward();
-            //UIManager.instance.CharaExploration.ForwardVer();
+            UIManager.instance.CharaExploration.ForwardVer();
         }
     }
 
@@ -153,6 +153,15 @@ public class Player : MonoBehaviour
             UIManager.instance.CharaExploration.BackwardVer();
         }
     }
+
+    public void OnOpenMenu(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OptionManager.instance.OpenOption();
+        }
+    }
+
     #endregion
     #region UI
     public void OnUINavigate(InputAction.CallbackContext context)
@@ -183,6 +192,14 @@ public class Player : MonoBehaviour
             UIManager.instance.Return();
         }
     }
+
+    public void OnCloseMenu(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OptionManager.instance.CloseOption();
+        }
+    }
     #endregion
 
     private void HandleCharacterInput()
@@ -202,9 +219,11 @@ public class Player : MonoBehaviour
 
     public void AddGasCharacter()
     {
+        if (!AllControlledCharacters.Contains(GasCharacter)) AllControlledCharacters.Add(GasCharacter);
+
         foreach (Character character in AllControlledCharacters)
         {
-            if (!character.CharacterExplorationStateHandler.PossibleStates.Contains(CharacterTypeState.Gas)) character.CharacterExplorationStateHandler.PossibleStates.Add(CharacterTypeState.Gas);
+            if (!character.CharacterExplorationStateHandler.PossibleStates.Contains(CharacterTypeState.Gas)) character.CharacterExplorationStateHandler.PossibleStates.Add(CharacterTypeState.Gas);     
         }
     }
 }

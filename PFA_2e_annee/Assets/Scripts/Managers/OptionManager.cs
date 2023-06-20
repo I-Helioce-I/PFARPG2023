@@ -63,26 +63,26 @@ public class OptionManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Cancel") && GameManager.instance.CurrentState != GameManager.GameState.Combat)
-        {
-            if (state == optionState.Main)
-            {
-                if (optionPanel.activeSelf)
-                {
-                    CloseOption();
-                    //Player.instance.PlayerInput.enabled = true;
-                }
-                else
-                {
-                    OpenOption();
-                    //Player.instance.PlayerInput.enabled = false;
-                }
-            }
-            else
-            {
-                CloseAllPanels();
-            }
-        }
+        //if (Input.GetButtonDown("Cancel") && GameManager.instance.CurrentState != GameManager.GameState.Combat)
+        //{
+        //    if (state == optionState.Main)
+        //    {
+        //        if (optionPanel.activeSelf)
+        //        {
+        //            CloseOption();
+        //            //Player.instance.PlayerInput.enabled = true;
+        //        }
+        //        else
+        //        {
+        //            OpenOption();
+        //            //Player.instance.PlayerInput.enabled = false;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        CloseAllPanels();
+        //    }
+        //}
     }
 
     //private void SwitchOption(bool activate)
@@ -96,6 +96,7 @@ public class OptionManager : MonoBehaviour
         optionPanel.SetActive(true);
 
         actualSelect.Select();
+        Player.instance.ChangeActionMap("UI");
 
         SoundManager.instance.PlaySFX(openOptionSFX);
     }
@@ -103,6 +104,7 @@ public class OptionManager : MonoBehaviour
     public void CloseOption()
     {
         actualSelect.Select();
+        Player.instance.ChangeActionMap(Player.instance.PreviousActionMap);
 
         SoundManager.instance.PlaySFX(closeOptionSFX);
 
