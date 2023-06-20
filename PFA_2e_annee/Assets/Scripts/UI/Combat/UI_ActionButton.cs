@@ -47,6 +47,7 @@ public class UI_ActionButton : MonoBehaviour, ISelectHandler, IDeselectHandler
         if (HasEnoughEther())
         {
             ActionSelected?.Invoke(Action);
+            UIManager.instance.CombatMenu.ActionInfo.SetActive(false);
         }
     }
 
