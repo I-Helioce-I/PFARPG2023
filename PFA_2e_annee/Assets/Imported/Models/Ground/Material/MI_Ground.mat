@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MI_Ground
-  m_Shader: {fileID: -6465566751694194690, guid: 57169cfb35f19a04da202ffcdbfd3f52,
+  m_Shader: {fileID: -6465566751694194690, guid: a4265209e1f0369479709f20538bba26,
     type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -35,11 +35,27 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _ARM:
+        m_Texture: {fileID: 2800000, guid: 55a41aca853bd5d4d934c39c43b4bff7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ARM1:
         m_Texture: {fileID: 2800000, guid: ea5c5ffe81947414283b11ca957447cb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ARM2:
+        m_Texture: {fileID: 2800000, guid: 55a41aca853bd5d4d934c39c43b4bff7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Albedo:
+        m_Texture: {fileID: 2800000, guid: 858aea89abcde524db3dca38b435bea7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Albedo1:
         m_Texture: {fileID: 2800000, guid: 258505965ea4ff44c9379014aec00856, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Albedo2:
+        m_Texture: {fileID: 2800000, guid: 858aea89abcde524db3dca38b435bea7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -79,7 +95,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
+        m_Texture: {fileID: 2800000, guid: d18cc1b635d46844881d4de774a04edb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal1:
         m_Texture: {fileID: 2800000, guid: 0b6f9eb8f494ae94db4a244c16228a26, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal2:
+        m_Texture: {fileID: 2800000, guid: d18cc1b635d46844881d4de774a04edb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -163,7 +187,8 @@ Material:
     - _SrcBlend: 1
     - _Step: 70
     - _Surface: 0
-    - _Tile: 7.62
+    - _Tile: 5.17
+    - _UV: 22.49
     - _Water: 0
     - _WorkflowMode: 1
     - _World: 1
@@ -171,6 +196,7 @@ Material:
     - _X_Or_Z: 1
     - _Y: 1
     - _ZWrite: 1
+    - _albedoIntensity: 1
     m_Colors:
     - _Albedo_Tint: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
@@ -182,5 +208,6 @@ Material:
     - _Second_Deep_Color: {r: 0.090196066, g: 0.22745097, b: 0.28235298, a: 1}
     - _Shallow_Color: {r: 0.6588235, g: 0.6588235, b: 0.6588235, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _UV: {r: 1, g: 1, b: 0, a: 0}
+    - _Tile: {r: 8.2, g: 8.323, b: 0, a: 0}
+    - _UV: {r: 2, g: 2, b: 0, a: 0}
   m_BuildTextureStacks: []
