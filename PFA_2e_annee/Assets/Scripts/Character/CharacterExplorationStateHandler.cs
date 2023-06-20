@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using TMPro;
 using UnityEngine;
 
 public class CharacterExplorationStateHandler : MonoBehaviour
@@ -24,7 +25,7 @@ public class CharacterExplorationStateHandler : MonoBehaviour
 
     private void Awake()
     {
-        _renderers = GetComponentsInChildren<Renderer>();
+        _renderers = GetComponentsInChildren<Renderer>(true);
     }
 
     public CharacterTypeState RepresentedState
@@ -117,8 +118,12 @@ public class CharacterExplorationStateHandler : MonoBehaviour
             Player.instance.CanMove = true;
         });
         CameraManager.instance.ExplorationCameras[0].Follow = Player.instance.Character.transform;
-        Player.instance.Character.CharacterExplorationStateHandler.VFX_ElementalSwirl.Play();
+        ParticleSystem particles = Instantiate<ParticleSystem>(Player.instance.Character.CharacterExplorationStateHandler.VFX_ElementalSwirl, Player.instance.Character.transform.position, Player.instance.Character.transform.rotation);
+        var main = particles.main;
+        particles.Play();
+        main.stopAction = ParticleSystemStopAction.Destroy;
         Player.instance.Character.CharacterExplorationStateHandler.VFX_TransitionFlash.Play();
+        Player.instance.Character.CharacterExplorationStateHandler.Flash(100f, 1f, false);
     }
 
     public void SwitchStateForward()
@@ -195,6 +200,7 @@ public class CharacterExplorationStateHandler : MonoBehaviour
 
         if (currentIndex < 0)
         {
+            Flash(1f, 100f);
             Player.instance.Character.ExplorationAnimatorHandler.PlayAnimThenAction("TransitionIn", () =>
             {
                 TransitionToState(PossibleStates[PossibleStates.Count - 1]);
@@ -202,6 +208,7 @@ public class CharacterExplorationStateHandler : MonoBehaviour
         }
         else
         {
+            Flash(1f, 100f);
             Player.instance.Character.ExplorationAnimatorHandler.PlayAnimThenAction("TransitionIn", () =>
             {
                 TransitionToState(PossibleStates[currentIndex]);
@@ -209,25 +216,20 @@ public class CharacterExplorationStateHandler : MonoBehaviour
         }
     }
 
-    private void Flash(float fromIntensity, float toIntensity)
+    private void Flash(float fromIntensity, float toIntensity, bool revertToFrom = true)
     {
-        foreach (Renderer renderer in _renderers)
-        {
-            Debug.Log(renderer.material);
-        }
-
         if (_currentFlashCoroutine != null) StopCoroutine(_currentFlashCoroutine);
-        _currentFlashCoroutine = MeshFlash(fromIntensity, toIntensity, .5f);
-        StartCoroutine(MeshFlash(fromIntensity, toIntensity, .5f));
+        _currentFlashCoroutine = MeshFlash(fromIntensity, toIntensity, .4f, revertToFrom);
+        StartCoroutine(MeshFlash(fromIntensity, toIntensity, .4f, revertToFrom));
     }
 
-    private IEnumerator MeshFlash(float fromIntensity, float toIntensity, float overTime)
+    private IEnumerator MeshFlash(float fromIntensity, float toIntensity, float overTime, bool revertToFrom = true)
     {
         float timer = 0f;
 
         foreach (Renderer renderer in _renderers)
         {
-            renderer.material.SetFloat("_albedoIntensity", fromIntensity);
+            renderer.material.SetFloat("_Albedo_Intensity", fromIntensity);
         }
 
         while (timer < overTime)
@@ -236,15 +238,26 @@ public class CharacterExplorationStateHandler : MonoBehaviour
             float lerpdIntensity = Mathf.Lerp(fromIntensity, toIntensity, timer / overTime);
             foreach (Renderer renderer in _renderers)
             {
-                renderer.material.SetFloat("_albedoIntensity", lerpdIntensity);
+                renderer.material.SetFloat("_Albedo_Intensity", lerpdIntensity);
             }
             yield return null;
         }
 
         //Revert to original colors
-        foreach (Renderer renderer in _renderers)
+        if (revertToFrom)
         {
-            renderer.material.SetFloat("_albedoIntensity", fromIntensity);
+            foreach (Renderer renderer in _renderers)
+            {
+                renderer.material.SetFloat("_Albedo_Intensity", fromIntensity);
+            }
         }
+        else
+        {
+            foreach (Renderer renderer in _renderers)
+            {
+                renderer.material.SetFloat("_Albedo_Intensity", toIntensity);
+            }
+        }
+
     }
 }

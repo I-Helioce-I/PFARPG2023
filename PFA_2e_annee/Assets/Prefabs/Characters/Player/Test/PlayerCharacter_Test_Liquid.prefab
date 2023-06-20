@@ -110,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 544823047}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1030714029}
@@ -597,7 +597,7 @@ Transform:
   m_GameObject: {fileID: 1512819376}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1145061723}
@@ -669,7 +669,7 @@ Transform:
   m_GameObject: {fileID: 2115666793217453543}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3996712886994484670}
@@ -823,7 +823,6 @@ Transform:
   - {fileID: 3996712887017256085}
   - {fileID: 3308250721453153971}
   - {fileID: 2276105468768004377}
-  - {fileID: 1824355716155982093}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1180,7 +1179,8 @@ MonoBehaviour:
   SolidCharacter: {fileID: 0}
   LiquidCharacter: {fileID: 3996712886237203659}
   GasCharacter: {fileID: 0}
-  VFX_ElementalSwirl: {fileID: 7598896735807770916}
+  VFX_ElementalSwirl: {fileID: 7280262805099401217, guid: e46645bd60e63e14e8ccbe7230d3d7e1,
+    type: 3}
   VFX_TransitionFlash: {fileID: 2276105468768004374}
 --- !u!1 &3996712886813740578
 GameObject:
@@ -1571,6 +1571,11 @@ PrefabInstance:
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1628103054949758002, guid: e08447da5efa9734d9c8c28a5e5b093f,
+        type: 3}
+      propertyPath: startDelay.scalar
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 1628103055276037182, guid: e08447da5efa9734d9c8c28a5e5b093f,
         type: 3}
       propertyPath: playOnAwake
@@ -1579,6 +1584,11 @@ PrefabInstance:
     - target: {fileID: 1628103055276037182, guid: e08447da5efa9734d9c8c28a5e5b093f,
         type: 3}
       propertyPath: ShapeModule.type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1628103055276037182, guid: e08447da5efa9734d9c8c28a5e5b093f,
+        type: 3}
+      propertyPath: startDelay.scalar
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1628103055276037182, guid: e08447da5efa9734d9c8c28a5e5b093f,
@@ -1969,112 +1979,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fa4436c72b5d11f4b98236e879be2cb0,
     type: 3}
   m_PrefabInstance: {fileID: 4367919584912695811}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &6384913135471881339
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 3996712886237203660}
-    m_Modifications:
-    - target: {fileID: 3598218842296581471, guid: 3bfb67a8a6980894dbac489e16732c60,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3598218842296581471, guid: 3bfb67a8a6980894dbac489e16732c60,
-        type: 3}
-      propertyPath: autoRandomSeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740792257075522934, guid: 3bfb67a8a6980894dbac489e16732c60,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740792257075522934, guid: 3bfb67a8a6980894dbac489e16732c60,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740792257075522934, guid: 3bfb67a8a6980894dbac489e16732c60,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740792257075522934, guid: 3bfb67a8a6980894dbac489e16732c60,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740792257075522934, guid: 3bfb67a8a6980894dbac489e16732c60,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740792257075522934, guid: 3bfb67a8a6980894dbac489e16732c60,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740792257075522934, guid: 3bfb67a8a6980894dbac489e16732c60,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740792257075522934, guid: 3bfb67a8a6980894dbac489e16732c60,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740792257075522934, guid: 3bfb67a8a6980894dbac489e16732c60,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740792257075522934, guid: 3bfb67a8a6980894dbac489e16732c60,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740792257075522934, guid: 3bfb67a8a6980894dbac489e16732c60,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5547826989523187851, guid: 3bfb67a8a6980894dbac489e16732c60,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5547826989523187851, guid: 3bfb67a8a6980894dbac489e16732c60,
-        type: 3}
-      propertyPath: moveWithTransform
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5547826989523187851, guid: 3bfb67a8a6980894dbac489e16732c60,
-        type: 3}
-      propertyPath: VelocityModule.inWorldSpace
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8182077115275040485, guid: 3bfb67a8a6980894dbac489e16732c60,
-        type: 3}
-      propertyPath: m_Name
-      value: VFX_SwirlWater
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3bfb67a8a6980894dbac489e16732c60, type: 3}
---- !u!4 &1824355716155982093 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4740792257075522934, guid: 3bfb67a8a6980894dbac489e16732c60,
-    type: 3}
-  m_PrefabInstance: {fileID: 6384913135471881339}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &7598896735807770916 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3598218842296581471, guid: 3bfb67a8a6980894dbac489e16732c60,
-    type: 3}
-  m_PrefabInstance: {fileID: 6384913135471881339}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9012257899766889704
 PrefabInstance:
