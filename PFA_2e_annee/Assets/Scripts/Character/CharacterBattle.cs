@@ -587,7 +587,6 @@ public class CharacterBattle : MonoBehaviour
 
     private void WaitAndThen(float wait, Action andThen)
     {
-        Debug.Log("!");
         StartCoroutine(WaitAndThenCoroutine(wait, andThen));
     }
 
