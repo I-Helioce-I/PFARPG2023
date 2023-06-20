@@ -105,7 +105,70 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sword
+      name: Spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 768
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7a03c339416b374e89691675f3942d9
+      internalID: 844907321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 768
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6931b26e4c581244998c5b754f8700f
+      internalID: 86658105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 768
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f320a520f7ee7e4b9540f0080252239
+      internalID: 1931627112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spritesheet_3
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +182,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c413b2b131bdfe341b43e49bfbc8d632
-      internalID: -1377168327
+      spriteID: 317b9fa6686f37a48ac65b69495b787d
+      internalID: -1706623483
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Multiple
+      name: Spritesheet_4
       rect:
         serializedVersion: 2
         x: 256
@@ -140,14 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2715352b09c38d847977e45eb11c369c
-      internalID: 389537084
+      spriteID: 78c8fe4533498f84e9123edbe0bfd91c
+      internalID: -66716208
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Single
+      name: Spritesheet_5
       rect:
         serializedVersion: 2
         x: 512
@@ -161,14 +224,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 39d6f5d7398822740844ccd75ee9a324
-      internalID: 595054856
+      spriteID: 534f4007b529ca14b8af641ad9edd544
+      internalID: -74261048
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Low
+      name: Spritesheet_6
       rect:
         serializedVersion: 2
         x: 0
@@ -182,14 +245,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 051d412bd5fa19243947b3f8cf57c525
-      internalID: -1383280134
+      spriteID: 4ad1fcb5fb48be14ea2b995158958bed
+      internalID: 1640444360
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: High
+      name: Spritesheet_7
       rect:
         serializedVersion: 2
         x: 256
@@ -203,14 +266,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 711518b1bd7fd70409328e3c65dcf496
-      internalID: 985791871
+      spriteID: 49339b1d1b3cd30489680888507a6672
+      internalID: -548304368
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Heal
+      name: Spritesheet_8
       rect:
         serializedVersion: 2
         x: 512
@@ -224,17 +287,38 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 53afc4af7bb98fa4d8cc9c059a2d0936
-      internalID: -2052264114
+      spriteID: 69cd558a0732fbe49a9699bd6af47453
+      internalID: 1714501269
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ether
+      name: Spritesheet_9
       rect:
         serializedVersion: 2
-        x: 0
+        x: 768
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea9a2993f518d9446bb94d04a7a406f1
+      internalID: 413819933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 512
         y: 0
         width: 256
         height: 256
@@ -245,17 +329,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b1279177b7367ce45aa0330d867b53ea
-      internalID: 758844000
+      spriteID: 5ffc298f7c7e9d24797ad8fe45a1bc58
+      internalID: 777251009
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Gold
+      name: Spritesheet_11
       rect:
         serializedVersion: 2
-        x: 256
+        x: 768
         y: 0
         width: 256
         height: 256
@@ -266,8 +350,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 609412616e304f8489bc8cafe39af9fc
-      internalID: -890904594
+      spriteID: f9607f92de5bb304aaea65952fa9a0a8
+      internalID: -904918866
       vertices: []
       indices: 
       edges: []
@@ -283,14 +367,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Low: -1383280134
-      Heal: -2052264114
-      Sword: -1377168327
-      Single: 595054856
-      Ether: 758844000
-      Gold: -890904594
-      High: 985791871
-      Multiple: 389537084
+      Spritesheet_5: -74261048
+      Spritesheet_3: -1706623483
+      Spritesheet_10: 777251009
+      Spritesheet_11: -904918866
+      Spritesheet_4: -66716208
+      Spritesheet_7: -548304368
+      Spritesheet_9: 413819933
+      Spritesheet_8: 1714501269
+      Spritesheet_1: 86658105
+      Spritesheet_6: 1640444360
+      Spritesheet_2: 1931627112
+      Spritesheet_0: 844907321
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
