@@ -141,7 +141,7 @@ public class Player : MonoBehaviour
         if (context.performed)
         {
             Character.CharacterExplorationStateHandler.SwitchStateForward();
-            //UIManager.instance.CharaExploration.ForwardVer();
+            UIManager.instance.CharaExploration.ForwardVer();
         }
     }
 
@@ -150,7 +150,7 @@ public class Player : MonoBehaviour
         if (context.performed)
         {
             Character.CharacterExplorationStateHandler.SwitchStateBackward();
-            //UIManager.instance.CharaExploration.BackwardVer();
+            UIManager.instance.CharaExploration.BackwardVer();
         }
     }
 
