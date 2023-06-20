@@ -380,6 +380,7 @@ public class BattleManager : MonoBehaviour
                 else playerCharacter.Battle.CharacterAnimatorHandler.PlayAnimThenAction("Victory", () =>
                 {
                     TransitionToState(BattleState.Victory);
+                    Destroy(_instantiatedTimelapse.gameObject);
                 });
             }
          
