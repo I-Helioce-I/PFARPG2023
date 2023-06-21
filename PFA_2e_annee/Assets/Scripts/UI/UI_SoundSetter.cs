@@ -33,7 +33,7 @@ public class UI_SoundSetter : MonoBehaviour
         Slider slider = this.GetComponent<Slider>();
         slider.value = Mathf.Round(slider.value * 10.0f) * 0.1f;
 
-        SoundManager.instance.PlaySFX(clip);
+        //SoundManager.instance.PlaySFX(clip);
 
         if (slider.value > 0.5f)
         {
