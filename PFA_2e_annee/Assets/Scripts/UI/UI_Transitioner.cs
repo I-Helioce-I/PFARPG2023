@@ -244,7 +244,7 @@ public class UI_Transitioner : MonoBehaviour
         timer = 0f;
         TransitionIMG.color = new Color(0, 0, 0, to);
 
-        onTransitionComplete();
+        if (onTransitionComplete != null) onTransitionComplete();
     }
     private IEnumerator Wait(float waitTime, Action onTransitionComplete)
     {
@@ -256,6 +256,6 @@ public class UI_Transitioner : MonoBehaviour
             yield return null;
         }
 
-        onTransitionComplete();
+        if (onTransitionComplete != null) onTransitionComplete();
     }
 }

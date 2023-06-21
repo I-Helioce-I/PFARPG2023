@@ -26,6 +26,10 @@ public class GameManager : MonoBehaviour
 
     [Header("Scene")]
     [ReadOnlyInspector] public List<Loader.Scene> CurrentScenes = new List<Loader.Scene>();
+
+    [Header("Object references")]
+    public GameObject DragonCombat;
+
     public GameState CurrentState
     {
         get
