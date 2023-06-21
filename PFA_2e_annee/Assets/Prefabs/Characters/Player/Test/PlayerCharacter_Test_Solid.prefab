@@ -961,6 +961,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 13430fd78e39e4e44b38b1fbeb7c5cb7, type: 3}
   icon: {fileID: -1234883235, guid: 1629b886b890fea4da5df140ac8751ed, type: 3}
+  battleSprite: {fileID: 0}
   charaName: 
   Stats: {fileID: 3996712886237203656}
   State: {fileID: 3996712886237203658}
@@ -1010,11 +1011,11 @@ MonoBehaviour:
     _maxValue: -3.4028235e+38
     _currentValue: -3.4028235e+38
   Health:
-    BaseValue: 10
+    BaseValue: 90
     _maxValue: -3.4028235e+38
     _currentValue: -3.4028235e+38
   Ether:
-    BaseValue: 10
+    BaseValue: 25
     _maxValue: -3.4028235e+38
     _currentValue: -3.4028235e+38
   Temperature:
@@ -1022,23 +1023,23 @@ MonoBehaviour:
     _maxValue: -3.4028235e+38
     _currentValue: -3.4028235e+38
   Speed:
-    BaseValue: 999
+    BaseValue: 5
     _maxValue: -3.4028235e+38
     _currentValue: -3.4028235e+38
   PhysicalDamage:
-    BaseValue: 10
+    BaseValue: 40
     _maxValue: -3.4028235e+38
     _currentValue: -3.4028235e+38
   MagicalDamage:
-    BaseValue: 10
+    BaseValue: 80
     _maxValue: -3.4028235e+38
     _currentValue: -3.4028235e+38
   PhysicalResistance:
-    BaseValue: 10
+    BaseValue: 50
     _maxValue: -3.4028235e+38
     _currentValue: -3.4028235e+38
   MagicalResistance:
-    BaseValue: 10
+    BaseValue: 50
     _maxValue: -3.4028235e+38
     _currentValue: -3.4028235e+38
   isDown: 0
@@ -1115,6 +1116,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1a9902d81fbdcec4d8a91e7338ebb8d6, type: 2}
   - {fileID: 11400000, guid: d5c5143f441d1eb46aa7123228802915, type: 2}
   - {fileID: 11400000, guid: 50fb13053824b4e4c9f9b2eada8844d4, type: 2}
+  - {fileID: 11400000, guid: 44802cbba1036724eb1a59ddff8f406f, type: 2}
   Initiative: -3.4028235e+38
   IsEnemy: 0
   IsFrontRow: 1
