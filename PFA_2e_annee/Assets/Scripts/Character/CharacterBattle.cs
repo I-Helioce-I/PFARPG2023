@@ -702,17 +702,17 @@ public class CharacterBattle : MonoBehaviour
             {
                 float totalHeal = 0;
                 totalHeal += action.Damage;
-                switch (action.TypeOfDamage)
-                {
-                    case ActionDescription.DamageType.Physical:
-                        totalHeal += CharacterStats.PhysicalDamage.CurrentValue;
-                        break;
-                    case ActionDescription.DamageType.Magical:
-                        totalHeal += CharacterStats.MagicalDamage.CurrentValue;
-                        break;
-                    default:
-                        break;
-                }
+                //switch (action.TypeOfDamage)
+                //{
+                //    case ActionDescription.DamageType.Physical:
+                //        totalHeal += CharacterStats.PhysicalDamage.CurrentValue;
+                //        break;
+                //    case ActionDescription.DamageType.Magical:
+                //        totalHeal += CharacterStats.MagicalDamage.CurrentValue;
+                //        break;
+                //    default:
+                //        break;
+                //}
 
                 target.CharacterStats.Health.Heal(totalHeal);
                 Debug.Log(this + " healed " + totalHeal + " health to " + target.name + "!");
@@ -725,19 +725,19 @@ public class CharacterBattle : MonoBehaviour
             {
                 float totalDamage = 0;
                 totalDamage += action.Damage;
-                switch (action.TypeOfDamage)
-                {
-                    case ActionDescription.DamageType.Physical:
-                        totalDamage += CharacterStats.PhysicalDamage.CurrentValue;
-                        totalDamage -= target.CharacterStats.PhysicalResistance.CurrentValue;
-                        break;
-                    case ActionDescription.DamageType.Magical:
-                        totalDamage += CharacterStats.MagicalDamage.CurrentValue;
-                        totalDamage -= target.CharacterStats.MagicalResistance.CurrentValue;
-                        break;
-                    default:
-                        break;
-                }
+                //switch (action.TypeOfDamage)
+                //{
+                //    case ActionDescription.DamageType.Physical:
+                //        totalDamage += CharacterStats.PhysicalDamage.CurrentValue;
+                //        totalDamage -= target.CharacterStats.PhysicalResistance.CurrentValue;
+                //        break;
+                //    case ActionDescription.DamageType.Magical:
+                //        totalDamage += CharacterStats.MagicalDamage.CurrentValue;
+                //        totalDamage -= target.CharacterStats.MagicalResistance.CurrentValue;
+                //        break;
+                //    default:
+                //        break;
+                //}
 
                 if (totalDamage < 0)
                 {
