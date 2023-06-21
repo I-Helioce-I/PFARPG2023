@@ -7,9 +7,9 @@ public class SkipToNextLevel : MonoBehaviour
 {
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A) == true)
+        if (Input.GetKeyDown(KeyCode.JoystickButton0) == true)
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
         }
     }
 }
