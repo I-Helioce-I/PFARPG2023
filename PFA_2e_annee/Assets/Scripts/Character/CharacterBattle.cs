@@ -435,6 +435,7 @@ public class CharacterBattle : MonoBehaviour
         SpendEther(action.EtherCost);
         if (action.EtherCost > 0)
         {
+            Debug.Log(OverHead.position);
             UI_FloatingText floatingText = Instantiate<UI_FloatingText>(BattleManager.FloatingTextPrefab, OverHead.position, Quaternion.identity);
             floatingText.InitializeText(Mathf.RoundToInt(action.EtherCost), false, true);
         }

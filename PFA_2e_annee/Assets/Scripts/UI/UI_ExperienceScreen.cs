@@ -37,7 +37,7 @@ public class UI_ExperienceScreen : MonoBehaviour
             text.text = "+ " + _currentExpShown.ToString() + "<size=18> Xp.";
         }
 
-        foreach (TextMeshProUGUI text in ExperienceNumberTextSmall)
+        foreach (TextMeshProUGUI text in ExperienceNumberTextLarge)
         {
             text.text = _currentExpShown.ToString() + " <size=20> Xp.";
         }
@@ -46,7 +46,10 @@ public class UI_ExperienceScreen : MonoBehaviour
     {
         foreach(Slider slider in ExperienceSliders)
         {
-            slider.value = _currentExpShown / MaxEXP;
+            Debug.Log(_currentExpShown);
+            Debug.Log(MaxEXP);
+            Debug.Log(_currentExpShown / MaxEXP);
+            slider.value = (float)_currentExpShown / (float)MaxEXP;
         }
     }
 
@@ -74,7 +77,7 @@ public class UI_ExperienceScreen : MonoBehaviour
             yield return null;
         }
 
-        _currentExpShown = 250;
+        _currentExpShown = EXPGain;
         UpdateTexts();
         UpdateSliders();
         //Ding
