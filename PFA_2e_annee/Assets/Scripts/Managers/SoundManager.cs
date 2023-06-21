@@ -18,6 +18,9 @@ public class SoundManager : MonoBehaviour
     [Header("Sounds")]
     public AudioSource MusicSource, SFXSource;
 
+    private bool _keepFadingIn;
+    private bool _keepFadingOut;
+
     private void Awake()
     {
         if (instance == null)
@@ -91,5 +94,55 @@ public class SoundManager : MonoBehaviour
     public void StopMusic()
     {
         MusicSource.Stop();
+    }
+
+    public void Fade(AudioSource source, float overTime, bool fadeIn)
+    {
+        if (fadeIn)
+        {
+            StartCoroutine(FadeIn(source, overTime));
+        }
+        else
+        {
+            StartCoroutine(FadeOut(source, overTime));
+        }
+    }
+
+    private IEnumerator FadeIn(AudioSource source, float overTime)
+    {
+        _keepFadingIn = true;
+        _keepFadingOut = false;
+        float timer = 0f;
+
+        source.volume = 0f;
+
+        while (timer < overTime && _keepFadingIn)
+        {
+            timer += 0.1f;
+            float lerpdVolume = Mathf.Lerp(0, 1f, timer / overTime);
+            source.volume = lerpdVolume;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        source.volume = 1f;
+    }
+
+    private IEnumerator FadeOut(AudioSource source, float overTime)
+    {
+        _keepFadingIn = false;
+        _keepFadingOut = true;
+        float timer = 0f;
+
+        float audioVolume = source.volume;
+
+        while (timer < overTime && _keepFadingOut)
+        {
+            timer += 0.1f;
+            float lerpdVolume = Mathf.Lerp(audioVolume, 0f, timer / overTime);
+            source.volume = lerpdVolume;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        source.volume = 0f;
     }
 }

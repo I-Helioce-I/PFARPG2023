@@ -1774,7 +1774,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 4433479497362081218, guid: 6ab562d11f8ecee4880c4e2661a863c0,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 56e5d9179a67838408e8ae88c30a4c56, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -3021,6 +3021,7 @@ MonoBehaviour:
   settingsHolder: {fileID: 487145951}
   creditPanel: {fileID: 312960813}
   sliderMasterVolume: {fileID: 1092640787}
+  MainMenuMusic: {fileID: 8300000, guid: 56e5d9179a67838408e8ae88c30a4c56, type: 3}
 --- !u!4 &1538521284
 Transform:
   m_ObjectHideFlags: 0

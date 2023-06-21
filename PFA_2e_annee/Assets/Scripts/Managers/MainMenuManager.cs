@@ -29,6 +29,9 @@ public class MainMenuManager : MonoBehaviour
     [Header("SliderSettings")]
     [SerializeField] private Slider sliderMasterVolume;
 
+    [Header("Main menu music")]
+    [SerializeField] private AudioClip MainMenuMusic;
+
     private void Awake()
     {
         if (instance == null)
@@ -45,6 +48,10 @@ public class MainMenuManager : MonoBehaviour
     {
         startButton.Select();
         UpdateSliderValues();
+
+        SoundManager.instance.PlayMusic(MainMenuMusic);
+        SoundManager.instance.Fade(SoundManager.instance.MusicSource, 1f, true);
+        SoundManager.instance.Fade(SoundManager.instance.SFXSource, 1f, true);
     }
 
     private void Update()
@@ -57,6 +64,8 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartGame()
     {
+        SoundManager.instance.Fade(SoundManager.instance.MusicSource, 1f, false);
+        SoundManager.instance.Fade(SoundManager.instance.SFXSource, 1f, false);
         Transitioner.MainMenuStartGameTransition(1.5f, () =>
         {
             SceneManager.LoadScene(sceneToLoadOnStart);
