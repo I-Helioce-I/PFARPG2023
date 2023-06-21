@@ -270,7 +270,7 @@ public class BattleManager : MonoBehaviour
         foreach(Character character in _playerCharactersInBattle)
         {
             UI_PlayerCharacterCombatSheet characterCombatSheet = Instantiate<UI_PlayerCharacterCombatSheet>(PlayerCharacterCombatSheet, PlayerCharacterCombatSheetParent);
-            characterCombatSheet.InitializeSheet(character, character.Stats, character.sprite);
+            characterCombatSheet.InitializeSheet(character, character.Stats, character.battleSprite);
             _instantiatedPCSheets.Add(characterCombatSheet);
         }
 
