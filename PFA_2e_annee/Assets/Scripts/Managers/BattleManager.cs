@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour
@@ -269,7 +270,7 @@ public class BattleManager : MonoBehaviour
         foreach(Character character in _playerCharactersInBattle)
         {
             UI_PlayerCharacterCombatSheet characterCombatSheet = Instantiate<UI_PlayerCharacterCombatSheet>(PlayerCharacterCombatSheet, PlayerCharacterCombatSheetParent);
-            characterCombatSheet.InitializeSheet(character, character.Stats, null);
+            characterCombatSheet.InitializeSheet(character, character.Stats, character.sprite);
             _instantiatedPCSheets.Add(characterCombatSheet);
         }
 
@@ -304,6 +305,7 @@ public class BattleManager : MonoBehaviour
 
     public void TransitionOutOfBattle()
     {
+        _instantiatedTimelapse.gameObject.SetActive(true);
         UIManager.instance.Transitioner.TransitionOutOfCombat(1f, () =>
         {
             EndBattle();
@@ -380,6 +382,7 @@ public class BattleManager : MonoBehaviour
                 else playerCharacter.Battle.CharacterAnimatorHandler.PlayAnimThenAction("Victory", () =>
                 {
                     TransitionToState(BattleState.Victory);
+                    _instantiatedTimelapse.gameObject.SetActive(false);
                 });
             }
          
@@ -496,4 +499,5 @@ public class BattleManager : MonoBehaviour
             }
         }
     }
+
 }

@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +18,9 @@ public class UIManager : MonoBehaviour
     public UI_CombatMenu CombatMenu;
     public UI_Transitioner Transitioner;
     public UI_SetCharaExplo CharaExploration;
+    public Animator InitialTutorial;
+    public Animator GetUrielDialogueBox;
+    public UI_CInematicBars CinematicBars;
 
     public enum UIState
     {
@@ -90,6 +94,7 @@ public class UIManager : MonoBehaviour
             case UIState.Dialogue:
                 break;
             case UIState.Pause:
+                CinematicBars.TransitionToCinematic(false);
                 break;
             default:
                 break;
@@ -104,6 +109,7 @@ public class UIManager : MonoBehaviour
             case UIState.Combat:
                 break;
             case UIState.Dialogue:
+                CinematicBars.TransitionToCinematic(true);
                 break;
             case UIState.Pause:
                 break;
@@ -156,6 +162,25 @@ public class UIManager : MonoBehaviour
                 }
                 break;
             case UIState.Pause:
+                if (InitialTutorial.gameObject.activeInHierarchy)
+                {
+                    InitialTutorial.gameObject.SetActive(false);
+                    TransitionToState(UIState.HUD);
+                    
+                    CameraManager.instance.SmoothCurrentCameraFov(60f, 50f, 2f, () =>
+                    {
+                        Player.instance.ChangeActionMap("Exploration");
+                        CinemachineVirtualCamera vcam = CameraManager.instance.CurrentCamera.GetComponent<CinemachineVirtualCamera>();
+                        vcam.m_Lens.FieldOfView = 50f;
+                    });
+                }
+
+                if (GetUrielDialogueBox.gameObject.activeInHierarchy)
+                {
+                    GetUrielDialogueBox.gameObject.SetActive(false);
+                    TransitionToState(UIState.HUD);
+                    Player.instance.ChangeActionMap("Exploration");
+                }
                 break;
             default:
                 break;
@@ -291,5 +316,21 @@ public class UIManager : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void PopUpInitialTutorialDialogue()
+    {
+        InitialTutorial.gameObject.SetActive(true);
+        InitialTutorial.Play("FadeIn");
+        TransitionToState(UIState.Pause);
+        Player.instance.ChangeActionMap("UI");
+    }
+
+    public void PopUpGetUrielDialogue()
+    {
+        GetUrielDialogueBox.gameObject.SetActive(true);
+        GetUrielDialogueBox.Play("FadeIn");
+        TransitionToState(UIState.Pause);
+        Player.instance.ChangeActionMap("UI");
     }
 }

@@ -13,84 +13,122 @@ public class UI_SetCharaExplo : MonoBehaviour
 
     [SerializeField][ReadOnlyInspector] private CharaSelected charaSelected;
 
-    [SerializeField] private GameObject circle;
+    [SerializeField] private Animator animator;
+    private bool _isIn = false;
+    [SerializeField] private float _stayTime = .5f;
+    private float _timer = 0f;
 
-    [Header("Isen")]
-    [SerializeField] private GameObject isenGO;
-    [SerializeField] private Image isenBG;
-    [SerializeField] private Image isenMask;
-    [SerializeField] private RectTransform isenRT;
+    //[SerializeField] private GameObject circle;
 
-    [Header("Leaghan")]
-    [SerializeField] private GameObject leaghanGO;
-    [SerializeField] private Image leaghanBG;
-    [SerializeField] private Image leaghanMask;
-    [SerializeField] private RectTransform leaghanRT;
+    //[Header("Isen")]
+    //[SerializeField] private GameObject isenGO;
+    //[SerializeField] private Image isenBG;
+    //[SerializeField] private Image isenMask;
+    //[SerializeField] private RectTransform isenRT;
 
-    [Header("Uriel")]
-    [SerializeField] private GameObject urielGO;
-    [SerializeField] private Image urielBG;
-    [SerializeField] private Image urielMask;
-    [SerializeField] private RectTransform urielRT;
+    //[Header("Leaghan")]
+    //[SerializeField] private GameObject leaghanGO;
+    //[SerializeField] private Image leaghanBG;
+    //[SerializeField] private Image leaghanMask;
+    //[SerializeField] private RectTransform leaghanRT;
 
-    [Header("Lerp")]
-    [SerializeField] private Vector3 endPos = new Vector3(0, 125, 0);
-    [SerializeField] private Vector3 startPos = new Vector3(0, -75, 0);
-    [SerializeField] private float duration = 3f;
-    private float elapseTime;
+    //[Header("Uriel")]
+    //[SerializeField] private GameObject urielGO;
+    //[SerializeField] private Image urielBG;
+    //[SerializeField] private Image urielMask;
+    //[SerializeField] private RectTransform urielRT;
 
-    private Vector2 selectedSD;
-    private Vector2 unselectedSD;
+    //[Header("Lerp")]
+    //[SerializeField] private Vector3 endPos = new Vector3(0, 125, 0);
+    //[SerializeField] private Vector3 startPos = new Vector3(0, -75, 0);
+    //[SerializeField] private float duration = 3f;
+    //private float elapseTime;
 
-    private Vector3 selectedAP;
-    private Vector3 unselectedLeftAP;
-    private Vector3 unselectedRightAP;
-    private float speedChange;
+    //private Vector2 selectedSD;
+    //private Vector2 unselectedSD;
 
-    private Color selectedColor;
-    private Color unselectedColor;
+    //private Vector3 selectedAP;
+    //private Vector3 unselectedLeftAP;
+    //private Vector3 unselectedRightAP;
+    //private float speedChange;
 
-    private IEnumerator _currentSwitchingCoroutine;
+    //private Color selectedColor;
+    //private Color unselectedColor;
 
-    private Quaternion newRotation;
+    //private IEnumerator _currentSwitchingCoroutine;
 
     private void Start()
     {
         charaSelected = CharaSelected.Isen;
 
-        isenRT = isenGO.GetComponent<RectTransform>();
-        leaghanRT = leaghanGO.GetComponent<RectTransform>();
-        urielRT = urielGO.GetComponent<RectTransform>();
+        //isenRT = isenGO.GetComponent<RectTransform>();
+        //leaghanRT = leaghanGO.GetComponent<RectTransform>();
+        //urielRT = urielGO.GetComponent<RectTransform>();
 
-        selectedSD = new Vector2(150, 150);
-        unselectedSD = new Vector2(100, 100);
+        //selectedSD = new Vector2(150, 150);
+        //unselectedSD = new Vector2(100, 100);
 
-        selectedAP = new Vector3(0, 0, 0);
-        unselectedLeftAP = new Vector3(-150, -125);
-        unselectedRightAP = new Vector3(150, -125);
+        //selectedAP = new Vector3(0, 0, 0);
+        //unselectedLeftAP = new Vector3(-150, -125);
+        //unselectedRightAP = new Vector3(150, -125);
 
-        selectedColor = new Color(1, 1, 1, 1);
-        unselectedColor = new Color(0.25f, 0.25f, 0.25f, 1);
-        speedChange = 1f;
+        //selectedColor = new Color(1, 1, 1, 1);
+        //unselectedColor = new Color(0.25f, 0.25f, 0.25f, 1);
+        //speedChange = 1f;
 
-        ChangeType();
+        //ChangeType();
     }
+
+    //private void Update()
+    //{
+    //    if (_isIn)
+    //    {
+    //        if (_timer < _stayTime)
+    //        {
+    //            _timer += Time.deltaTime;
+    //        }
+    //        else
+    //        {
+    //            _timer = 0f;
+    //            _isIn = false;
+    //            animator.Play("FadeOut", 1);
+    //        }
+
+    //    }
+    //}
 
     public void ForwardVer()
     {
-        switch (charaSelected)
+        switch (Player.instance.AllControlledCharacters.Count)
         {
-            case CharaSelected.Isen:
-                charaSelected = CharaSelected.Leaghan;
+            case 2:
+                switch (charaSelected)
+                {
+                    case CharaSelected.Isen:
+                        charaSelected = CharaSelected.Leaghan;
+                        break;
+                    case CharaSelected.Leaghan:
+                        charaSelected = CharaSelected.Isen;
+                        break;
+                }
                 break;
-            case CharaSelected.Leaghan:
-                charaSelected = CharaSelected.Uriel;
+            case 3:
+                switch (charaSelected)
+                {
+                    case CharaSelected.Isen:
+                        charaSelected = CharaSelected.Leaghan;
+                        break;
+                    case CharaSelected.Leaghan:
+                        charaSelected = CharaSelected.Uriel;
+                        break;
+                    case CharaSelected.Uriel:
+                        charaSelected = CharaSelected.Isen;
+                        break;
+                    default:
+                        break;
+                }
                 break;
-            case CharaSelected.Uriel:
-                charaSelected = CharaSelected.Isen;
-                break;
-            default:
-                break;
+
         }
 
         ChangeType();
@@ -98,18 +136,32 @@ public class UI_SetCharaExplo : MonoBehaviour
 
     public void BackwardVer()
     {
-        switch (charaSelected)
+        switch (Player.instance.AllControlledCharacters.Count)
         {
-            case CharaSelected.Isen:
-                charaSelected = CharaSelected.Uriel;
+            case 2:
+                switch (charaSelected)
+                {
+                    case CharaSelected.Isen:
+                        charaSelected = CharaSelected.Leaghan;
+                        break;
+                    case CharaSelected.Leaghan:
+                        charaSelected = CharaSelected.Isen;
+                        break;
+                }
                 break;
-            case CharaSelected.Leaghan:
-                charaSelected = CharaSelected.Isen;
-                break;
-            case CharaSelected.Uriel:
-                charaSelected = CharaSelected.Leaghan;
-                break;
-            default:
+            case 3:
+                switch (charaSelected)
+                {
+                    case CharaSelected.Isen:
+                        charaSelected = CharaSelected.Uriel;
+                        break;
+                    case CharaSelected.Leaghan:
+                        charaSelected = CharaSelected.Isen;
+                        break;
+                    case CharaSelected.Uriel:
+                        charaSelected = CharaSelected.Leaghan;
+                        break;
+                }
                 break;
         }
 
@@ -118,105 +170,160 @@ public class UI_SetCharaExplo : MonoBehaviour
 
     private void ChangeType()
     {
-        ChangeSizeDelta();
-        ChangeAnchoredPosition();
-        ChangeColor();
+        StartCoroutine(ChangeTrans());
+
+        //animator.SetTrigger("StartAnim");
+
+        //switch (charaSelected)
+        //{
+        //    case CharaSelected.Isen:
+        //        animator.SetTrigger("Isen");
+
+        //        break;
+        //    case CharaSelected.Leaghan:
+        //        animator.SetTrigger("Leaghan");
+
+        //        break;
+        //    case CharaSelected.Uriel:
+        //        animator.SetTrigger("Uriel");
+        //        break;
+        //}
+
+
+        //ChangeSizeDelta();
+        //ChangeAnchoredPosition();
+        //ChangeColor();
     }
 
-    private void ChangeSizeDelta()
+    IEnumerator ChangeTrans()
     {
+        animator.SetBool("StartAnim", true);
+
         switch (charaSelected)
         {
             case CharaSelected.Isen:
-                isenRT.sizeDelta = selectedSD;
-                leaghanRT.sizeDelta = unselectedSD;
-                urielRT.sizeDelta = unselectedSD;
-                break;
-            case CharaSelected.Leaghan:
-                isenRT.sizeDelta = unselectedSD;
-                leaghanRT.sizeDelta = selectedSD;
-                urielRT.sizeDelta = unselectedSD;
-                break;
-            case CharaSelected.Uriel:
-                isenRT.sizeDelta = unselectedSD;
-                leaghanRT.sizeDelta = unselectedSD;
-                urielRT.sizeDelta = selectedSD;
-                break;
-        }
-    }
-
-    private void ChangeAnchoredPosition()
-    {
-        switch (charaSelected)
-        {
-            case CharaSelected.Isen:
-                isenRT.anchoredPosition = selectedAP;
-
-                leaghanRT.anchoredPosition = unselectedRightAP;
-
-                urielRT.anchoredPosition = unselectedLeftAP;
+                animator.SetBool("Isen", true);
+                animator.SetBool("Leaghan", false);
+                animator.SetBool("Uriel", false);
 
                 break;
             case CharaSelected.Leaghan:
-                isenRT.anchoredPosition = unselectedLeftAP;
-
-                leaghanRT.anchoredPosition = selectedAP;
-
-                urielRT.anchoredPosition = unselectedRightAP;
+                animator.SetBool("Isen", false);
+                animator.SetBool("Leaghan", true);
+                animator.SetBool("Uriel", false);
 
                 break;
             case CharaSelected.Uriel:
-                isenRT.anchoredPosition = unselectedRightAP;
+                animator.SetBool("Isen", false);
+                animator.SetBool("Leaghan", false);
+                animator.SetBool("Uriel", true);
 
-                leaghanRT.anchoredPosition = unselectedLeftAP;
-
-                urielRT.anchoredPosition = selectedAP;
-
-                break;
-            default:
                 break;
         }
+
+        yield return new WaitForSeconds(1f);
+        //yield return null;
+
+        animator.SetBool("StartAnim", false);
+        animator.SetBool("Isen", false);
+        animator.SetBool("Leaghan", false);
+        animator.SetBool("Uriel", false);
     }
 
-    private void ChangeColor()
-    {
-        switch (charaSelected)
-        {
-            case CharaSelected.Isen:
-                isenBG.color = selectedColor;
-                isenMask.color = selectedColor;
+    //private void ChangeSizeDelta()
+    //{
+    //    switch (charaSelected)
+    //    {
+    //        case CharaSelected.Isen:
+    //            isenRT.sizeDelta = selectedSD;
+    //            leaghanRT.sizeDelta = unselectedSD;
+    //            urielRT.sizeDelta = unselectedSD;
+    //            break;
+    //        case CharaSelected.Leaghan:
+    //            isenRT.sizeDelta = unselectedSD;
+    //            leaghanRT.sizeDelta = selectedSD;
+    //            urielRT.sizeDelta = unselectedSD;
+    //            break;
+    //        case CharaSelected.Uriel:
+    //            isenRT.sizeDelta = unselectedSD;
+    //            leaghanRT.sizeDelta = unselectedSD;
+    //            urielRT.sizeDelta = selectedSD;
+    //            break;
+    //    }
+    //}
 
-                leaghanBG.color = unselectedColor;
-                leaghanMask.color = unselectedColor;
+    //private void ChangeAnchoredPosition()
+    //{
+    //    switch (charaSelected)
+    //    {
+    //        case CharaSelected.Isen:
+    //            isenRT.anchoredPosition = selectedAP;
 
-                urielBG.color = unselectedColor;
-                urielMask.color = unselectedColor;
+    //            leaghanRT.anchoredPosition = unselectedRightAP;
 
-                break;
-            case CharaSelected.Leaghan:
-                isenBG.color = unselectedColor;
-                isenMask.color = unselectedColor;
+    //            urielRT.anchoredPosition = unselectedLeftAP;
 
-                leaghanBG.color = selectedColor;
-                leaghanMask.color = selectedColor;
+    //            break;
+    //        case CharaSelected.Leaghan:
+    //            isenRT.anchoredPosition = unselectedLeftAP;
 
-                urielBG.color = unselectedColor;
-                urielMask.color = unselectedColor;
+    //            leaghanRT.anchoredPosition = selectedAP;
 
-                break;
-            case CharaSelected.Uriel:
-                isenBG.color = unselectedColor;
-                isenMask.color = unselectedColor;
+    //            urielRT.anchoredPosition = unselectedRightAP;
 
-                leaghanBG.color = unselectedColor;
-                leaghanMask.color = unselectedColor;
+    //            break;
+    //        case CharaSelected.Uriel:
+    //            isenRT.anchoredPosition = unselectedRightAP;
 
-                urielBG.color = selectedColor;
-                urielMask.color = selectedColor;
+    //            leaghanRT.anchoredPosition = unselectedLeftAP;
 
-                break;
-            default:
-                break;
-        }
-    }
+    //            urielRT.anchoredPosition = selectedAP;
+
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
+
+    //private void ChangeColor()
+    //{
+    //    switch (charaSelected)
+    //    {
+    //        case CharaSelected.Isen:
+    //            isenBG.color = selectedColor;
+    //            isenMask.color = selectedColor;
+
+    //            leaghanBG.color = unselectedColor;
+    //            leaghanMask.color = unselectedColor;
+
+    //            urielBG.color = unselectedColor;
+    //            urielMask.color = unselectedColor;
+
+    //            break;
+    //        case CharaSelected.Leaghan:
+    //            isenBG.color = unselectedColor;
+    //            isenMask.color = unselectedColor;
+
+    //            leaghanBG.color = selectedColor;
+    //            leaghanMask.color = selectedColor;
+
+    //            urielBG.color = unselectedColor;
+    //            urielMask.color = unselectedColor;
+
+    //            break;
+    //        case CharaSelected.Uriel:
+    //            isenBG.color = unselectedColor;
+    //            isenMask.color = unselectedColor;
+
+    //            leaghanBG.color = unselectedColor;
+    //            leaghanMask.color = unselectedColor;
+
+    //            urielBG.color = selectedColor;
+    //            urielMask.color = selectedColor;
+
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
 }

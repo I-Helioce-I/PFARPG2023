@@ -4820,6 +4820,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4740792257075522934}
     m_Modifications:
+    - target: {fileID: 5210942139439441899, guid: baec5c06daff8b142a7dd983c71b349c,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5210942139439441899, guid: baec5c06daff8b142a7dd983c71b349c,
+        type: 3}
+      propertyPath: VelocityModule.orbitalY.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5210942139439441899, guid: baec5c06daff8b142a7dd983c71b349c,
+        type: 3}
+      propertyPath: VelocityModule.orbitalZ.scalar
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5210942139439441899, guid: baec5c06daff8b142a7dd983c71b349c,
+        type: 3}
+      propertyPath: VelocityModule.orbitalOffsetY.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5210942139439441899, guid: baec5c06daff8b142a7dd983c71b349c,
+        type: 3}
+      propertyPath: VelocityModule.orbitalOffsetZ.scalar
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 5210942139439441901, guid: baec5c06daff8b142a7dd983c71b349c,
         type: 3}
       propertyPath: m_RootOrder
@@ -4828,17 +4853,17 @@ PrefabInstance:
     - target: {fileID: 5210942139439441901, guid: baec5c06daff8b142a7dd983c71b349c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5210942139439441901, guid: baec5c06daff8b142a7dd983c71b349c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5210942139439441901, guid: baec5c06daff8b142a7dd983c71b349c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -3.41
       objectReference: {fileID: 0}
     - target: {fileID: 5210942139439441901, guid: baec5c06daff8b142a7dd983c71b349c,
         type: 3}
