@@ -35,7 +35,7 @@ public class PlayVideo : MonoBehaviour
         _fadeToBlack.initialDelay = 0f;
 
         
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         _fadeToBlack.gameObject.SetActive(true);
         
         //Drops
@@ -58,18 +58,19 @@ public class PlayVideo : MonoBehaviour
         yield return new WaitForSeconds(2f);
         _fadeToBlack.gameObject.SetActive(true);
         _videoPlayerList[2].gameObject.SetActive(true);
+        _videoPlayerList[2].Play();
+
+        yield return new WaitForSeconds(0.1f);
+        _videoPlayerList[2].Pause();
+
+        yield return new WaitForSeconds(2f);
+        _videoPlayerList[2].Play();
+
 
         yield return new WaitForSeconds(2f);
         _fadeToBlack.gameObject.SetActive(false);
         _fadeToBlack.firstToLast = true;
         _fadeToBlack.timeEffect = 1f;
-
-        //yield return new WaitForSeconds(3f);
-        //_fadeToBlack.gameObject.SetActive(true);
-
-        //yield return new WaitForSeconds(1.5f);
-        //_fadeToBlack.gameObject.SetActive(false);
-        //_videoPlayerList[2].gameObject.SetActive(false);
 
 
         yield return new WaitForSeconds(3f);
