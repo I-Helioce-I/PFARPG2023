@@ -12,16 +12,17 @@ public class LevelInitializer : MonoBehaviour
         if (!InitializeLevelOnStart) return;
 
         UIManager.instance.Transitioner.TransitionIMG.fillAmount = 1f;
+        Player.instance.Character.Battle.CharacterAnimatorHandler.PlayAnim("Birth");
 
         UIManager.instance.Transitioner.WaitAndThen(2f, () =>
         {
             Player.instance.ChangeActionMap("UI");
-            CameraManager.instance.SmoothCurrentCameraFov(10f, 60f, 4f, () =>
+            CameraManager.instance.SmoothCurrentCameraFov(10f, 60f, 8f, () =>
             {
                 CinemachineVirtualCamera vcam = CameraManager.instance.CurrentCamera.GetComponent<CinemachineVirtualCamera>();
                 vcam.m_Lens.FieldOfView = 60f;
             });
-            UIManager.instance.Transitioner.TransitionFade(1f, 0f, 5f, () =>
+            UIManager.instance.Transitioner.TransitionFade(1f, 0f, 11f, () =>
             {
                 DialogueManager.instance.StartLevelDialogue();
             });
