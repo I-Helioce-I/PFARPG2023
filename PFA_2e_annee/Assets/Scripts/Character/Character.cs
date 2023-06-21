@@ -11,6 +11,7 @@ public class Character : MonoBehaviour
     [Header("References")]
     public Sprite sprite;
     public Sprite icon;
+    public Sprite battleSprite;
     public string charaName;
     public CharacterStats Stats;
     public CharacterStateHandler State;

@@ -3283,7 +3283,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: / 1000<size=20> Xp.
+  m_text: / 500<size=20> Xp.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4326897e436e8d74b9e63d61833ab701, type: 2}
   m_sharedMaterial: {fileID: 5383007146867587024, guid: 4326897e436e8d74b9e63d61833ab701,
@@ -7680,7 +7680,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: / 1000<size=20> Xp.
+  m_text: / 500<size=20> Xp.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4326897e436e8d74b9e63d61833ab701, type: 2}
   m_sharedMaterial: {fileID: 5383007146867587024, guid: 4326897e436e8d74b9e63d61833ab701,
@@ -9624,7 +9624,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   m_LocalRotation: {x: -0.15035288, y: 0.8259431, z: -0.4768585, w: -0.26041883}
-  m_LocalPosition: {x: 58.815033, y: 16.124355, z: -17.365936}
+  m_LocalPosition: {x: 56.615032, y: 16.124355, z: -16.065935}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9787,6 +9787,12 @@ PrefabInstance:
       propertyPath: charaName
       value: Uriel
       objectReference: {fileID: 0}
+    - target: {fileID: 3996712886237203659, guid: 1e807002efbdd7744b51cd2ea51e9519,
+        type: 3}
+      propertyPath: battleSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0868c87438df2da46bb09e95ff4e819d,
+        type: 3}
     - target: {fileID: 3996712886237203660, guid: 1e807002efbdd7744b51cd2ea51e9519,
         type: 3}
       propertyPath: m_RootOrder
@@ -11002,8 +11008,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'An excerpt from grandfather''s research... <br><br> <i>Creatures of living
-    flame are aligned with mercury.<br> Adults are particularly aggressive. '
+  m_text: An excerpt from grandfather's research... <br><br> <i>I've made a breakthrough.
+    If this falls into the wrong hands, this could cause unfathomable chaos.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4326897e436e8d74b9e63d61833ab701, type: 2}
   m_sharedMaterial: {fileID: 5383007146867587024, guid: 4326897e436e8d74b9e63d61833ab701,
@@ -11730,6 +11736,7 @@ GameObject:
   - component: {fileID: 399643185}
   - component: {fileID: 399643187}
   - component: {fileID: 399643186}
+  - component: {fileID: 399643188}
   m_Layer: 5
   m_Name: LootScreen
   m_TagString: Untagged
@@ -11810,6 +11817,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 399643183}
   m_CullTransparentMesh: 1
+--- !u!95 &399643188
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399643183}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a02d8bba445fb15488f0b69f44fb2bd5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &400104134
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16310,7 +16337,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519063690}
   m_LocalRotation: {x: -0.15035288, y: 0.8259431, z: -0.4768585, w: -0.26041883}
-  m_LocalPosition: {x: 58.815033, y: 16.124355, z: -17.365936}
+  m_LocalPosition: {x: 56.615032, y: 16.124355, z: -16.065935}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19022,6 +19049,7 @@ GameObject:
   - component: {fileID: 608282115}
   - component: {fileID: 608282114}
   - component: {fileID: 608282116}
+  - component: {fileID: 608282117}
   m_Layer: 5
   m_Name: ExperienceScreen
   m_TagString: Untagged
@@ -19120,8 +19148,8 @@ MonoBehaviour:
   - {fileID: 565144409}
   - {fileID: 1563238516}
   - {fileID: 821648564}
-  MaxEXP: 1000
-  EXPGain: 250
+  MaxEXP: 500
+  EXPGain: 112
   ExperienceNumberTextSmall:
   - {fileID: 1515391386}
   - {fileID: 2083121419}
@@ -19133,6 +19161,26 @@ MonoBehaviour:
   ExpGainDing: {fileID: 8300000, guid: 50cd545dbcd4052448854db70da2624e, type: 3}
   TimeBetweenDings: 0.1
   ExperienceGainOverTime: 1.5
+--- !u!95 &608282117
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608282111}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1363f556de6ec564da1f13da1eeb7953, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &611938390
 GameObject:
   m_ObjectHideFlags: 0
@@ -19745,7 +19793,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh38510
+  m_Name: pb_Mesh39922
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -29961,6 +30009,8 @@ MonoBehaviour:
   EnemyCharacterCombatSheetParent: {fileID: 1452757569}
   FightScreen: {fileID: 1746389984}
   LootScreen: {fileID: 399643185}
+  FloatingTextPrefab: {fileID: 5631759034813422068, guid: 29ba526de0ce54e4a9d443096133f631,
+    type: 3}
   _enemyParent: {fileID: 548108211}
   _enemyCharactersInBattle:
   - {fileID: 7546150622173981568, guid: 6529227faa68949409bbf26b106d49db, type: 3}
@@ -34399,7 +34449,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Name
+  m_text: Dragons horn
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4326897e436e8d74b9e63d61833ab701, type: 2}
   m_sharedMaterial: {fileID: 5383007146867587024, guid: 4326897e436e8d74b9e63d61833ab701,
@@ -34463,7 +34513,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -100, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -58415,7 +58465,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: / 1000<size=20> Xp.
+  m_text: / 500<size=20> Xp.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4326897e436e8d74b9e63d61833ab701, type: 2}
   m_sharedMaterial: {fileID: 5383007146867587024, guid: 4326897e436e8d74b9e63d61833ab701,
@@ -64421,7 +64471,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: x 10
+  m_text: <size=26>x<size=36>2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4326897e436e8d74b9e63d61833ab701, type: 2}
   m_sharedMaterial: {fileID: 5383007146867587024, guid: 4326897e436e8d74b9e63d61833ab701,
@@ -65555,6 +65605,12 @@ PrefabInstance:
       propertyPath: charaName
       value: Leaghan
       objectReference: {fileID: 0}
+    - target: {fileID: 3996712886237203659, guid: 232d12759f2d50342b4c51feca2547ae,
+        type: 3}
+      propertyPath: battleSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cb78cd45214a8bd459f2e0451f728088,
+        type: 3}
     - target: {fileID: 3996712886237203660, guid: 232d12759f2d50342b4c51feca2547ae,
         type: 3}
       propertyPath: m_RootOrder
@@ -66759,7 +66815,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh39694
+  m_Name: pb_Mesh41136
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -72183,9 +72239,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 1bc581228ecffa64a9b23dceaa183c49, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -73563,7 +73619,7 @@ PrefabInstance:
     - target: {fileID: 4251592570905001218, guid: ebeb3eb47e8f3d040871275f890b3431,
         type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4294967295
+      value: 16777215
       objectReference: {fileID: 0}
     - target: {fileID: 5500753971607039044, guid: ebeb3eb47e8f3d040871275f890b3431,
         type: 3}
@@ -73691,6 +73747,12 @@ PrefabInstance:
       propertyPath: charaName
       value: Isen
       objectReference: {fileID: 0}
+    - target: {fileID: 3996712886237203659, guid: 7213e1c934db60548bf01728c0af1de2,
+        type: 3}
+      propertyPath: battleSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0df7c59087e815941a6674d2e9bb8884,
+        type: 3}
     - target: {fileID: 3996712886237203660, guid: 7213e1c934db60548bf01728c0af1de2,
         type: 3}
       propertyPath: m_RootOrder
@@ -73699,7 +73761,7 @@ PrefabInstance:
     - target: {fileID: 3996712886237203660, guid: 7213e1c934db60548bf01728c0af1de2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 54.8
+      value: 52.6
       objectReference: {fileID: 0}
     - target: {fileID: 3996712886237203660, guid: 7213e1c934db60548bf01728c0af1de2,
         type: 3}
@@ -73709,7 +73771,7 @@ PrefabInstance:
     - target: {fileID: 3996712886237203660, guid: 7213e1c934db60548bf01728c0af1de2,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -23.1
+      value: -21.8
       objectReference: {fileID: 0}
     - target: {fileID: 3996712886237203660, guid: 7213e1c934db60548bf01728c0af1de2,
         type: 3}
@@ -73919,6 +73981,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6022782114860028770, guid: 4514e2805cb44594ead68fdbbf7ce5dc,
         type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022782114860028770, guid: 4514e2805cb44594ead68fdbbf7ce5dc,
+        type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
@@ -74078,7 +74145,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1452757569}
     m_Modifications:
-    - target: {fileID: 9160683918609811995, guid: d92deaf2d9875eb4c86bbb54e3f24ed4,
+    - target: {fileID: 6742185984625876116, guid: d92deaf2d9875eb4c86bbb54e3f24ed4,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6742185984625876116, guid: d92deaf2d9875eb4c86bbb54e3f24ed4,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
