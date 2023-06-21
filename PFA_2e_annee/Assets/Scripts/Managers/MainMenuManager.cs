@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -14,12 +15,16 @@ public class MainMenuManager : MonoBehaviour
 
     [Header("Main Buttons")]
     [SerializeField] private Button startButton;
+    [SerializeField] private Button creditButton;
     [SerializeField] private Button settingsButton;
     [SerializeField] private Button quitButton;
 
     [Header("Settings Panel")]
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject settingsHolder;
+
+    [Header("Credit Panel")]
+    [SerializeField] private GameObject creditPanel;
 
     [Header("SliderSettings")]
     [SerializeField] private Slider sliderMasterVolume;
@@ -42,6 +47,14 @@ public class MainMenuManager : MonoBehaviour
         UpdateSliderValues();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.JoystickButton1) && creditPanel.activeSelf)
+        {
+            ForceCloseCredit();
+        }
+    }
+
     public void StartGame()
     {
         Transitioner.MainMenuStartGameTransition(1.5f, () =>
@@ -49,6 +62,23 @@ public class MainMenuManager : MonoBehaviour
             SceneManager.LoadScene(sceneToLoadOnStart);
         });
 
+    }
+
+    public void OpenCredit()
+    {
+        creditPanel.SetActive(true);
+        MainButtonInteractableSwitch(false);
+        CloseCredit();
+    }
+
+    public void CloseCredit()
+    {
+        StartCoroutine(Credit());
+    }
+
+    public void ForceCloseCredit()
+    {
+        creditPanel.SetActive(false);
     }
 
     public void OpenSettings()
@@ -79,7 +109,16 @@ public class MainMenuManager : MonoBehaviour
     private void MainButtonInteractableSwitch(bool interactable)
     {
         startButton.gameObject.SetActive(interactable);
+        creditButton.gameObject.SetActive(interactable);
         settingsButton.gameObject.SetActive(interactable);
         quitButton.gameObject.SetActive(interactable);
     }
+
+    IEnumerator Credit()
+    {
+        yield return new WaitForSeconds(13f);
+        MainButtonInteractableSwitch(true);
+        ForceCloseCredit();
+    }
+
 }
