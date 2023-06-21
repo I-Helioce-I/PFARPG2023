@@ -39,12 +39,12 @@ public class PlayVideo : MonoBehaviour
         _fadeToBlack.gameObject.SetActive(true);
         
         //Drops
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         _fadeToBlack.gameObject.SetActive(false);
         _videoPlayerList[0].gameObject.SetActive(false);
         _videoPlayerList[1].gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(6f);
         _fadeToBlack.gameObject.SetActive(true);
 
         //Gas
@@ -55,7 +55,7 @@ public class PlayVideo : MonoBehaviour
         _videoPlayerList[1].gameObject.SetActive(false);
 
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.5f);
         _fadeToBlack.gameObject.SetActive(true);
         _videoPlayerList[2].gameObject.SetActive(true);
         _videoPlayerList[2].Play();
