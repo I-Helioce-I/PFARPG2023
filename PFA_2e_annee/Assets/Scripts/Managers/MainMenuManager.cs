@@ -88,6 +88,8 @@ public class MainMenuManager : MonoBehaviour
     public void ForceCloseCredit()
     {
         creditPanel.SetActive(false);
+        StopAllCoroutines();
+        MainButtonInteractableSwitch(true);
     }
 
     public void OpenSettings()
@@ -125,7 +127,7 @@ public class MainMenuManager : MonoBehaviour
 
     IEnumerator Credit()
     {
-        yield return new WaitForSeconds(13f);
+        yield return new WaitForSeconds(20f);
         MainButtonInteractableSwitch(true);
         ForceCloseCredit();
     }
