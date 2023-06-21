@@ -145,6 +145,7 @@ public class Interactible : MonoBehaviour
     private IEnumerator OutlineTransition(float fromWidth, float toWidth, float overTime)
     {
         Material outlineMat = _renderer.materials[1];
+        fromWidth = outlineMat.GetFloat("_lineThickness");
         outlineMat.SetFloat("_lineThickness", fromWidth);
 
         float timer = 0f;
