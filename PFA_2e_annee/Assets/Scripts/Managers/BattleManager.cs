@@ -55,6 +55,7 @@ public class BattleManager : MonoBehaviour
     public List<UI_PlayerCharacterCombatSheet> PlayerSheets => _instantiatedPCSheets;
     public GameObject FightScreen;
     public UI_CombatLootScreen LootScreen;
+    public UI_FloatingText FloatingTextPrefab;
 
     [Header("Enemy Team")]
     [SerializeField] private Transform _enemyParent;
@@ -270,14 +271,14 @@ public class BattleManager : MonoBehaviour
         foreach(Character character in _playerCharactersInBattle)
         {
             UI_PlayerCharacterCombatSheet characterCombatSheet = Instantiate<UI_PlayerCharacterCombatSheet>(PlayerCharacterCombatSheet, PlayerCharacterCombatSheetParent);
-            characterCombatSheet.InitializeSheet(character, character.Stats, character.sprite);
+            characterCombatSheet.InitializeSheet(character, character.Stats, character.battleSprite);
             _instantiatedPCSheets.Add(characterCombatSheet);
         }
 
         foreach(Character character in _enemyCharactersInBattle)
         {
             UI_EnemyCharacterCombatSheet characterCombatSheet = Instantiate<UI_EnemyCharacterCombatSheet>(EnemyCharacterCombatSheet, EnemyCharacterCombatSheetParent);
-            characterCombatSheet.InitializeSheet(character, character.Stats, null);
+            characterCombatSheet.InitializeSheet(character, character.Stats, character.battleSprite);
             _instantiatedEnemySheets.Add(characterCombatSheet);
         }
 
