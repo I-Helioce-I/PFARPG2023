@@ -58,6 +58,7 @@ public class CharacterAnimatorHandler : MonoBehaviour
     {
         Animator.SetBool("isGrounded", CharacterController.Motor.GroundingStatus.IsStableOnGround);
         Animator.SetFloat("VerticalSpeed", CharacterController.Motor.Velocity.y);
+        Animator.SetBool("isInCombat", GameManager.instance.CurrentState == GameManager.GameState.Combat);
         float forwardVelocity = 0;
         if (CharacterController.MoveInputVector != Vector3.zero)
         {

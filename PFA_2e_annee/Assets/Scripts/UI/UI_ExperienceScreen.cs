@@ -72,7 +72,7 @@ public class UI_ExperienceScreen : MonoBehaviour
             else
             {
                 dingTimer = 0f;
-                //Ding
+                SoundManager.instance.PlaySFX(ExpGainDing);
             }
             yield return null;
         }
@@ -80,6 +80,6 @@ public class UI_ExperienceScreen : MonoBehaviour
         _currentExpShown = EXPGain;
         UpdateTexts();
         UpdateSliders();
-        //Ding
+        SoundManager.instance.PlaySFX(ExpGainDing);
     }
 }
