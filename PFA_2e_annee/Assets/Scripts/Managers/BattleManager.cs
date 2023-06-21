@@ -345,6 +345,7 @@ public class BattleManager : MonoBehaviour
         CombatCanvas.gameObject.SetActive(false);
         GameManager.instance.CurrentState = GameManager.GameState.Exploration;
         UIManager.instance.CurrentState = UIManager.UIState.HUD;
+        GameManager.instance.DragonCombat.SetActive(false);
     }
 
     private void OnCharacterDowned(Character character)
