@@ -55,6 +55,7 @@ public class BattleManager : MonoBehaviour
     public List<UI_PlayerCharacterCombatSheet> PlayerSheets => _instantiatedPCSheets;
     public GameObject FightScreen;
     public UI_CombatLootScreen LootScreen;
+    public UI_FloatingText FloatingTextPrefab;
 
     [Header("Enemy Team")]
     [SerializeField] private Transform _enemyParent;
