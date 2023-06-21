@@ -433,6 +433,14 @@ public class CharacterBattle : MonoBehaviour
         PurgeAllActionSlots();
         CloseActionsMenu();
         SpendEther(action.EtherCost);
+        if (action.EtherCost > 0)
+        {
+            Debug.Log(OverHead.position);
+            UI_FloatingText floatingText = Instantiate<UI_FloatingText>(BattleManager.FloatingTextPrefab, OverHead.position, Quaternion.identity);
+            floatingText.InitializeText(Mathf.RoundToInt(action.EtherCost), false, true);
+        }
+
+
         TransitionToState(_state, BattleState.Busy);
         List<CharacterBattle> targetsBattle = new List<CharacterBattle>();
         foreach(Character character in targets)
@@ -709,6 +717,9 @@ public class CharacterBattle : MonoBehaviour
                 target.CharacterStats.Health.Heal(totalHeal);
                 Debug.Log(this + " healed " + totalHeal + " health to " + target.name + "!");
 
+                UI_FloatingText floatingText = Instantiate<UI_FloatingText>(BattleManager.FloatingTextPrefab, target.OverHead.position, Quaternion.identity);
+                floatingText.InitializeText(Mathf.RoundToInt(totalHeal), true);
+
             }
             else
             {
@@ -741,6 +752,9 @@ public class CharacterBattle : MonoBehaviour
 
                 target.CharacterStats.Health.Damage(totalDamage);
                 Debug.Log(this + " dealt " + totalDamage + " damage to " + target.name + "!");
+
+                UI_FloatingText floatingText = Instantiate<UI_FloatingText>(BattleManager.FloatingTextPrefab, target.OverHead.position, Quaternion.identity);
+                floatingText.InitializeText(Mathf.RoundToInt(totalDamage));
 
                 if (target.CharacterStats.Health.CurrentValue > 0) target.CharacterAnimatorHandler.Animator.Play("Hurt");
             }
