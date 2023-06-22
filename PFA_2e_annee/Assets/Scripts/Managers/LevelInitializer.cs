@@ -9,6 +9,8 @@ public class LevelInitializer : MonoBehaviour
     [SerializeField] private bool InitializeLevelOnStart = false;
 
     [SerializeField] private AudioClip LevelMusic;
+    [SerializeField] private AudioClip BattleMusic;
+    [SerializeField] private AudioClip BattleStart;
 
     private void Start()
     {
@@ -49,5 +51,26 @@ public class LevelInitializer : MonoBehaviour
                 DialogueManager.instance.StartLevelDialogue();
             });
         });
+    }
+
+    public void StartBattleMusic()
+    {
+        SoundManager.instance.PlaySFX(BattleStart);
+        SoundManager.instance.Fade(SoundManager.instance.MusicSource, 1f, false, () =>
+        {
+            SoundManager.instance.StopMusic();
+            SoundManager.instance.PlayMusic(BattleMusic);
+        });
+        SoundManager.instance.Fade(SoundManager.instance.MusicSource, 1f, true);
+    }
+
+    public void EndBattleMusic()
+    {
+        SoundManager.instance.Fade(SoundManager.instance.MusicSource, 1f, false, () =>
+        {
+            SoundManager.instance.StopMusic();
+            SoundManager.instance.PlayMusic(LevelMusic);
+        });
+        SoundManager.instance.Fade(SoundManager.instance.MusicSource, 1f, true);
     }
 }

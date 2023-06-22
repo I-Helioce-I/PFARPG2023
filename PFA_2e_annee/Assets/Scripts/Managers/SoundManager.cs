@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using System;
 
 public class SoundManager : MonoBehaviour
 {
@@ -73,7 +74,7 @@ public class SoundManager : MonoBehaviour
             return;
         }
 
-        int randomIndex = Random.Range(0, clips.Count);
+        int randomIndex = UnityEngine.Random.Range(0, clips.Count);
         AudioClip chosenClip = clips[randomIndex];
 
         SFXSource.PlayOneShot(chosenClip);
@@ -96,19 +97,19 @@ public class SoundManager : MonoBehaviour
         MusicSource.Stop();
     }
 
-    public void Fade(AudioSource source, float overTime, bool fadeIn)
+    public void Fade(AudioSource source, float overTime, bool fadeIn, Action onFadeOver = null)
     {
         if (fadeIn)
         {
-            StartCoroutine(FadeIn(source, overTime));
+            StartCoroutine(FadeIn(source, overTime, onFadeOver));
         }
         else
         {
-            StartCoroutine(FadeOut(source, overTime));
+            StartCoroutine(FadeOut(source, overTime, onFadeOver));
         }
     }
 
-    private IEnumerator FadeIn(AudioSource source, float overTime)
+    private IEnumerator FadeIn(AudioSource source, float overTime, Action onFadeOver)
     {
         _keepFadingIn = true;
         _keepFadingOut = false;
@@ -125,9 +126,10 @@ public class SoundManager : MonoBehaviour
         }
 
         source.volume = 1f;
+        if (onFadeOver != null) onFadeOver();
     }
 
-    private IEnumerator FadeOut(AudioSource source, float overTime)
+    private IEnumerator FadeOut(AudioSource source, float overTime, Action onFadeOver)
     {
         _keepFadingIn = false;
         _keepFadingOut = true;
@@ -144,5 +146,6 @@ public class SoundManager : MonoBehaviour
         }
 
         source.volume = 0f;
+        if (onFadeOver != null) onFadeOver();
     }
 }
