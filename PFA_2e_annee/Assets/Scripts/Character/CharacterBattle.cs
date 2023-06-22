@@ -852,7 +852,9 @@ public class CharacterBattle : MonoBehaviour
         float projectileTravelTime = action.EffectDelayInSeconds - projectileDelay;
         Vector3 spawnPoint = this.transform.position + (Vector3.up * 1f);
         Vector3 targetPoint = target.transform.position + (Vector3.up * 1f);
-        ActionProjectile newProjectile = Instantiate<ActionProjectile>(action.Projectile, spawnPoint, this.transform.rotation);
+        Vector3 direction = target.transform.position - transform.position;
+        direction = direction.normalized;
+        ActionProjectile newProjectile = Instantiate<ActionProjectile>(action.Projectile, spawnPoint, Quaternion.LookRotation(direction, Vector3.up));
         newProjectile.InitializeProjectile(spawnPoint, targetPoint, projectileTravelTime);
     }
 

@@ -134,6 +134,8 @@ Material:
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _Fade_Depth: 0.2
+    - _Float: 0
+    - _Float_1: 0
     - _Foam_Blend: 0.2
     - _Foam_Distortion: 0
     - _Foam_Speed: 1
@@ -170,7 +172,7 @@ Material:
     - _X_Or_Z: 1
     - _Y: 1
     - _ZWrite: 1
-    - _albedoIntensity: 1
+    - _albedoIntensity: 0.5
     - _emmisiveIntensity: 1
     - _emmisive_1: 0
     m_Colors:

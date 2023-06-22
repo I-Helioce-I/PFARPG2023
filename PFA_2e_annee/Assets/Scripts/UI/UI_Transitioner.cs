@@ -135,7 +135,7 @@ public class UI_Transitioner : MonoBehaviour
         TransitionIMG.color = new Color(1f, 1f, 1f, 0f);
         ChromaAberration.intensity.value = 0f;
 
-        CameraManager.instance.SmoothCurrentCameraFov(60f, 30f, transitionTime+chromaticTransition, null);
+        CameraManager.instance.SmoothCurrentCameraFov(50f, 30f, transitionTime+chromaticTransition, null);
 
         while (chromaticTimer < chromaticTransition)
         {
