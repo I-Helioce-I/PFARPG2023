@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Frigid healing
   Icon: {fileID: 1980357398, guid: 5d8a41e902c90ac4590dc1611e20de24, type: 3}
-  DescriptionText: Restore <color=#90FC29>10<sprite index=5><color=#FFFFFF>.
+  DescriptionText: Restore <color=#90FC29>10<sprite index=5><color=#FFFFFF> and reduce
+    <sprite index=3> by 2.
   IconColor: {r: 1, g: 1, b: 1, a: 1}
   Type: 1
   Damage: 10
@@ -23,7 +24,7 @@ MonoBehaviour:
   NumberOfTimes: 0
   EtherCost: 10
   StunChance: 0
-  TemperatureChange: 0
+  TemperatureChange: -2
   StrengthModifier:
     Type: 0
     Value: 0

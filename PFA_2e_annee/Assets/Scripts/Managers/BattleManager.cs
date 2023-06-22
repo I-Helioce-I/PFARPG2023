@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.VFX;
 
 public class BattleManager : MonoBehaviour
 {
@@ -103,6 +105,9 @@ public class BattleManager : MonoBehaviour
 
     [Header("DEBUG")]
     [SerializeField] private bool _startBattleOnStartGame = true;
+    public VisualEffect Portal;
+    public GameObject PortalGO;
+    public UI_Transitioner Transitioner;
 
     private void Awake()
     {
@@ -118,6 +123,7 @@ public class BattleManager : MonoBehaviour
 
     private void Start()
     {
+        Portal.Stop();
         CombatCanvas.gameObject.SetActive(false);
 
         TransitionToState(_state);
@@ -347,6 +353,22 @@ public class BattleManager : MonoBehaviour
         GameManager.instance.CurrentState = GameManager.GameState.Exploration;
         UIManager.instance.CurrentState = UIManager.UIState.HUD;
         GameManager.instance.DragonCombat.SetActive(false);
+
+        LevelInitializer.instance.EndBattleMusic();
+    }
+
+    public void OpenPortalAndEndGame()
+    {
+        PortalGO.SetActive(true);
+        Portal.Play();
+
+        Transitioner.WaitAndThen(3f, () =>
+        {
+            Transitioner.TransitionFade(0f, 1f, 5f, () =>
+            {
+                SceneManager.LoadScene(1);
+            });
+        });
     }
 
     private void OnCharacterDowned(Character character)

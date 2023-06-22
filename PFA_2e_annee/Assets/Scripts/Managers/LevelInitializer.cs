@@ -6,11 +6,25 @@ using UnityEngine;
 
 public class LevelInitializer : MonoBehaviour
 {
+    public static LevelInitializer instance;
+
     [SerializeField] private bool InitializeLevelOnStart = false;
 
     [SerializeField] private AudioClip LevelMusic;
     [SerializeField] private AudioClip BattleMusic;
     [SerializeField] private AudioClip BattleStart;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
 
     private void Start()
     {
@@ -69,7 +83,7 @@ public class LevelInitializer : MonoBehaviour
         SoundManager.instance.Fade(SoundManager.instance.MusicSource, 1f, false, () =>
         {
             SoundManager.instance.StopMusic();
-            SoundManager.instance.PlayMusic(LevelMusic);
+            //SoundManager.instance.PlayMusic(LevelMusic);
         });
         SoundManager.instance.Fade(SoundManager.instance.MusicSource, 1f, true);
     }
