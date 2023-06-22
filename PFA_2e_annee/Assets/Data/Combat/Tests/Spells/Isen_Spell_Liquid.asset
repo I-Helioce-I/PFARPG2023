@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Chill heals
   Icon: {fileID: 1980357398, guid: 5d8a41e902c90ac4590dc1611e20de24, type: 3}
-  DescriptionText: Restore 5<sprite index=2> to all allies.
+  DescriptionText: Restore 5<sprite index=2> to all allies and reduce <sprite index=3>
+    by 2.
   IconColor: {r: 1, g: 1, b: 1, a: 1}
   Type: 1
   Damage: 5
@@ -23,7 +24,7 @@ MonoBehaviour:
   NumberOfTimes: 0
   EtherCost: 10
   StunChance: 0
-  TemperatureChange: 0
+  TemperatureChange: -2
   StrengthModifier:
     Type: 0
     Value: 0
