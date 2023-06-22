@@ -188,7 +188,7 @@ public class UI_Transitioner : MonoBehaviour
         TransitionIMG.fillAmount = 1f;
         TransitionIMG.color = new Color(1f, 1f, 1f, 0f);
 
-        CameraManager.instance.SmoothCurrentCameraRotation(new Vector3(60f, 0, 0), Vector3.zero, 1.5f, null);
+        CameraManager.instance.SmoothCurrentCameraRotation(new Vector3(30f, 0, 0), Vector3.zero, 1.5f, null);
 
         while (timer < transitionTime)
         {

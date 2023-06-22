@@ -10,6 +10,7 @@ public class MainMenuManager : MonoBehaviour
 
     [SerializeField] private int sceneToLoadOnStart;
 
+
     [Header("Transitioner")]
     public UI_Transitioner Transitioner;
 
@@ -31,6 +32,8 @@ public class MainMenuManager : MonoBehaviour
 
     [Header("Main menu music")]
     [SerializeField] private AudioClip MainMenuMusic;
+
+    [SerializeField] private float creditTimer;
 
     private void Awake()
     {
@@ -127,9 +130,8 @@ public class MainMenuManager : MonoBehaviour
 
     IEnumerator Credit()
     {
-        yield return new WaitForSeconds(20f);
+        yield return new WaitForSeconds(creditTimer);
         MainButtonInteractableSwitch(true);
         ForceCloseCredit();
     }
-
 }
