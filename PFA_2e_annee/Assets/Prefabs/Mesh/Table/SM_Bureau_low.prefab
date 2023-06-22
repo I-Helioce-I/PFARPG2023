@@ -209,6 +209,7 @@ GameObject:
   - component: {fileID: 2777980867920756449}
   - component: {fileID: 7842620661300121521}
   - component: {fileID: 87942936332801702}
+  - component: {fileID: 449793163486352308}
   m_Layer: 0
   m_Name: D2_low
   m_TagString: Untagged
@@ -281,6 +282,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &449793163486352308
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5075790686532691537}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.3753831, y: 0.09294044, z: 2.0435066}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6172743130002640588
 GameObject:
   m_ObjectHideFlags: 0
