@@ -208,7 +208,6 @@ GameObject:
   - component: {fileID: 12900783655579772}
   - component: {fileID: 3721773461663450203}
   - component: {fileID: 5621191341074865960}
-  - component: {fileID: 6300961803205275257}
   m_Layer: 0
   m_Name: Grid_low
   m_TagString: Untagged
@@ -281,20 +280,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6300961803205275257
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4077698715487516414}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2188290243360447578, guid: 09773bba780fe8e4e911183046541276, type: 3}
 --- !u!1 &6607038702515735864
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,7 +326,7 @@ GameObject:
   - component: {fileID: 2859025215356538458}
   - component: {fileID: 2475631061506447476}
   - component: {fileID: 8391030684315360097}
-  - component: {fileID: 6300961802702009773}
+  - component: {fileID: 8034042956482315993}
   m_Layer: 0
   m_Name: Floor_low
   m_TagString: Untagged
@@ -414,8 +399,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6300961802702009773
-MeshCollider:
+--- !u!65 &8034042956482315993
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -424,7 +409,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -699877060691311289, guid: 09773bba780fe8e4e911183046541276, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 1.4000001, y: 0, z: 1.4000001}
+  m_Center: {x: 0, y: 0, z: 0}
