@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     public PlayerInput PlayerInput;
     //public ExampleCharacterCamera CharacterCamera;
     public List<Character> AllControlledCharacters = new List<Character>();
-    [SerializeField] private Character GasCharacter;
+    public Character GasCharacter;
 
     private bool _canMove = true;
     public bool CanMove

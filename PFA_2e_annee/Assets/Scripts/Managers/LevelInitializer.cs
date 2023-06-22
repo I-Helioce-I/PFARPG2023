@@ -1,4 +1,5 @@
 using Cinemachine;
+using KinematicCharacterController;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,20 @@ public class LevelInitializer : MonoBehaviour
         if (!InitializeLevelOnStart) return;
 
         UIManager.instance.Transitioner.TransitionIMG.fillAmount = 1f;
+
+        //KinematicCharacterMotorState motorState = new KinematicCharacterMotorState();
+        //CharacterTransientGroundingReport groundingReport = new CharacterTransientGroundingReport();
+        //groundingReport.FoundAnyGround = true;
+        //groundingReport.IsStableOnGround = true;
+        //motorState.GroundingStatus = groundingReport;
+
+        //Player.instance.GasCharacter.gameObject.SetActive(true);
+        //Player.instance.GasCharacter.CharacterController.Motor.ApplyState(motorState);
+        //foreach (Character character in Player.instance.AllControlledCharacters)
+        //{
+        //    character.gameObject.SetActive(true);
+        //    character.CharacterController.Motor.ApplyState(motorState);
+        //}
         Player.instance.Character.Battle.CharacterAnimatorHandler.PlayAnim("Birth");
 
         SoundManager.instance.StopMusic();
