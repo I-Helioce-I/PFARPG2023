@@ -35,11 +35,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _ARM:
-        m_Texture: {fileID: 2800000, guid: c384e912f2d328e41b2f5ad6ea554a7e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 955c52741a1ab384e9bc74780f02d42f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Albedo:
-        m_Texture: {fileID: 2800000, guid: da8c500884dc73a4e95d760eace48f36, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7cb2dcf70a9f1be459745e0805301fd6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -79,7 +79,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
-        m_Texture: {fileID: 2800000, guid: 5a4d9e5288a093a429feff057f2ae0bd, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3a45eca313e33c445aa6e9d3ff84705f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -100,6 +100,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Texture2DAsset_3d5161eb746649b785c0f05d37031388_Out_0:
         m_Texture: {fileID: 2800000, guid: b827f1d7639fc5340a8abeed0c50b885, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _emmisive:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -131,6 +135,8 @@ Material:
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _Fade_Depth: 0.2
+    - _Float: 0
+    - _Float_1: 0
     - _Foam_Blend: 0.2
     - _Foam_Distortion: 0
     - _Foam_Speed: 1
@@ -159,6 +165,7 @@ Material:
     - _Step: 70
     - _Surface: 0
     - _Tile: 1
+    - _UV: 1
     - _Water: 0
     - _WorkflowMode: 1
     - _World: 0
@@ -166,8 +173,11 @@ Material:
     - _X_Or_Z: 1
     - _Y: 1
     - _ZWrite: 1
+    - _albedoIntensity: 1
+    - _emmisiveIntensity: 1
+    - _emmisive_1: 0
     m_Colors:
-    - _Albedo_Tint: {r: 1, g: 1, b: 1, a: 0}
+    - _Albedo_Tint: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Deep_Color: {r: 0.16862747, g: 0.39607847, b: 0.49019605, a: 1}
@@ -178,4 +188,5 @@ Material:
     - _Shallow_Color: {r: 0.6588235, g: 0.6588235, b: 0.6588235, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _UV: {r: 1, g: 1, b: 0, a: 0}
+    - _emmisiveTint: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

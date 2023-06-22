@@ -35,7 +35,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _ARM:
-        m_Texture: {fileID: 2800000, guid: c2f964fdebf979d49993f12968bfae01, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2b13d7f4601f625409329f7a820ab1cf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Albedo:
@@ -102,6 +102,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: b827f1d7639fc5340a8abeed0c50b885, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _emmisive:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -131,6 +135,8 @@ Material:
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _Fade_Depth: 0.2
+    - _Float: 0
+    - _Float_1: 0
     - _Foam_Blend: 0.2
     - _Foam_Distortion: 0
     - _Foam_Speed: 1
@@ -159,6 +165,7 @@ Material:
     - _Step: 70
     - _Surface: 0
     - _Tile: 1
+    - _UV: 1
     - _Water: 0
     - _WorkflowMode: 1
     - _World: 0
@@ -166,6 +173,9 @@ Material:
     - _X_Or_Z: 1
     - _Y: 1
     - _ZWrite: 1
+    - _albedoIntensity: 1
+    - _emmisiveIntensity: 1
+    - _emmisive_1: 0
     m_Colors:
     - _Albedo_Tint: {r: 1, g: 1, b: 1, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
@@ -178,4 +188,5 @@ Material:
     - _Shallow_Color: {r: 0.6588235, g: 0.6588235, b: 0.6588235, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _UV: {r: 1, g: 1, b: 0, a: 0}
+    - _emmisiveTint: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
